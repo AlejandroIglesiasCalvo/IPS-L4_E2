@@ -1,7 +1,13 @@
 Hola, soy Alejandro
+<<<<<<< HEAD
+En la de irene, con pull de master
+Hola, que tal?
+Otro cambio
+=======
 En la de irene, con pull de master
 Otro cambio
 Hola, que tal?
 Hola, soy Alejandro
 Y esta mi rama de prueba
 En la de irene, con pull de master
+>>>>>>> branch 'master' of https://github.com/UO247346/IPS-L4_E2.git
