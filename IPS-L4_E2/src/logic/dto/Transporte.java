@@ -6,14 +6,14 @@ public class Transporte {
 	private long ID;
 	private Date fecha;
 	private double Hora;
-	private Repartidor repartidor;
+	private Repartidor Repartidor;
 
 	public Transporte(long iD, Date fecha, double hora, Repartidor repartidor) {
 		super();
 		ID = iD;
 		this.fecha = fecha;
 		Hora = hora;
-		this.repartidor = repartidor;
+		this.Repartidor = repartidor;
 	}
 
 	public long getID() {
@@ -41,11 +41,11 @@ public class Transporte {
 	}
 
 	public Repartidor getRepartidor() {
-		return repartidor;
+		return Repartidor;
 	}
 
 	public void setRepartidor(Repartidor repartidor) {
-		this.repartidor = repartidor;
+		this.Repartidor = repartidor;
 	}
 
 }
