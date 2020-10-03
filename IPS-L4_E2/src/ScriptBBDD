@@ -1,0 +1,97 @@
+Drop table Transporte;
+Drop table Encargo;
+Drop table Carrito;
+Drop table Venta_Producto;
+Drop table Encargo;
+Drop table Producto;
+Drop table Venta;
+Drop table Presupuesto;
+
+
+Drop table Pedido;
+Drop table CLiente;
+Drop table Repartidor;
+
+create table Cliente(
+DNI varchar (9) not null,
+Nombre varchar (20) not null,
+Apellidos varchar (40) not null,
+Telefono varchar (9) not null,
+constraint PK_Cliente primary key (DNI) 
+);
+create table Repartidor(
+ID_Repartidor varchar (9) not null,
+Nombre varchar (40) not null,
+Telefono varchar (9) not null,
+constraint PK_Repartidor primary key (ID_Repartidor) 
+);
+create table Pedido(
+ID_Pedido varchar (9) not null,
+Estado varchar (20) not null,
+constraint PK_Pedido primary key (ID_Pedido) 
+);
+create table Producto(
+ID_Producto varchar (9) not null,
+Nombre varchar (20) not null,
+Tipo varchar (9) not null,
+Precio varchar (9) not null,
+constraint PK_Producto primary key (ID_Producto) 
+);
+
+create table Presupuesto(
+ID_Presupuesto varchar (9) not null,
+DNI varchar (9) not null,
+Fecha Date not null,
+Precio varchar (9) not null,
+constraint PK_Presupuesto primary key (ID_Presupuesto),
+constraint FK_Presupuesto_Cliente foreign key (DNI) references Cliente(DNI)
+);
+
+create table Carrito(
+ID_Producto varchar (9) not null,
+ID_Presupuesto varchar (9) not null,
+Unidades varchar (9) not null,
+constraint PK_Carrito primary key (ID_Producto,ID_Presupuesto),
+constraint FK_Carrito_Presupuesto foreign key (ID_Presupuesto) references Presupuesto(ID_Presupuesto),
+constraint FK_Carrito_Producto foreign key (ID_Producto) references Producto(ID_Producto)
+);
+
+create table Encargo(
+ID_Producto varchar (9) not null,
+ID_Pedido varchar (9) not null,
+Unidades varchar (9) not null,
+constraint PK_Encargo primary key (ID_Producto,ID_Pedido),
+constraint FK_Encargo_Producto foreign key (ID_Producto) references Producto(ID_Producto),
+constraint FK_Encargo_Pedido foreign key (ID_Pedido) references Pedido(ID_Pedido)
+);
+
+create table Venta(
+ID_Venta varchar (9) not null,
+ID_Presupuesto varchar (9) not null,
+Fecha Date not null,
+Total varchar (9) not null,
+Montados varchar (9) not null,
+constraint PK_Venta primary key (ID_Venta),
+constraint FK_Presupuesto_Venta foreign key (ID_Presupuesto) references Presupuesto(ID_Presupuesto)
+);
+
+create table Venta_Producto(
+ID_Producto varchar (9) not null,
+ID_Venta varchar (9) not null,
+Unidades varchar (9) not null,
+constraint PK_Venta_Producto primary key (ID_Producto,ID_Venta),
+constraint FK_Venta_Producto_Venta foreign key (ID_Venta) references Venta(ID_Venta),
+constraint FK_Venta_Producto_Producto foreign key (ID_Producto) references Producto(ID_Producto)
+);
+
+create table Transporte(
+ID_trasporte varchar (9) not null,
+ID_Venta varchar (9) not null,
+Id_producto varchar (9) not null,
+Hora varchar (9) not null,
+Fecha Date,
+ID_repartidor varchar (9) not null,
+constraint PK_ID_trasporte primary key (ID_trasporte,ID_Venta,ID_Producto),
+constraint FK_Transporte_Venta_Producto foreign key (ID_Venta,ID_Producto) references Venta_Producto(ID_Venta,ID_Producto),
+constraint FK_Repartidor foreign key (ID_repartidor) references Repartidor(ID_repartidor)
+);
