@@ -20,14 +20,12 @@ public class CatalogoPanel extends JPanel {
 
 	private JLabel lblDescription;
 	private JPanel container;
-	private ResourceBundle texts;
 	private Locale locale;
 	private JButton btnAadir;
 
 
 	public CatalogoPanel(JPanel container, Locale locale) {
 		this.locale = locale;
-		texts = ResourceBundle.getBundle("rcs/text", locale);
 		setBackground(Color.WHITE);
 		this.container = container;
 		setLayout(new GridLayout(1, 0, 0, 0));
