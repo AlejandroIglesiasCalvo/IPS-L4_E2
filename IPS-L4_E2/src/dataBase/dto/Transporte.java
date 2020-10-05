@@ -1,4 +1,4 @@
-package logic.dto;
+package dataBase.dto;
 
 import java.sql.Date;
 

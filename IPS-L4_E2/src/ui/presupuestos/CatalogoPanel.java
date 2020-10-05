@@ -11,6 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import dataBase.dto.Producto;
+
+
 
 public class CatalogoPanel extends JPanel {
 	/**
@@ -20,17 +23,16 @@ public class CatalogoPanel extends JPanel {
 
 	private JLabel lblDescription;
 	private JPanel container;
-	private Locale locale;
 	private JButton btnAadir;
+	private Producto producto;
 
-
-	public CatalogoPanel(JPanel container, Locale locale) {
-		this.locale = locale;
+	public CatalogoPanel(Producto p, JPanel container) {
 		setBackground(Color.WHITE);
 		this.container = container;
+		this.producto = p;
 		setLayout(new GridLayout(1, 0, 0, 0));
 		add(getLblDescription());
-		getLblDescription().setText("no implementado todavía");
+		getLblDescription().setText(p.getNombre() + "-" + p.getTipo() + "-" + p.getPrecio());
 		add(getBtnAdd_1());
 	}
 

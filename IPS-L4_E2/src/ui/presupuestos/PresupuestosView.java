@@ -1,25 +1,23 @@
 package ui.presupuestos;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
-import java.awt.GridLayout;
 import javax.swing.BoxLayout;
-import javax.swing.JSplitPane;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import java.awt.Component;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.GridLayout;
+import javax.swing.JLabel;
 
 public class PresupuestosView {
 
-	private JFrame frame;
+	private JFrame frmPresupuesto;
 	private JPanel pnListas;
 	private JScrollPane spCatalogo;
 	private JScrollPane spPresupuesto;
@@ -30,22 +28,9 @@ public class PresupuestosView {
 	private JPanel pnPreProductos;
 	private JTextField textField;
 	private JTextField txtPrecioTotal;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PresupuestosView window = new PresupuestosView();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JPanel pnInfo;
+	private JLabel lblCatalogo;
+	private JLabel lblProductosPresupuesto;
 
 	/**
 	 * Create the application.
@@ -58,19 +43,22 @@ public class PresupuestosView {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.getContentPane().setBackground(Color.WHITE);
-		frame.getContentPane().add(getPnListas(), BorderLayout.CENTER);
-		frame.getContentPane().add(getPnButtons(), BorderLayout.SOUTH);
-		frame.setBounds(100, 100, 831, 571);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmPresupuesto = new JFrame();
+		frmPresupuesto.setTitle("Presupuesto");
+		frmPresupuesto.setName("Presupuesto\r\n");
+		frmPresupuesto.getContentPane().setBackground(Color.WHITE);
+		frmPresupuesto.getContentPane().add(getPnListas(), BorderLayout.CENTER);
+		frmPresupuesto.getContentPane().add(getPnButtons(), BorderLayout.SOUTH);
+		frmPresupuesto.getContentPane().add(getPnInfo(), BorderLayout.NORTH);
+		frmPresupuesto.setBounds(100, 100, 831, 571);
+		frmPresupuesto.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	private JPanel getPnListas() {
 		if (pnListas == null) {
 			pnListas = new JPanel();
 			pnListas.setBackground(Color.WHITE);
-			pnListas.setLayout(new BoxLayout(pnListas, BoxLayout.X_AXIS));
+			pnListas.setLayout(new GridLayout(0, 2, 3, 3));
 			pnListas.add(getSpCatalogo());
 			pnListas.add(getSpPresupuesto());
 		}
@@ -126,6 +114,7 @@ public class PresupuestosView {
 			pnCatProductos = new JPanel();
 			pnCatProductos.setBackground(Color.WHITE);
 			pnCatProductos.setForeground(Color.BLACK);
+			pnCatProductos.setLayout(new GridLayout(0, 1, 3, 3));
 		}
 		return pnCatProductos;
 	}
@@ -133,13 +122,14 @@ public class PresupuestosView {
 		if (pnPreProductos == null) {
 			pnPreProductos = new JPanel();
 			pnPreProductos.setBackground(Color.WHITE);
+			pnPreProductos.setLayout(new GridLayout(0, 1, 3, 3));
 		}
 		return pnPreProductos;
 	}
 	private JTextField getTextField() {
 		if (textField == null) {
 			textField = new JTextField();
-			textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			textField.setFont(new Font("Tahoma", Font.PLAIN, 18));
 			textField.setBackground(Color.WHITE);
 			textField.setEditable(false);
 			textField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -151,10 +141,47 @@ public class PresupuestosView {
 	private JTextField getTxtPrecioTotal() {
 		if (txtPrecioTotal == null) {
 			txtPrecioTotal = new JTextField();
-			txtPrecioTotal.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			txtPrecioTotal.setBackground(Color.WHITE);
+			txtPrecioTotal.setEditable(false);
+			txtPrecioTotal.setFont(new Font("Tahoma", Font.PLAIN, 18));
 			txtPrecioTotal.setText("Precio total:");
 			txtPrecioTotal.setColumns(10);
 		}
 		return txtPrecioTotal;
+	}
+	
+	public JFrame getFrame() { return this.frmPresupuesto; }
+	public JScrollPane getCatalogo() {return this.spCatalogo;}
+	public JScrollPane getPresupuesto() {return this.spPresupuesto;}
+	public JPanel getButtons() {return this.pnButtons;}
+	public JButton getCancelar() {return this.btnCancelar;}
+	public JButton getSiguiente() {return this.btnSiguiente;}
+	public JPanel getPnCateg() {return this.pnCatProductos;}
+	public JPanel getPnPres() {return this.pnPreProductos;}
+	public JTextField getPrecio() {return this.txtPrecioTotal;}
+	private JPanel getPnInfo() {
+		if (pnInfo == null) {
+			pnInfo = new JPanel();
+			pnInfo.setLayout(new GridLayout(0, 2, 3, 3));
+			pnInfo.add(getLblCatalogo());
+			pnInfo.add(getLblProductosPresupuesto());
+		}
+		return pnInfo;
+	}
+	private JLabel getLblCatalogo() {
+		if (lblCatalogo == null) {
+			lblCatalogo = new JLabel("Productos cat\u00E1logo");
+			lblCatalogo.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			lblCatalogo.setBackground(Color.WHITE);
+		}
+		return lblCatalogo;
+	}
+	private JLabel getLblProductosPresupuesto() {
+		if (lblProductosPresupuesto == null) {
+			lblProductosPresupuesto = new JLabel("Productos a comprar");
+			lblProductosPresupuesto.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			lblProductosPresupuesto.setBackground(Color.WHITE);
+		}
+		return lblProductosPresupuesto;
 	}
 }

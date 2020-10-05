@@ -1,4 +1,4 @@
-package logic.dto;
+package dataBase.dto;
 
 import java.sql.Date;
 
@@ -9,7 +9,7 @@ public class Venta {
 	private int Montados_en_casa;
 	private Transporte Transporte;
 
-	public Venta(Long iD, Date fecha, double total, int montados_en_casa, logic.dto.Transporte transporte) {
+	public Venta(Long iD, Date fecha, double total, int montados_en_casa, Transporte transporte) {
 		super();
 		ID = iD;
 		Fecha = fecha;

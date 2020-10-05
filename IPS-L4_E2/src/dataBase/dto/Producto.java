@@ -1,4 +1,4 @@
-package logic.dto;
+package dataBase.dto;
 
 public class Producto {
 	private long ID;
