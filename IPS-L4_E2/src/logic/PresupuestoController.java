@@ -5,14 +5,14 @@ import java.util.List;
 import dataBase.dto.PresupuestosModel;
 import dataBase.dto.Producto;
 import ui.presupuestos.CatalogoPanel;
-import ui.presupuestos.PresupuestosView;
+import ui.presupuestos.CreaPresupuestosView;
 
 
 public class PresupuestoController {
 	private PresupuestosModel model;
-	private PresupuestosView view;
+	private CreaPresupuestosView view;
 	
-	public PresupuestoController(PresupuestosModel m, PresupuestosView v) {
+	public PresupuestoController(PresupuestosModel m, CreaPresupuestosView v) {
 		this.model = m;
 		this.view = v;
 		this.initView();
@@ -27,9 +27,12 @@ public class PresupuestoController {
 	private void setProductos() {
 		List<Producto> productos = this.model.getProductos();
 		for(Producto p: productos) {
-			this.view.getPnCateg().add(new CatalogoPanel(p,this.view.getPnCateg()));
+			CatalogoPanel pn = new CatalogoPanel(p,this.view.getPnCateg());
+			
+			this.view.getPnCateg().add(pn);
 		}
 		
 	}
+	
 	
 }

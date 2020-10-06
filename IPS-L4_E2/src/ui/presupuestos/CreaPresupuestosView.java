@@ -15,14 +15,14 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 
-public class PresupuestosView {
+public class CreaPresupuestosView {
 
 	private JFrame frmPresupuesto;
 	private JPanel pnListas;
 	private JScrollPane spCatalogo;
 	private JScrollPane spPresupuesto;
 	private JPanel pnButtons;
-	private JButton btnSiguiente;
+	private JButton btnAceptar;
 	private JButton btnCancelar;
 	private JPanel pnCatProductos;
 	private JPanel pnPreProductos;
@@ -35,7 +35,7 @@ public class PresupuestosView {
 	/**
 	 * Create the application.
 	 */
-	public PresupuestosView() {
+	public CreaPresupuestosView() {
 		initialize();
 	}
 
@@ -85,20 +85,20 @@ public class PresupuestosView {
 			pnButtons.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 			pnButtons.add(getTxtPrecioTotal());
 			pnButtons.add(getTextField());
-			pnButtons.add(getBtnSiguiente());
+			pnButtons.add(getBtnAceptar());
 			pnButtons.add(getBtnCancelar());
 		}
 		return pnButtons;
 	}
-	private JButton getBtnSiguiente() {
-		if (btnSiguiente == null) {
-			btnSiguiente = new JButton("SIGUIENTE");
-			btnSiguiente.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			btnSiguiente.setForeground(Color.WHITE);
-			btnSiguiente.setBackground(new Color(50, 205, 50));
-			btnSiguiente.setAlignmentX(Component.CENTER_ALIGNMENT);
+	private JButton getBtnAceptar() {
+		if (btnAceptar == null) {
+			btnAceptar = new JButton("CREAR PRESUPUESTO");
+			btnAceptar.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			btnAceptar.setForeground(Color.WHITE);
+			btnAceptar.setBackground(new Color(50, 205, 50));
+			btnAceptar.setAlignmentX(Component.CENTER_ALIGNMENT);
 		}
-		return btnSiguiente;
+		return btnAceptar;
 	}
 	private JButton getBtnCancelar() {
 		if (btnCancelar == null) {
@@ -155,7 +155,7 @@ public class PresupuestosView {
 	public JScrollPane getPresupuesto() {return this.spPresupuesto;}
 	public JPanel getButtons() {return this.pnButtons;}
 	public JButton getCancelar() {return this.btnCancelar;}
-	public JButton getSiguiente() {return this.btnSiguiente;}
+	public JButton getSiguiente() {return this.btnAceptar;}
 	public JPanel getPnCateg() {return this.pnCatProductos;}
 	public JPanel getPnPres() {return this.pnPreProductos;}
 	public JTextField getPrecio() {return this.txtPrecioTotal;}

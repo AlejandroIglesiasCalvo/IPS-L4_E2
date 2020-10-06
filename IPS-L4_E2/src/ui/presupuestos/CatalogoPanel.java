@@ -33,7 +33,7 @@ public class CatalogoPanel extends JPanel {
 		setLayout(new GridLayout(1, 0, 0, 0));
 		add(getLblDescription());
 		getLblDescription().setText(p.getNombre() + "-" + p.getTipo() + "-" + p.getPrecio());
-		add(getBtnAdd_1());
+		add(getBtnAdd());
 	}
 
 	private JLabel getLblDescription() {
@@ -45,7 +45,8 @@ public class CatalogoPanel extends JPanel {
 		}
 		return lblDescription;
 	}
-	private JButton getBtnAdd_1() {
+	
+	private JButton getBtnAdd() {
 		if (btnAadir == null) {
 			btnAadir = new JButton("A\u00D1ADIR");
 			btnAadir.setToolTipText((String) null);
@@ -55,4 +56,10 @@ public class CatalogoPanel extends JPanel {
 		}
 		return btnAadir;
 	}
+	
+	public JButton getBtnAñadir() {
+		return btnAadir;
+	}
+	
+	
 }
