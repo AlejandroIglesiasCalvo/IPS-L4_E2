@@ -16,20 +16,21 @@ public class PresupuestoController {
 	}
 	
 	private void initView() {
-		setProductos();
 		//Abre la ventana
 		this.view.getFrame().setVisible(true);
 	}
 
-	private void setProductos() {
+	
+	
+//	private void setProductos() {
 //		List<Producto> productos = this.model.getProductos();
 //		for(Producto p: productos) {
 //			CatalogoPanel pn = new CatalogoPanel(p,this.view.getPnCateg());
 //			
 //			this.view.getPnCateg().add(pn);
 //		}
-		
-	}
+//		
+//	}
 	
 	
 }
