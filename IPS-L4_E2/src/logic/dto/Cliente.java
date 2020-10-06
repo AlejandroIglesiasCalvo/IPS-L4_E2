@@ -1,4 +1,4 @@
-package dataBase.dto;
+package logic.dto;
 
 public class Cliente {
 	private long ID;

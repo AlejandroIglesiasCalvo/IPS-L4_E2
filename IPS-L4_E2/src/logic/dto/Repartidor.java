@@ -1,4 +1,4 @@
-package dataBase.dto;
+package logic.dto;
 
 public class Repartidor {
 private long ID;
