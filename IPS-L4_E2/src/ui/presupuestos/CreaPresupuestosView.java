@@ -1,23 +1,29 @@
 package ui.presupuestos;
 
-import javax.swing.JFrame;
-import java.awt.Color;
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import javax.swing.JScrollPane;
-import java.awt.FlowLayout;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
-
+import java.awt.Color;
 import java.awt.Component;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import javax.swing.JLabel;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import logic.PresupuestoController;
+import logic.dto.Producto;
+
+
 
 public class CreaPresupuestosView extends JDialog{
 
@@ -35,6 +41,24 @@ public class CreaPresupuestosView extends JDialog{
 	private JPanel pnInfo;
 	private JLabel lblCatalogo;
 	private JLabel lblProductosPresupuesto;
+	private PresupuestoController presController = new PresupuestoController();
+	
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					CreaPresupuestosView window = new CreaPresupuestosView();
+					window.frmPresupuesto.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the application.
@@ -56,6 +80,21 @@ public class CreaPresupuestosView extends JDialog{
 		frmPresupuesto.getContentPane().add(getPnInfo(), BorderLayout.NORTH);
 		frmPresupuesto.setBounds(100, 100, 831, 571);
 		frmPresupuesto.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//añade a la lista catalogo todos los productos
+		addCatalogo();
+	}
+
+	/**
+	 * añade a la lista catalogo todos los productos
+	 * cada uno de estos va a estar compuesto por un panel CatalogoPanel
+	 * y estos se añadel al panel correspondiente
+	 */
+	private void addCatalogo() {
+		List<Producto> productos = presController.getProductos();
+		for(Producto p: productos) {
+			pnCatProductos.add(new CatalogoPanel(p,pnCatProductos,this,presController));
+		}
+		
 	}
 
 	private JPanel getPnListas() {
@@ -111,8 +150,8 @@ public class CreaPresupuestosView extends JDialog{
 	}
 	
 	protected void crearPresupuesto() {
-		// TODO Auto-generated method stub
-		
+		presController.crearPresupuesto();
+		//se añadiria código aquí para ir a la pestaña siguiente
 	}
 
 	private JButton getBtnCancelar() {
@@ -198,5 +237,11 @@ public class CreaPresupuestosView extends JDialog{
 
 	public JFrame getFrame() {
 		return frmPresupuesto;
+	}
+	public JTextField getTxtTotal() {
+		return textField;
+	}
+	public JPanel getPnPresupProducts() {
+		return pnPreProductos;
 	}
 }

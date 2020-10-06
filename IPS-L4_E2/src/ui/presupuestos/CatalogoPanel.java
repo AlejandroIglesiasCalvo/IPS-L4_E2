@@ -3,15 +3,16 @@ package ui.presupuestos;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import logic.PresupuestoController;
 import logic.dto.Producto;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 
 
@@ -25,11 +26,15 @@ public class CatalogoPanel extends JPanel {
 	private JPanel container;
 	private JButton btnAadir;
 	private Producto producto;
+	private CreaPresupuestosView creaPresupuesto;
+	private PresupuestoController presController;
 
-	public CatalogoPanel(Producto p, JPanel container) {
+	public CatalogoPanel(Producto p, JPanel container, CreaPresupuestosView creaPresupuesto, PresupuestoController presController) {
 		setBackground(Color.WHITE);
 		this.container = container;
 		this.producto = p;
+		this.creaPresupuesto = creaPresupuesto;
+		this.presController = presController;
 		setLayout(new GridLayout(1, 0, 0, 0));
 		add(getLblDescription());
 		getLblDescription().setText(p.getNombre() + "-" + p.getTipo() + "-" + p.getPrecio());
@@ -63,7 +68,8 @@ public class CatalogoPanel extends JPanel {
 	}
 
 	protected void añadirProducto() {
-		
+		creaPresupuesto.getTxtTotal().setText(presController.updateTotalAddProduct(producto));	
+		creaPresupuesto.getPnPresupProducts().add(new ProductosPanel(producto, container, creaPresupuesto, presController));
 	}
 	
 }

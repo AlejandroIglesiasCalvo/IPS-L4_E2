@@ -8,17 +8,27 @@ import ui.presupuestos.CreaPresupuestosView;
 
 
 public class PresupuestoController {
-	private CreaPresupuestosView view;
-	
-	public PresupuestoController(CreaPresupuestosView v) {
-		this.view = v;
-		this.initView();
+
+	public String updateTotalEliminarProduct(Producto producto) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
-	private void initView() {
-		//Abre la ventana
-		this.view.getFrame().setVisible(true);
+
+	public String updateTotalAddProduct(Producto producto) {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+	public void crearPresupuesto() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public List<Producto> getProductos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	
 	

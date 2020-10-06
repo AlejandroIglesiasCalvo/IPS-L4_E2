@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import logic.PresupuestoController;
 import logic.dto.Producto;
 
 
@@ -24,12 +25,16 @@ public class ProductosPanel extends JPanel {
 	private JPanel container;
 	private JButton btnEliminiar;
 	private Producto producto;
+	private CreaPresupuestosView creaPresupuesto;
+	private PresupuestoController presController;
 
 
-	public ProductosPanel(Producto p, JPanel container) {
+	public ProductosPanel(Producto p, JPanel container, CreaPresupuestosView creaPresupuesto, PresupuestoController presController) {
 		setBackground(Color.WHITE);
 		this.container = container;
 		this.producto = p;
+		this.creaPresupuesto = creaPresupuesto;
+		this.presController = presController;
 		setLayout(new GridLayout(1, 0, 0, 0));
 		add(getLblDescription());
 		getLblDescription().setText(p.getNombre() + "-" + p.getTipo() + "-" + p.getPrecio());
@@ -62,7 +67,7 @@ public class ProductosPanel extends JPanel {
 	}
 
 	protected void eliminarProducto() {
-		// TODO Auto-generated method stub
-		
+		creaPresupuesto.getTxtTotal().setText(presController.updateTotalEliminarProduct(producto));
+		container.remove(this);
 	}
 }
