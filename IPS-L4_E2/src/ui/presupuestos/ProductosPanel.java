@@ -11,8 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import logic.PresupuestoController;
+import logic.CreaPresupuestoController;
 import logic.dto.Producto;
+import java.awt.Dimension;
 
 
 public class ProductosPanel extends JPanel {
@@ -26,10 +27,10 @@ public class ProductosPanel extends JPanel {
 	private JButton btnEliminiar;
 	private Producto producto;
 	private CreaPresupuestosView creaPresupuesto;
-	private PresupuestoController presController;
+	private CreaPresupuestoController presController;
 
 
-	public ProductosPanel(Producto p, JPanel container, CreaPresupuestosView creaPresupuesto, PresupuestoController presController) {
+	public ProductosPanel(Producto p, JPanel container, CreaPresupuestosView creaPresupuesto, CreaPresupuestoController presController) {
 		setBackground(Color.WHITE);
 		this.container = container;
 		this.producto = p;
@@ -39,6 +40,7 @@ public class ProductosPanel extends JPanel {
 		add(getLblDescription());
 		getLblDescription().setText(p.getNombre() + "-" + p.getTipo() + "-" + p.getPrecio());
 		add(getBtnEliminar());
+		this.setVisible(true);
 	}
 
 	private JLabel getLblDescription() {
@@ -59,15 +61,23 @@ public class ProductosPanel extends JPanel {
 				}
 			});
 			btnEliminiar.setToolTipText((String) null);
-			btnEliminiar.setForeground(Color.WHITE);
+			btnEliminiar.setForeground(Color.BLACK);
 			btnEliminiar.setFont(new Font("Tahoma", Font.PLAIN, 20));
-			btnEliminiar.setBackground(Color.RED);
+			btnEliminiar.setBackground(Color.ORANGE);
 		}
 		return btnEliminiar;
 	}
 
 	protected void eliminarProducto() {
 		creaPresupuesto.getTxtTotal().setText(presController.updateTotalEliminarProduct(producto));
+		//para que no se pueda crear un presupuesto, si no tienes
+		//productos en el
+		if(!presController.hasProductosEnCompra()) {
+			creaPresupuesto.getBtnCreate().setEnabled(false);
+		}
 		container.remove(this);
+		//hago esto para que se muestren los cambios en el panel
+		container.setVisible(false);
+		container.setVisible(true);
 	}
 }

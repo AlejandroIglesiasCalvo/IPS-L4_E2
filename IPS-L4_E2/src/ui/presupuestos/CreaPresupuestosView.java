@@ -20,7 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import logic.PresupuestoController;
+import logic.CreaPresupuestoController;
 import logic.dto.Producto;
 
 
@@ -41,7 +41,7 @@ public class CreaPresupuestosView extends JDialog{
 	private JPanel pnInfo;
 	private JLabel lblCatalogo;
 	private JLabel lblProductosPresupuesto;
-	private PresupuestoController presController = new PresupuestoController();
+	
 	
 	
 	/**
@@ -59,6 +59,8 @@ public class CreaPresupuestosView extends JDialog{
 			}
 		});
 	}
+	
+	private CreaPresupuestoController presController = new CreaPresupuestoController();
 
 	/**
 	 * Create the application.
@@ -94,7 +96,6 @@ public class CreaPresupuestosView extends JDialog{
 		for(Producto p: productos) {
 			pnCatProductos.add(new CatalogoPanel(p,pnCatProductos,this,presController));
 		}
-		
 	}
 
 	private JPanel getPnListas() {
@@ -136,6 +137,7 @@ public class CreaPresupuestosView extends JDialog{
 	private JButton getBtnAceptar() {
 		if (btnAceptar == null) {
 			btnAceptar = new JButton("CREAR PRESUPUESTO");
+			btnAceptar.setEnabled(false);
 			btnAceptar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					crearPresupuesto();
@@ -243,5 +245,15 @@ public class CreaPresupuestosView extends JDialog{
 	}
 	public JPanel getPnPresupProducts() {
 		return pnPreProductos;
+	}
+	public JButton getBtnCreate() {
+		return btnAceptar;
+	}
+
+	public void addToPresupuesto(Producto producto) {
+		pnPreProductos.add(new ProductosPanel(producto, pnPreProductos, this, presController));
+		//hago esto para que se muestren los cambios en el panel
+		pnPreProductos.setVisible(false);
+		pnPreProductos.setVisible(true);
 	}
 }

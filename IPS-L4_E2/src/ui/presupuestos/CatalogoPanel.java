@@ -11,8 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import logic.PresupuestoController;
+import logic.CreaPresupuestoController;
 import logic.dto.Producto;
+import java.awt.Dimension;
 
 
 
@@ -27,9 +28,11 @@ public class CatalogoPanel extends JPanel {
 	private JButton btnAadir;
 	private Producto producto;
 	private CreaPresupuestosView creaPresupuesto;
-	private PresupuestoController presController;
+	private CreaPresupuestoController presController;
 
-	public CatalogoPanel(Producto p, JPanel container, CreaPresupuestosView creaPresupuesto, PresupuestoController presController) {
+	public CatalogoPanel(Producto p, JPanel container, CreaPresupuestosView creaPresupuesto, CreaPresupuestoController presController) {
+		setMinimumSize(new Dimension(450, 70));
+		setMaximumSize(new Dimension(32767, 70));
 		setBackground(Color.WHITE);
 		this.container = container;
 		this.producto = p;
@@ -68,8 +71,10 @@ public class CatalogoPanel extends JPanel {
 	}
 
 	protected void añadirProducto() {
-		creaPresupuesto.getTxtTotal().setText(presController.updateTotalAddProduct(producto));	
-		creaPresupuesto.getPnPresupProducts().add(new ProductosPanel(producto, container, creaPresupuesto, presController));
+		creaPresupuesto.getTxtTotal().setText(presController.updateTotalAddProduct(producto));
+		creaPresupuesto.getBtnCreate().setEnabled(true);
+		creaPresupuesto.addToPresupuesto(producto);
+//		creaPresupuesto.getPnPresupProducts().add(new ProductosPanel(producto, container, creaPresupuesto, presController));
 	}
 	
 }
