@@ -1,15 +1,15 @@
 package logic.dto;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class Venta {
 	private Long ID;
-	private Date Fecha;
+	private LocalDateTime Fecha;
 	private double Total;
 	private int Montados_en_casa;
 	private Transporte Transporte;
 
-	public Venta(Long iD, Date fecha, double total, int montados_en_casa, Transporte transporte) {
+	public Venta(Long iD, LocalDateTime fecha, double total, int montados_en_casa, Transporte transporte) {
 		super();
 		ID = iD;
 		Fecha = fecha;
@@ -26,11 +26,11 @@ public class Venta {
 		ID = iD;
 	}
 
-	public Date getFecha() {
+	public LocalDateTime getFecha() {
 		return Fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(LocalDateTime fecha) {
 		Fecha = fecha;
 	}
 
