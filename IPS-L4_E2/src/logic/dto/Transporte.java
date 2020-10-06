@@ -1,14 +1,14 @@
 package logic.dto;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class Transporte {
 	private long ID;
-	private Date fecha;
+	private LocalDateTime fecha;
 	private double Hora;
 	private Repartidor Repartidor;
 
-	public Transporte(long iD, Date fecha, double hora, Repartidor repartidor) {
+	public Transporte(long iD, LocalDateTime fecha, double hora, Repartidor repartidor) {
 		super();
 		ID = iD;
 		this.fecha = fecha;
@@ -24,11 +24,11 @@ public class Transporte {
 		ID = iD;
 	}
 
-	public Date getFecha() {
+	public LocalDateTime getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(LocalDateTime fecha) {
 		this.fecha = fecha;
 	}
 

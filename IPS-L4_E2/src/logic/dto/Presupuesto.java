@@ -1,15 +1,15 @@
 package logic.dto;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class Presupuesto {
 
 	private long ID_Presupuesto;
 	private int DNI_Cliente;
-	private Date fecha;
+	private LocalDateTime fecha;
 	private double precio;
 
-	public Presupuesto(long iD_Presupuesto, int dNI_Cliente, Date fecha, double precio) {
+	public Presupuesto(long iD_Presupuesto, int dNI_Cliente, LocalDateTime fecha, double precio) {
 		super();
 		ID_Presupuesto = iD_Presupuesto;
 		DNI_Cliente = dNI_Cliente;
@@ -33,11 +33,11 @@ public class Presupuesto {
 		DNI_Cliente = dNI_Cliente;
 	}
 
-	public Date getFecha() {
+	public LocalDateTime getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(LocalDateTime fecha) {
 		this.fecha = fecha;
 	}
 

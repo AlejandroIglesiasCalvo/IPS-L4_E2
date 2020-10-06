@@ -11,8 +11,7 @@ public class gestionFechas {
 	private LocalTime salida = LocalTime.of(20, 00);
 
 	/**
-	 * Se crea asi: LocalDateTime localDateTimeOf = LocalDateTime.of(2017,
-	 * Month.AUGUST, 20, 8, 30);
+	 * Pasar una localDateTime
 	 * 
 	 */
 	public gestionFechas(LocalDateTime fecha) {
@@ -20,7 +19,18 @@ public class gestionFechas {
 		this.fecha = fecha;
 		this.hora = LocalTime.of(fecha.getHour(), 00);
 	}
-
+	
+	/**
+	 * Se crea asi: todo ints (meses MONTH.January, por ejemplo, horas y minutos en "00"
+	 * Osea, las 4:04 am son las 04,04
+	 * 
+	 */
+	public gestionFechas(int año, int mes, int dia, int hora, int minutos) {
+		super();
+		
+		this.fecha = LocalDateTime.of(año, mes, dia, hora, minutos);
+		this.hora = LocalTime.of(fecha.getHour(), 00);
+	}
 	/** Devuelve la fecha en formato entero */
 	public LocalDateTime getFecha() {
 		return fecha;
@@ -70,4 +80,6 @@ public class gestionFechas {
 		}
 		return false;
 	}
+	
+	
 }
