@@ -6,16 +6,16 @@ import java.sql.SQLException;
 
 public class DataBase {
 	private static Connection con;
-	
+	private static String URL = "jdbc:hsqldb:hsql://localhost:5555";
+	private static String USER = "sa";
+	private static String PASS = "";
 	//private GestionActividades gestionActividad;
 	
-	// Crea conexi�n a base de datos
+	// Crea conexion a base de datos
 	private void setConnection() throws SQLException, ClassNotFoundException {
-		String url = "jdbc:hsqldb:hsql://localhost";
-		DriverManager.registerDriver(new org.hsqldb.jdbc.JDBCDriver());
-		con = DriverManager.getConnection(url, "SA", "");
+		con = DriverManager.getConnection(URL, USER, PASS);
 	}
-	// Cierra la conexi�n
+	// Cierra la conexion
 	public void closeConnection() throws SQLException {
 		con.close();
 	}
