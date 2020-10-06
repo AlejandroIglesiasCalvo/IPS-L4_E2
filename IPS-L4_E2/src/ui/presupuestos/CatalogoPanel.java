@@ -3,8 +3,6 @@ package ui.presupuestos;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import logic.dto.Producto;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 
@@ -49,6 +49,11 @@ public class CatalogoPanel extends JPanel {
 	private JButton getBtnAdd() {
 		if (btnAadir == null) {
 			btnAadir = new JButton("A\u00D1ADIR");
+			btnAadir.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					añadirProducto();
+				}
+			});
 			btnAadir.setToolTipText((String) null);
 			btnAadir.setForeground(Color.WHITE);
 			btnAadir.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -56,10 +61,9 @@ public class CatalogoPanel extends JPanel {
 		}
 		return btnAadir;
 	}
-	
-	public JButton getBtnAñadir() {
-		return btnAadir;
+
+	protected void añadirProducto() {
+		
 	}
-	
 	
 }

@@ -5,17 +5,21 @@ import java.awt.Color;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
-import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+
 import java.awt.Component;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class CreaPresupuestosView {
+public class CreaPresupuestosView extends JDialog{
 
 	private JFrame frmPresupuesto;
 	private JPanel pnListas;
@@ -93,6 +97,11 @@ public class CreaPresupuestosView {
 	private JButton getBtnAceptar() {
 		if (btnAceptar == null) {
 			btnAceptar = new JButton("CREAR PRESUPUESTO");
+			btnAceptar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					crearPresupuesto();
+				}
+			});
 			btnAceptar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			btnAceptar.setForeground(Color.WHITE);
 			btnAceptar.setBackground(new Color(50, 205, 50));
@@ -100,9 +109,20 @@ public class CreaPresupuestosView {
 		}
 		return btnAceptar;
 	}
+	
+	protected void crearPresupuesto() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private JButton getBtnCancelar() {
 		if (btnCancelar == null) {
 			btnCancelar = new JButton("CANCELAR");
+			btnCancelar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+				}
+			});
 			btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			btnCancelar.setForeground(Color.WHITE);
 			btnCancelar.setBackground(new Color(255, 0, 0));
@@ -150,15 +170,6 @@ public class CreaPresupuestosView {
 		return txtPrecioTotal;
 	}
 	
-	public JFrame getFrame() { return this.frmPresupuesto; }
-	public JScrollPane getCatalogo() {return this.spCatalogo;}
-	public JScrollPane getPresupuesto() {return this.spPresupuesto;}
-	public JPanel getButtons() {return this.pnButtons;}
-	public JButton getCancelar() {return this.btnCancelar;}
-	public JButton getSiguiente() {return this.btnAceptar;}
-	public JPanel getPnCateg() {return this.pnCatProductos;}
-	public JPanel getPnPres() {return this.pnPreProductos;}
-	public JTextField getPrecio() {return this.txtPrecioTotal;}
 	private JPanel getPnInfo() {
 		if (pnInfo == null) {
 			pnInfo = new JPanel();
@@ -183,5 +194,9 @@ public class CreaPresupuestosView {
 			lblProductosPresupuesto.setBackground(Color.WHITE);
 		}
 		return lblProductosPresupuesto;
+	}
+
+	public JFrame getFrame() {
+		return frmPresupuesto;
 	}
 }

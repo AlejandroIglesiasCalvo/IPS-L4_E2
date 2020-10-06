@@ -3,13 +3,15 @@ package ui.presupuestos;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
+import logic.dto.Producto;
 
 
 public class ProductosPanel extends JPanel {
@@ -20,18 +22,18 @@ public class ProductosPanel extends JPanel {
 
 	private JLabel lblDescription;
 	private JPanel container;
-	private Locale locale;
-	private JButton btnAadir;
+	private JButton btnEliminiar;
+	private Producto producto;
 
 
-	public ProductosPanel(JPanel container, Locale locale) {
-		this.locale = locale;
+	public ProductosPanel(Producto p, JPanel container) {
 		setBackground(Color.WHITE);
 		this.container = container;
+		this.producto = p;
 		setLayout(new GridLayout(1, 0, 0, 0));
 		add(getLblDescription());
-		getLblDescription().setText("no implementado todavía");
-		add(getBtnAdd_1());
+		getLblDescription().setText(p.getNombre() + "-" + p.getTipo() + "-" + p.getPrecio());
+		add(getBtnEliminar());
 	}
 
 	private JLabel getLblDescription() {
@@ -43,14 +45,24 @@ public class ProductosPanel extends JPanel {
 		}
 		return lblDescription;
 	}
-	private JButton getBtnAdd_1() {
-		if (btnAadir == null) {
-			btnAadir = new JButton("ELIMINAR");
-			btnAadir.setToolTipText((String) null);
-			btnAadir.setForeground(Color.WHITE);
-			btnAadir.setFont(new Font("Tahoma", Font.PLAIN, 20));
-			btnAadir.setBackground(Color.RED);
+	private JButton getBtnEliminar() {
+		if (btnEliminiar == null) {
+			btnEliminiar = new JButton("ELIMINAR");
+			btnEliminiar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					eliminarProducto();
+				}
+			});
+			btnEliminiar.setToolTipText((String) null);
+			btnEliminiar.setForeground(Color.WHITE);
+			btnEliminiar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			btnEliminiar.setBackground(Color.RED);
 		}
-		return btnAadir;
+		return btnEliminiar;
+	}
+
+	protected void eliminarProducto() {
+		// TODO Auto-generated method stub
+		
 	}
 }
