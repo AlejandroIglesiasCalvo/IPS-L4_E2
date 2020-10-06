@@ -2,8 +2,8 @@ package logic;
 
 import java.util.List;
 
-import dataBase.dto.PresupuestosModel;
-import dataBase.dto.Producto;
+import logic.dto.PresupuestosModel;
+import logic.dto.Producto;
 import ui.presupuestos.CatalogoPanel;
 import ui.presupuestos.CreaPresupuestosView;
 

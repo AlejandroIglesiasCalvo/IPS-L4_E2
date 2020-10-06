@@ -1,4 +1,4 @@
-package dataBase.dto;
+package logic.dto;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
