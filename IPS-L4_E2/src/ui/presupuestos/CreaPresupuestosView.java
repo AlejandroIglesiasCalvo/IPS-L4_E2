@@ -151,6 +151,9 @@ public class CreaPresupuestosView extends JDialog{
 		return btnAceptar;
 	}
 	
+	/**
+	 * metodo para crear el presupuesto y pasar a la siguiente ventana
+	 */
 	protected void crearPresupuesto() {
 		presController.crearPresupuesto();
 		//se añadiria código aquí para ir a la pestaña siguiente
@@ -250,6 +253,10 @@ public class CreaPresupuestosView extends JDialog{
 		return btnAceptar;
 	}
 
+	/**
+	 * metodo que añade un producto al presupuesto
+	 * @param producto
+	 */
 	public void addToPresupuesto(Producto producto) {
 		pnPreProductos.add(new ProductosPanel(producto, pnPreProductos, this, presController));
 		//hago esto para que se muestren los cambios en el panel

@@ -68,6 +68,10 @@ public class ProductosPanel extends JPanel {
 		return btnEliminiar;
 	}
 
+	/**
+	 * metodo que elimina un producto del presupuesto, mira si despues de eliminar el producto
+	 * queda alguno y si no es así desabilita el botón de crear presupuesto
+	 */
 	protected void eliminarProducto() {
 		creaPresupuesto.getTxtTotal().setText(presController.updateTotalEliminarProduct(producto));
 		//para que no se pueda crear un presupuesto, si no tienes

@@ -70,11 +70,15 @@ public class CatalogoPanel extends JPanel {
 		return btnAadir;
 	}
 
+	/**
+	 * metodo que añade le producto al presupuesto y hace que se pueda ver
+	 * y hacer click al botón de crear presupuesto, porque si no tienes productos
+	 * para hacer un presupuesto, no lo puedes crear vacío
+	 */
 	protected void añadirProducto() {
 		creaPresupuesto.getTxtTotal().setText(presController.updateTotalAddProduct(producto));
 		creaPresupuesto.getBtnCreate().setEnabled(true);
 		creaPresupuesto.addToPresupuesto(producto);
-//		creaPresupuesto.getPnPresupProducts().add(new ProductosPanel(producto, container, creaPresupuesto, presController));
 	}
 	
 }

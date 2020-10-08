@@ -21,6 +21,10 @@ public class CreaPresupuestoController {
 	
 	private String id;
 	
+	/**
+	 * constructor de la clase, genera un id para el presupuesto que estamos haciendo
+	 * y carga el catalogo
+	 */
 	public CreaPresupuestoController(){
 		productosEnPresupuesto = new ArrayList();
 		try {
@@ -34,6 +38,9 @@ public class CreaPresupuestoController {
 		
 	}
 
+	/**
+	 * metodo que genera el id del presupuesto
+	 */
 	private void generateId() {
 		//van todas seguidas por eso el nombre de las variables
 		int leftLimit = 48; // numero 0
@@ -51,12 +58,24 @@ public class CreaPresupuestoController {
 			      .toString();
 	}
 
+	/**
+	 * metodo que se encarga de hacer la eliminacion de un producto del presupuesto
+	 * lo quita de la lista de productos de este y quita su precio del total
+	 * @param producto
+	 * @return
+	 */
 	public String updateTotalEliminarProduct(Producto producto) {
 		productosEnPresupuesto.remove(producto);
 		total -= producto.getPrecio();
 		return Double.toString(total);
 	}
-
+	
+	/**
+	 * metodo que se encarga de hacer la addicion de un producto al presupuesto
+	 * lo añade a la lista de productos de este y suma suprecio al total
+	 * @param producto
+	 * @return
+	 */
 	public String updateTotalAddProduct(Producto producto) {
 		productosEnPresupuesto.add(producto);
 		total += producto.getPrecio();
@@ -71,25 +90,35 @@ public class CreaPresupuestoController {
 	 * Si este producto no esta en el presupuesto creamos una nueva entrada en al base de datos
 	 */
 	public void crearPresupuesto() {
-//		while(db.checkSiIdYaUtilizado(this.id)) {
-//			generateId();
-//		}
-//		for(Producto p : productosEnPresupuesto) {
-//			if(db.checkYaTenemosProducto(p)) {
-//				db.UpdateUnidadesProducto(p);
-//			}else {
-//				db.CrearEntradaPresupuesto(p);
-//			}
-//			
-//		}
+		while(db.getGestionCreaPresupuesto().checkSiIdYaUtilizado(this.id)) {
+			generateId();
+		}
+		db.getGestionCreaPresupuesto().CreaPresupuesto(this.id,this.total);
+		for(Producto p : productosEnPresupuesto) {
+			if(db.getGestionCreaPresupuesto().checkYaTenemosProducto(p,this.id)) {
+				db.getGestionCreaPresupuesto().UpdateUnidadesProducto(p,this.id);
+			}else {
+				db.getGestionCreaPresupuesto().CrearEntradaPresupuesto(p,this.id);
+			}	
+		}
+		
 		
 		
 	}
 
+	/**
+	 * metodo que devuelve el catalogo
+	 * @return
+	 */
 	public List<Producto> getProductos() {
 		return catalogo;
 	}
 
+	/**
+	 * metodo que devuelve true cuando tenemos productos en el presupuesto 
+	 * y false cuando no los tenemos
+	 * @return
+	 */
 	public boolean hasProductosEnCompra() {
 		return productosEnPresupuesto.size() != 0;
 	}	
