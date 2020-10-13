@@ -27,7 +27,6 @@ public class gestionFechas {
 	 */
 	public gestionFechas(int año, int mes, int dia, int hora, int minutos) {
 		super();
-		
 		this.fecha = LocalDateTime.of(año, mes, dia, hora, minutos);
 		this.hora = LocalTime.of(fecha.getHour(), 00);
 	}
