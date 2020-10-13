@@ -40,8 +40,8 @@ public class EntregaController {
 		return false;
 	}
 
-	public boolean comprobarFechaYHora(int aÃ±o, int mes, int dia, int hora, int minutos) {
-		LocalDateTime fecha = LocalDateTime.of(aÃ±o, mes, dia, hora, minutos);
+	public boolean comprobarFechaYHora(int año, int mes, int dia, int hora, int minutos) {
+		LocalDateTime fecha = LocalDateTime.of(año, mes, dia, hora, minutos);
 		if (es_fecha_valida(fecha)) {
 			return true;
 		}
