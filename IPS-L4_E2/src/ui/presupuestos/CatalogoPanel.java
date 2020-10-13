@@ -23,12 +23,14 @@ public class CatalogoPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private JLabel lblDescription;
+	private JLabel lblName;
 	private JPanel container;
 	private JButton btnAadir;
 	private Producto producto;
 	private CreaPresupuestosView creaPresupuesto;
 	private CreaPresupuestoController presController;
+	private JLabel lblTipo;
+	private JLabel lblPrecio;
 
 	public CatalogoPanel(Producto p, JPanel container, CreaPresupuestosView creaPresupuesto, CreaPresupuestoController presController) {
 		setMinimumSize(new Dimension(450, 70));
@@ -38,25 +40,29 @@ public class CatalogoPanel extends JPanel {
 		this.producto = p;
 		this.creaPresupuesto = creaPresupuesto;
 		this.presController = presController;
-		setLayout(new GridLayout(1, 0, 0, 0));
-		add(getLblDescription());
-		getLblDescription().setText(p.getNombre() + "-" + p.getTipo() + "-" + p.getPrecio());
+		setLayout(new GridLayout(0, 4, 0, 0));
+		add(getLblName());
+		add(getLblTipo());
+		add(getLblPrecio());
 		add(getBtnAdd());
+		getLblName().setText(p.getNombre());
+		getLblTipo().setText(p.getTipo());
+		getLblPrecio().setText(Double.toString(p.getPrecio()));
 	}
 
-	private JLabel getLblDescription() {
-		if (lblDescription == null) {
-			lblDescription = new JLabel("New label");
-			lblDescription.setBackground(Color.WHITE);
-			lblDescription.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			lblDescription.setHorizontalAlignment(SwingConstants.CENTER);
+	private JLabel getLblName() {
+		if (lblName == null) {
+			lblName = new JLabel("New label");
+			lblName.setBackground(Color.WHITE);
+			lblName.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			lblName.setHorizontalAlignment(SwingConstants.CENTER);
 		}
-		return lblDescription;
+		return lblName;
 	}
 	
 	private JButton getBtnAdd() {
 		if (btnAadir == null) {
-			btnAadir = new JButton("A\u00D1ADIR");
+			btnAadir = new JButton("A\u00F1adir");
 			btnAadir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					añadirProducto();
@@ -78,7 +84,28 @@ public class CatalogoPanel extends JPanel {
 	protected void añadirProducto() {
 		creaPresupuesto.getTxtTotal().setText(presController.updateTotalAddProduct(producto));
 		creaPresupuesto.getBtnCreate().setEnabled(true);
-		creaPresupuesto.addToPresupuesto(producto);
+		creaPresupuesto.addToPresupuesto(producto,this);
+		this.btnAadir.setEnabled(false);
 	}
 	
+	private JLabel getLblTipo() {
+		if (lblTipo == null) {
+			lblTipo = new JLabel("");
+			lblTipo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			lblTipo.setHorizontalAlignment(SwingConstants.CENTER);
+		}
+		return lblTipo;
+	}
+	private JLabel getLblPrecio() {
+		if (lblPrecio == null) {
+			lblPrecio = new JLabel("");
+			lblPrecio.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			lblPrecio.setHorizontalAlignment(SwingConstants.CENTER);
+		}
+		return lblPrecio;
+	}
+	
+	public JButton getBtnAniadir() {
+		return this.btnAadir;
+	}
 }

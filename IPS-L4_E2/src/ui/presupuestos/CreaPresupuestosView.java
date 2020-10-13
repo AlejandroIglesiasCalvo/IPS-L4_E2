@@ -22,6 +22,12 @@ import javax.swing.SwingConstants;
 
 import logic.CreaPresupuestoController;
 import logic.dto.Producto;
+import javax.swing.JComboBox;
+import javax.swing.JSpinner;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
+import javax.swing.SpinnerNumberModel;
 
 
 
@@ -61,6 +67,23 @@ public class CreaPresupuestosView extends JDialog{
 	}
 	
 	private CreaPresupuestoController presController = new CreaPresupuestoController();
+	private JPanel pnFiltrar;
+	private JComboBox cbTipos;
+	private JSpinner spnPrecio;
+	private JPanel pnBtns;
+	private JRadioButton rdbtnMin;
+	private JRadioButton rdbtnMax;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JButton btnNewButton;
+	private JPanel pnTablaInfo;
+	private JLabel lblName1;
+	private JLabel lblNewLabel;
+	private JLabel lblPrecio;
+	private JPanel pnTablaInfoCatalogo;
+	private JLabel lblName1_1;
+	private JLabel lblNewLabel_1;
+	private JLabel lblPrecio_1;
+	private JLabel lblNewLabel_2;
 
 	/**
 	 * Create the application.
@@ -80,7 +103,7 @@ public class CreaPresupuestosView extends JDialog{
 		frmPresupuesto.getContentPane().add(getPnListas(), BorderLayout.CENTER);
 		frmPresupuesto.getContentPane().add(getPnButtons(), BorderLayout.SOUTH);
 		frmPresupuesto.getContentPane().add(getPnInfo(), BorderLayout.NORTH);
-		frmPresupuesto.setBounds(100, 100, 831, 571);
+		frmPresupuesto.setBounds(100, 100, 958, 720);
 		frmPresupuesto.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//añade a la lista catalogo todos los productos
 		addCatalogo();
@@ -220,6 +243,10 @@ public class CreaPresupuestosView extends JDialog{
 			pnInfo.setLayout(new GridLayout(0, 2, 3, 3));
 			pnInfo.add(getLblCatalogo());
 			pnInfo.add(getLblProductosPresupuesto());
+			pnInfo.add(getPnFiltrar());
+			pnInfo.add(getLblNewLabel_2());
+			pnInfo.add(getPnTablaInfo());
+			pnInfo.add(getPnTablaInfoCatalogo());
 		}
 		return pnInfo;
 	}
@@ -257,10 +284,146 @@ public class CreaPresupuestosView extends JDialog{
 	 * metodo que añade un producto al presupuesto
 	 * @param producto
 	 */
-	public void addToPresupuesto(Producto producto) {
-		pnPreProductos.add(new ProductosPanel(producto, pnPreProductos, this, presController));
+	public void addToPresupuesto(Producto producto, CatalogoPanel cg) {
+		pnPreProductos.add(new ProductosPanel(producto, pnPreProductos, this, presController, cg));
 		//hago esto para que se muestren los cambios en el panel
 		pnPreProductos.setVisible(false);
 		pnPreProductos.setVisible(true);
+	}
+	private JPanel getPnFiltrar() {
+		if (pnFiltrar == null) {
+			pnFiltrar = new JPanel();
+			pnFiltrar.setLayout(new GridLayout(0, 4, 1, 1));
+			pnFiltrar.add(getCbTipos());
+			pnFiltrar.add(getSpnPrecio());
+			pnFiltrar.add(getPnBtns());
+			pnFiltrar.add(getBtnNewButton());
+		}
+		return pnFiltrar;
+	}
+	private JComboBox getCbTipos() {
+		if (cbTipos == null) {
+			cbTipos = new JComboBox();
+			cbTipos.setBackground(Color.WHITE);
+		}
+		return cbTipos;
+	}
+	private JSpinner getSpnPrecio() {
+		if (spnPrecio == null) {
+			spnPrecio = new JSpinner();
+			spnPrecio.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		}
+		return spnPrecio;
+	}
+	private JPanel getPnBtns() {
+		if (pnBtns == null) {
+			pnBtns = new JPanel();
+			pnBtns.setBackground(Color.WHITE);
+			pnBtns.setLayout(new GridLayout(0, 2, 0, 0));
+			pnBtns.add(getRdbtnMin());
+			pnBtns.add(getRdbtnMax());
+		}
+		return pnBtns;
+	}
+	private JRadioButton getRdbtnMin() {
+		if (rdbtnMin == null) {
+			rdbtnMin = new JRadioButton("menor");
+			buttonGroup.add(rdbtnMin);
+			rdbtnMin.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		}
+		return rdbtnMin;
+	}
+	private JRadioButton getRdbtnMax() {
+		if (rdbtnMax == null) {
+			rdbtnMax = new JRadioButton("mayor");
+			buttonGroup.add(rdbtnMax);
+			rdbtnMax.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		}
+		return rdbtnMax;
+	}
+	private JButton getBtnNewButton() {
+		if (btnNewButton == null) {
+			btnNewButton = new JButton("FILTRAR");
+			btnNewButton.setBackground(Color.WHITE);
+		}
+		return btnNewButton;
+	}
+	private JPanel getPnTablaInfo() {
+		if (pnTablaInfo == null) {
+			pnTablaInfo = new JPanel();
+			pnTablaInfo.setLayout(new GridLayout(0, 4, 0, 0));
+			pnTablaInfo.add(getLblName1());
+			pnTablaInfo.add(getLblNewLabel());
+			pnTablaInfo.add(getLblPrecio());
+		}
+		return pnTablaInfo;
+	}
+	private JLabel getLblName1() {
+		if (lblName1 == null) {
+			lblName1 = new JLabel("Nombre");
+			lblName1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			lblName1.setBackground(Color.WHITE);
+			lblName1.setHorizontalAlignment(SwingConstants.CENTER);
+		}
+		return lblName1;
+	}
+	private JLabel getLblNewLabel() {
+		if (lblNewLabel == null) {
+			lblNewLabel = new JLabel("Tipo");
+			lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			lblNewLabel.setBackground(Color.WHITE);
+			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		}
+		return lblNewLabel;
+	}
+	private JLabel getLblPrecio() {
+		if (lblPrecio == null) {
+			lblPrecio = new JLabel("Precio");
+			lblPrecio.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			lblPrecio.setHorizontalAlignment(SwingConstants.CENTER);
+		}
+		return lblPrecio;
+	}
+	private JPanel getPnTablaInfoCatalogo() {
+		if (pnTablaInfoCatalogo == null) {
+			pnTablaInfoCatalogo = new JPanel();
+			pnTablaInfoCatalogo.setLayout(new GridLayout(0, 4, 0, 0));
+			pnTablaInfoCatalogo.add(getLblName1_1());
+			pnTablaInfoCatalogo.add(getLblNewLabel_1());
+			pnTablaInfoCatalogo.add(getLblPrecio_1());
+		}
+		return pnTablaInfoCatalogo;
+	}
+	private JLabel getLblName1_1() {
+		if (lblName1_1 == null) {
+			lblName1_1 = new JLabel("Nombre");
+			lblName1_1.setHorizontalAlignment(SwingConstants.CENTER);
+			lblName1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			lblName1_1.setBackground(Color.WHITE);
+		}
+		return lblName1_1;
+	}
+	private JLabel getLblNewLabel_1() {
+		if (lblNewLabel_1 == null) {
+			lblNewLabel_1 = new JLabel("Tipo");
+			lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			lblNewLabel_1.setBackground(Color.WHITE);
+		}
+		return lblNewLabel_1;
+	}
+	private JLabel getLblPrecio_1() {
+		if (lblPrecio_1 == null) {
+			lblPrecio_1 = new JLabel("Precio");
+			lblPrecio_1.setHorizontalAlignment(SwingConstants.CENTER);
+			lblPrecio_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		}
+		return lblPrecio_1;
+	}
+	private JLabel getLblNewLabel_2() {
+		if (lblNewLabel_2 == null) {
+			lblNewLabel_2 = new JLabel("");
+		}
+		return lblNewLabel_2;
 	}
 }

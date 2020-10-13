@@ -1,11 +1,13 @@
 package logic;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import dataBase.DataBase;
+import logic.dto.Presupuesto;
 import logic.dto.Producto;
 
 
@@ -20,6 +22,8 @@ public class CreaPresupuestoController {
 	private List<Producto> catalogo;
 	
 	private String id;
+	
+	private Presupuesto presupuesto;
 	
 	/**
 	 * constructor de la clase, genera un id para el presupuesto que estamos haciendo
@@ -93,17 +97,24 @@ public class CreaPresupuestoController {
 		while(db.getGestionCreaPresupuesto().checkSiIdYaUtilizado(this.id)) {
 			generateId();
 		}
+		crearPresupuestoDto();
+		añadirPresupuestoABase();		
+	}
+
+	private void añadirPresupuestoABase() {
 		db.getGestionCreaPresupuesto().CreaPresupuesto(this.id,this.total);
 		for(Producto p : productosEnPresupuesto) {
-			if(db.getGestionCreaPresupuesto().checkYaTenemosProducto(p,this.id)) {
-				db.getGestionCreaPresupuesto().UpdateUnidadesProducto(p,this.id);
-			}else {
-				db.getGestionCreaPresupuesto().CrearEntradaPresupuesto(p,this.id);
-			}	
-		}
-		
-		
-		
+//			if(db.getGestionCreaPresupuesto().checkYaTenemosProducto(p,this.id)) {
+//				db.getGestionCreaPresupuesto().UpdateUnidadesProducto(p,this.id);
+//			}else {
+//				db.getGestionCreaPresupuesto().CrearEntradaPresupuesto(p,this.id);
+//			}
+			db.getGestionCreaPresupuesto().CrearEntradaPresupuesto(p,this.id);
+		}		
+	}
+
+	private void crearPresupuestoDto() {
+		presupuesto = new Presupuesto(this.id,123,LocalDateTime.now(),this.total,this.productosEnPresupuesto);		
 	}
 
 	/**

@@ -22,39 +22,47 @@ public class ProductosPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private JLabel lblDescription;
+	private JLabel lblName;
 	private JPanel container;
 	private JButton btnEliminiar;
 	private Producto producto;
 	private CreaPresupuestosView creaPresupuesto;
 	private CreaPresupuestoController presController;
+	private JLabel lblTipo;
+	private JLabel lblPrecio;
+	private CatalogoPanel cg;
 
 
-	public ProductosPanel(Producto p, JPanel container, CreaPresupuestosView creaPresupuesto, CreaPresupuestoController presController) {
+	public ProductosPanel(Producto p, JPanel container, CreaPresupuestosView creaPresupuesto, CreaPresupuestoController presController, CatalogoPanel cg) {
 		setBackground(Color.WHITE);
 		this.container = container;
 		this.producto = p;
 		this.creaPresupuesto = creaPresupuesto;
 		this.presController = presController;
-		setLayout(new GridLayout(1, 0, 0, 0));
-		add(getLblDescription());
-		getLblDescription().setText(p.getNombre() + "-" + p.getTipo() + "-" + p.getPrecio());
+		this.cg = cg;
+		setLayout(new GridLayout(0, 4, 0, 0));
+		add(getLblName());
+		add(getLblTipo());
+		add(getLblPrecio());
 		add(getBtnEliminar());
+		getLblName().setText(p.getNombre());
+		getLblTipo().setText(p.getTipo());
+		getLblPrecio().setText(Double.toString(p.getPrecio()));
 		this.setVisible(true);
 	}
 
-	private JLabel getLblDescription() {
-		if (lblDescription == null) {
-			lblDescription = new JLabel("New label");
-			lblDescription.setBackground(Color.WHITE);
-			lblDescription.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			lblDescription.setHorizontalAlignment(SwingConstants.CENTER);
+	private JLabel getLblName() {
+		if (lblName == null) {
+			lblName = new JLabel("New label");
+			lblName.setBackground(Color.WHITE);
+			lblName.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			lblName.setHorizontalAlignment(SwingConstants.CENTER);
 		}
-		return lblDescription;
+		return lblName;
 	}
 	private JButton getBtnEliminar() {
 		if (btnEliminiar == null) {
-			btnEliminiar = new JButton("ELIMINAR");
+			btnEliminiar = new JButton("Eliminar");
 			btnEliminiar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					eliminarProducto();
@@ -80,8 +88,25 @@ public class ProductosPanel extends JPanel {
 			creaPresupuesto.getBtnCreate().setEnabled(false);
 		}
 		container.remove(this);
+		cg.getBtnAniadir().setEnabled(true);
 		//hago esto para que se muestren los cambios en el panel
 		container.setVisible(false);
 		container.setVisible(true);
+	}
+	private JLabel getLblTipo() {
+		if (lblTipo == null) {
+			lblTipo = new JLabel("New label");
+			lblTipo.setHorizontalAlignment(SwingConstants.CENTER);
+			lblTipo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		}
+		return lblTipo;
+	}
+	private JLabel getLblPrecio() {
+		if (lblPrecio == null) {
+			lblPrecio = new JLabel("New label");
+			lblPrecio.setHorizontalAlignment(SwingConstants.CENTER);
+			lblPrecio.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		}
+		return lblPrecio;
 	}
 }
