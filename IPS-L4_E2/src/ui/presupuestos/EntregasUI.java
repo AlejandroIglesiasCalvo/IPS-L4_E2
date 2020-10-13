@@ -13,15 +13,19 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.JSpinner;
 import javax.swing.border.EmptyBorder;
 
 import logic.EntregaController;
 import logic.dto.Presupuesto;
-import javax.swing.JSpinner;
+import logic.dto.Venta;
 
 public class EntregasUI extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel lblTitulo;
 	private JPanel pnlAbajo;
@@ -42,7 +46,7 @@ public class EntregasUI extends JDialog {
 	/**
 	 * Create the frame.
 	 */
-	public EntregasUI(Presupuesto presupuesto) {
+	public EntregasUI(Presupuesto presupuesto, Venta venta) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 668, 516);
 		contentPane = new JPanel();
@@ -53,7 +57,7 @@ public class EntregasUI extends JDialog {
 		contentPane.add(getPnlAbajo(), BorderLayout.SOUTH);
 		contentPane.add(getPnlCentro(), BorderLayout.CENTER);
 		//
-		ec = new EntregaController(presupuesto);
+		ec = new EntregaController(presupuesto, venta);
 	}
 
 	private JLabel getLblTitulo() {
@@ -179,11 +183,11 @@ public class EntregasUI extends JDialog {
 	}
 
 	protected void aceptarEntrega() {
-		Boolean valida =ec.comprobarFechaYHora((Integer) spnAño.getValue(), (Integer) spnMes.getValue(), (Integer) spnDia.getValue(),
-				(Integer) spnHoras.getValue(), (Integer) spnMinutos.getValue());
-		if(valida) {
+		Boolean valida = ec.comprobarFechaYHora((Integer) spnAño.getValue(), (Integer) spnMes.getValue(),
+				(Integer) spnDia.getValue(), (Integer) spnHoras.getValue(), (Integer) spnMinutos.getValue());
+		if (valida) {
 			ec.Asignacion();
-		}else {
+		} else {
 			JOptionPane.showConfirmDialog(this, "Error", "Fecha no valida", ERROR, ERROR);
 		}
 	}

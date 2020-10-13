@@ -19,10 +19,13 @@ public class gestionFechas {
 		this.fecha = fecha;
 		this.hora = LocalTime.of(fecha.getHour(), 00);
 	}
-	
+	public gestionFechas() {
+		super();
+	}
+
 	/**
-	 * Se crea asi: todo ints (meses MONTH.January, por ejemplo, horas y minutos en "00"
-	 * Osea, las 4:04 am son las 04,04
+	 * Se crea asi: todo ints (meses MONTH.January, por ejemplo, horas y minutos en
+	 * "00" Osea, las 4:04 am son las 04,04
 	 * 
 	 */
 	public gestionFechas(int año, int mes, int dia, int hora, int minutos) {
@@ -30,6 +33,7 @@ public class gestionFechas {
 		this.fecha = LocalDateTime.of(año, mes, dia, hora, minutos);
 		this.hora = LocalTime.of(fecha.getHour(), 00);
 	}
+
 	/** Devuelve la fecha en formato entero */
 	public LocalDateTime getFecha() {
 		return fecha;
@@ -79,6 +83,15 @@ public class gestionFechas {
 		}
 		return false;
 	}
-	
-	
+
+	/**
+	 * 
+	 * @param fecha
+	 * @return la fecha en formato SQL lista para insertar
+	 */
+	public java.sql.Date convertir_A_SQL(LocalDateTime fecha) {
+		java.sql.Date sqlDate = java.sql.Date.valueOf(fecha.toLocalDate());
+		return sqlDate;
+	}
+
 }
