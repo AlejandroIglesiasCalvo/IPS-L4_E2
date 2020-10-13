@@ -15,8 +15,6 @@ import logic.CreaPresupuestoController;
 import logic.dto.Producto;
 import java.awt.Dimension;
 
-
-
 public class CatalogoPanel extends JPanel {
 	/**
 	 * 
@@ -30,7 +28,8 @@ public class CatalogoPanel extends JPanel {
 	private CreaPresupuestosView creaPresupuesto;
 	private CreaPresupuestoController presController;
 
-	public CatalogoPanel(Producto p, JPanel container, CreaPresupuestosView creaPresupuesto, CreaPresupuestoController presController) {
+	public CatalogoPanel(Producto p, JPanel container, CreaPresupuestosView creaPresupuesto,
+			CreaPresupuestoController presController) {
 		setMinimumSize(new Dimension(450, 70));
 		setMaximumSize(new Dimension(32767, 70));
 		setBackground(Color.WHITE);
@@ -53,13 +52,13 @@ public class CatalogoPanel extends JPanel {
 		}
 		return lblDescription;
 	}
-	
+
 	private JButton getBtnAdd() {
 		if (btnAadir == null) {
 			btnAadir = new JButton("A\u00D1ADIR");
 			btnAadir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					añadirProducto();
+					aÃ±adirProducto();
 				}
 			});
 			btnAadir.setToolTipText((String) null);
@@ -71,14 +70,14 @@ public class CatalogoPanel extends JPanel {
 	}
 
 	/**
-	 * metodo que añade le producto al presupuesto y hace que se pueda ver
-	 * y hacer click al botón de crear presupuesto, porque si no tienes productos
-	 * para hacer un presupuesto, no lo puedes crear vacío
+	 * metodo que aï¿½ade le producto al presupuesto y hace que se pueda ver y hacer
+	 * click al botï¿½n de crear presupuesto, porque si no tienes productos para hacer
+	 * un presupuesto, no lo puedes crear vacï¿½o
 	 */
-	protected void añadirProducto() {
+	protected void aÃ±adirProducto() {
 		creaPresupuesto.getTxtTotal().setText(presController.updateTotalAddProduct(producto));
 		creaPresupuesto.getBtnCreate().setEnabled(true);
 		creaPresupuesto.addToPresupuesto(producto);
 	}
-	
+
 }
