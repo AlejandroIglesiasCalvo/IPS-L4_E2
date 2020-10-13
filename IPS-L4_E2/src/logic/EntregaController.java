@@ -39,4 +39,18 @@ public class EntregaController {
 		}
 		return false;
 	}
+
+	public boolean comprobarFechaYHora(int año, int mes, int dia, int hora, int minutos) {
+		LocalDateTime fecha = LocalDateTime.of(año, mes, dia, hora, minutos);
+		if (es_fecha_valida(fecha)) {
+			return true;
+		}
+		return false;
+	}
+
+	public void Asignacion() {
+		this.transporte.setFecha(presupuesto.getFecha());
+		this.transporte.setHora(presupuesto.getFecha().getHour());
+
+	}
 }
