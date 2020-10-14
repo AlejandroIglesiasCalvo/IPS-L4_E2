@@ -35,6 +35,12 @@ public class EntregaController {
 	 * datos que necesito
 	 */
 	public EntregaController() {
+		super();
+		try {
+			db = new DataBase();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
 		repartidor = new Repartidor(0, "Pedro el disponible", 2);
 		fecha= new gestionFechas(2020, 11, 22, 17, 00);
 		trasnporte= new Transporte(598, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor);

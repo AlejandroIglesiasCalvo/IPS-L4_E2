@@ -61,6 +61,7 @@ public class CreaPresupuestosView extends JDialog{
 	}
 	
 	private CreaPresupuestoController presController = new CreaPresupuestoController();
+	private JButton btnAlex;
 
 	/**
 	 * Create the application.
@@ -127,6 +128,7 @@ public class CreaPresupuestosView extends JDialog{
 			pnButtons = new JPanel();
 			pnButtons.setBackground(Color.WHITE);
 			pnButtons.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+			pnButtons.add(getBtnAlex());
 			pnButtons.add(getTxtPrecioTotal());
 			pnButtons.add(getTextField());
 			pnButtons.add(getBtnAceptar());
@@ -262,5 +264,18 @@ public class CreaPresupuestosView extends JDialog{
 		//hago esto para que se muestren los cambios en el panel
 		pnPreProductos.setVisible(false);
 		pnPreProductos.setVisible(true);
+	}
+	private JButton getBtnAlex() {
+		if (btnAlex == null) {
+			btnAlex = new JButton("DemoAlex");
+			btnAlex.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					EntregasUI entregas = new EntregasUI();
+					entregas.setVisible(true);
+					entregas.setLocationRelativeTo(null);
+				}
+			});
+		}
+		return btnAlex;
 	}
 }

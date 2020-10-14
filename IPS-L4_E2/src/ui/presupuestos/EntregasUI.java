@@ -46,8 +46,9 @@ public class EntregasUI extends JDialog {
 	/**
 	 * Create the frame.
 	 */
-	public EntregasUI(Presupuesto presupuesto, Venta venta) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	//public EntregasUI(Presupuesto presupuesto, Venta venta) {
+	public EntregasUI() {
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 668, 516);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -187,7 +188,8 @@ public class EntregasUI extends JDialog {
 		Boolean valida = ec.comprobarFechaYHora((Integer) spnAño.getValue(), (Integer) spnMes.getValue(),
 				(Integer) spnDia.getValue(), (Integer) spnHoras.getValue(), (Integer) spnMinutos.getValue());
 		if (valida) {
-			ec.Asignacion();
+			//ec.Asignacion();
+			JOptionPane.showConfirmDialog(this, "Okki", "Okki dokki", ERROR, ERROR);
 		} else {
 			JOptionPane.showConfirmDialog(this, "Error", "Fecha no valida", ERROR, ERROR);
 		}
