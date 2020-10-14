@@ -11,22 +11,35 @@ import logic.dto.Venta;
 
 public class EntregaController {
 	private Presupuesto presupuesto;
-	private gestionFechas fecha;
-	private Repartidor repartidor;
-	DataBase db;
+	private Transporte trasnporte;
 	private Venta venta;
+	private Repartidor repartidor;
+	private gestionFechas fecha;
+	DataBase db;
+
 
 	public EntregaController(Presupuesto presupuesto, Venta venta) {
 		super();
 		try {
 			db = new DataBase();
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		this.presupuesto = presupuesto;
 		this.venta = venta;
 		this.repartidor = new Repartidor(0, "Pedro el disponible", 2);
+	}
+
+	/**
+	 * Constructor con trampas mientras que no este listo el codigo que me pase los
+	 * datos que necesito
+	 */
+	public EntregaController() {
+		repartidor = new Repartidor(0, "Pedro el disponible", 2);
+		fecha= new gestionFechas(2020, 11, 22, 17, 00);
+		trasnporte= new Transporte(598, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor);
+		presupuesto = new Presupuesto(99, 987654321, fecha.getFecha(), 2);
+		venta = new Venta((long)25, fecha.getFecha(), 52.00, 6, trasnporte);
 	}
 
 	/**

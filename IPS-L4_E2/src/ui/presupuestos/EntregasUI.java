@@ -57,7 +57,8 @@ public class EntregasUI extends JDialog {
 		contentPane.add(getPnlAbajo(), BorderLayout.SOUTH);
 		contentPane.add(getPnlCentro(), BorderLayout.CENTER);
 		//
-		ec = new EntregaController(presupuesto, venta);
+		//ec = new EntregaController(presupuesto, venta);
+		ec = new EntregaController();//Trampas mientras no este el resto
 	}
 
 	private JLabel getLblTitulo() {
