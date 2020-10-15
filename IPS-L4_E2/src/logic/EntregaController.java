@@ -1,19 +1,32 @@
 package logic;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
+import dataBase.DataBase;
 import logic.dto.Presupuesto;
+import logic.dto.Repartidor;
 import logic.dto.Transporte;
+import logic.dto.Venta;
 
 public class EntregaController {
 	private Presupuesto presupuesto;
-	private Transporte transporte;
 	private gestionFechas fecha;
+	private Repartidor repartidor;
+	DataBase db;
+	private Venta venta;
 
-	public EntregaController(Presupuesto presupuesto) {
+	public EntregaController(Presupuesto presupuesto, Venta venta) {
 		super();
+		try {
+			db = new DataBase();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.presupuesto = presupuesto;
-
+		this.venta = venta;
+		this.repartidor = new Repartidor(0, "Pedro el disponible", 2);
 	}
 
 	/**
@@ -38,5 +51,19 @@ public class EntregaController {
 			return true;
 		}
 		return false;
+	}
+
+	public boolean comprobarFechaYHora(int año, int mes, int dia, int hora, int minutos) {
+		LocalDateTime fecha = LocalDateTime.of(año, mes, dia, hora, minutos);
+		if (es_fecha_valida(fecha)) {
+			return true;
+		}
+		return false;
+	}
+
+	public void Asignacion() {
+		Transporte transporte = new Transporte(99, presupuesto.getFecha(), presupuesto.getFecha().getHour(),
+				repartidor);
+		db.getGestionTransporte().añadirTransporte(transporte, venta, repartidor, 2);
 	}
 }

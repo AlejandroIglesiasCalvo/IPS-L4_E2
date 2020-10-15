@@ -1,0 +1,20 @@
+/*C1*/SET SCHEMA SYSTEM_LOBS
+INSERT INTO BLOCKS VALUES(0,2147483647,0)
+COMMIT
+/*C2*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C3*/SET SCHEMA PUBLIC
+create table Cliente(\u000aDNI varchar (9) not null,\u000aNombre varchar (20) not null,\u000aApellidos varchar (40) not null,\u000aTelefono varchar (9) not null,\u000aconstraint PK_Cliente primary key (DNI) \u000a)
+create table Repartidor(\u000aID_Repartidor varchar (9) not null,\u000aNombre varchar (40) not null,\u000aTelefono varchar (9) not null,\u000aconstraint PK_Repartidor primary key (ID_Repartidor) \u000a)
+create table Pedido(\u000aID_Pedido varchar (9) not null,\u000aEstado varchar (20) not null,\u000aconstraint PK_Pedido primary key (ID_Pedido) \u000a)
+create table Producto(\u000aID_Producto varchar (9) not null,\u000aNombre varchar (20) not null,\u000aTipo varchar (9) not null,\u000aPrecio varchar (9) not null,\u000aconstraint PK_Producto primary key (ID_Producto) \u000a)
+create table Presupuesto(\u000aID_Presupuesto varchar (9) not null,\u000aDNI varchar (9) not null,\u000aFecha Date not null,\u000aPrecio varchar (9) not null,\u000aconstraint PK_Presupuesto primary key (ID_Presupuesto),\u000aconstraint FK_Presupuesto_Cliente foreign key (DNI) references Cliente(DNI)\u000a)
+create table Carrito(\u000aID_Producto varchar (9) not null,\u000aID_Presupuesto varchar (9) not null,\u000aUnidades varchar (9) not null,\u000aconstraint PK_Carrito primary key (ID_Producto,ID_Presupuesto),\u000aconstraint FK_Carrito_Presupuesto foreign key (ID_Presupuesto) references Presupuesto(ID_Presupuesto),\u000aconstraint FK_Carrito_Producto foreign key (ID_Producto) references Producto(ID_Producto)\u000a)
+create table Encargo(\u000aID_Producto varchar (9) not null,\u000aID_Pedido varchar (9) not null,\u000aUnidades varchar (9) not null,\u000aconstraint PK_Encargo primary key (ID_Producto,ID_Pedido),\u000aconstraint FK_Encargo_Producto foreign key (ID_Producto) references Producto(ID_Producto),\u000aconstraint FK_Encargo_Pedido foreign key (ID_Pedido) references Pedido(ID_Pedido)\u000a)
+create table Venta(\u000aID_Venta varchar (9) not null,\u000aID_Presupuesto varchar (9) not null,\u000aFecha Date not null,\u000aTotal varchar (9) not null,\u000aMontados varchar (9) not null,\u000aconstraint PK_Venta primary key (ID_Venta),\u000aconstraint FK_Presupuesto_Venta foreign key (ID_Presupuesto) references Presupuesto(ID_Presupuesto)\u000a)
+create table Venta_Producto(\u000aID_Producto varchar (9) not null,\u000aID_Venta varchar (9) not null,\u000aUnidades varchar (9) not null,\u000aconstraint PK_Venta_Producto primary key (ID_Producto,ID_Venta),\u000aconstraint FK_Venta_Producto_Venta foreign key (ID_Venta) references Venta(ID_Venta),\u000aconstraint FK_Venta_Producto_Producto foreign key (ID_Producto) references Producto(ID_Producto)\u000a)
+create table Transporte(\u000aID_trasporte varchar (9) not null,\u000aID_Venta varchar (9) not null,\u000aId_producto varchar (9) not null,\u000aHora varchar (9) not null,\u000aFecha Date,\u000aID_repartidor varchar (9) not null,\u000aconstraint PK_ID_trasporte primary key (ID_trasporte,ID_Venta,ID_Producto),\u000aconstraint FK_Transporte_Venta_Producto foreign key (ID_Venta,ID_Producto) references Venta_Producto(ID_Venta,ID_Producto),\u000aconstraint FK_Repartidor foreign key (ID_repartidor) references Repartidor(ID_repartidor)\u000a)
+INSERT INTO CLIENTE VALUES('12345678','Alejandro','IglesiasCalvo','717719965')
+COMMIT
+INSERT INTO PRESUPUESTO VALUES('1','12345678','2021-11-11','88')
+COMMIT
