@@ -3,8 +3,10 @@ package logic;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import dataBase.DataBase;
 import logic.dto.Presupuesto;
@@ -25,12 +27,15 @@ public class CreaPresupuestoController {
 	
 	private Presupuesto presupuesto;
 	
+	private Set<String> tipos = new HashSet<>();
+	private String[] tiposComoBox = new String[tipos.size()];
+	
 	/**
 	 * constructor de la clase, genera un id para el presupuesto que estamos haciendo
 	 * y carga el catalogo
 	 */
 	public CreaPresupuestoController(){
-		productosEnPresupuesto = new ArrayList();
+		productosEnPresupuesto = new ArrayList<>();
 		try {
 			db = new DataBase();
 		} catch (ClassNotFoundException | SQLException e) {
@@ -39,7 +44,19 @@ public class CreaPresupuestoController {
 		}
 		catalogo = db.getGestionCreaPresupuesto().getProductos();
 		generateId();
+		addTipos();		
+	}
+
+	private void addTipos() {
+		tipos.add("Sin definir");
+		for(Producto p : catalogo) {
+			tipos.add(p.getTipo());
+		}
 		
+	}
+	
+	public String[] getTipos() {
+		return tipos.toArray(tiposComoBox);
 	}
 
 	/**

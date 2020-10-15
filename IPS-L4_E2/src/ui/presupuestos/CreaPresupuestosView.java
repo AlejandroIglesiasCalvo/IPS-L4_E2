@@ -27,7 +27,11 @@ import javax.swing.JSpinner;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SpinnerDateModel;
+import java.util.Date;
+import java.util.Calendar;
 
 
 
@@ -68,7 +72,7 @@ public class CreaPresupuestosView extends JDialog{
 	
 	private CreaPresupuestoController presController = new CreaPresupuestoController();
 	private JPanel pnFiltrar;
-	private JComboBox cbTipos;
+	private JComboBox<String> cbxTipos;
 	private JSpinner spnPrecio;
 	private JPanel pnBtns;
 	private JRadioButton rdbtnMin;
@@ -107,6 +111,7 @@ public class CreaPresupuestosView extends JDialog{
 		frmPresupuesto.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//añade a la lista catalogo todos los productos
 		addCatalogo();
+		cbxTipos.setSelectedIndex(0);
 	}
 
 	/**
@@ -294,23 +299,25 @@ public class CreaPresupuestosView extends JDialog{
 		if (pnFiltrar == null) {
 			pnFiltrar = new JPanel();
 			pnFiltrar.setLayout(new GridLayout(0, 4, 1, 1));
-			pnFiltrar.add(getCbTipos());
+			pnFiltrar.add(getCbxTipos());
 			pnFiltrar.add(getSpnPrecio());
 			pnFiltrar.add(getPnBtns());
 			pnFiltrar.add(getBtnNewButton());
 		}
 		return pnFiltrar;
 	}
-	private JComboBox getCbTipos() {
-		if (cbTipos == null) {
-			cbTipos = new JComboBox();
-			cbTipos.setBackground(Color.WHITE);
+	private JComboBox<String> getCbxTipos() {
+		if (cbxTipos == null) {
+			cbxTipos = new JComboBox<String>();
+			cbxTipos.setModel(new DefaultComboBoxModel<String>(presController.getTipos()));
+			cbxTipos.setBackground(Color.WHITE);
 		}
-		return cbTipos;
+		return cbxTipos;
 	}
 	private JSpinner getSpnPrecio() {
 		if (spnPrecio == null) {
 			spnPrecio = new JSpinner();
+			spnPrecio.setBackground(Color.WHITE);
 			spnPrecio.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		}
 		return spnPrecio;
