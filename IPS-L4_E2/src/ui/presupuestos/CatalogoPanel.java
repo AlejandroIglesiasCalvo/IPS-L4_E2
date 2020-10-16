@@ -86,7 +86,6 @@ public class CatalogoPanel extends JPanel {
 		creaPresupuesto.addToPresupuesto(producto,this);
 		this.btnAadir.setEnabled(false);
 	}
-<<<<<<< HEAD
 	
 	private JLabel getLblTipo() {
 		if (lblTipo == null) {
@@ -108,7 +107,4 @@ public class CatalogoPanel extends JPanel {
 	public JButton getBtnAniadir() {
 		return this.btnAadir;
 	}
-=======
-
->>>>>>> refs/heads/master
 }

@@ -11,27 +11,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
 import logic.CreaPresupuestoController;
 import logic.dto.Producto;
-import javax.swing.JComboBox;
-import javax.swing.JSpinner;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.SpinnerDateModel;
-import java.util.Date;
-import java.util.Calendar;
 
 
 
@@ -54,21 +51,21 @@ public class CreaPresupuestosView extends JDialog{
 	
 	
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CreaPresupuestosView window = new CreaPresupuestosView();
-					window.frmPresupuesto.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					CreaPresupuestosView window = new CreaPresupuestosView();
+//					window.frmPresupuesto.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 	
 	private CreaPresupuestoController presController = new CreaPresupuestoController();
 	private JPanel pnFiltrar;
@@ -318,7 +315,7 @@ public class CreaPresupuestosView extends JDialog{
 		if (spnPrecio == null) {
 			spnPrecio = new JSpinner();
 			spnPrecio.setBackground(Color.WHITE);
-			spnPrecio.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+			spnPrecio.setModel(new SpinnerNumberModel(new Double(0), new Double(0), null, new Double(1)));
 		}
 		return spnPrecio;
 	}
@@ -343,6 +340,7 @@ public class CreaPresupuestosView extends JDialog{
 	private JRadioButton getRdbtnMax() {
 		if (rdbtnMax == null) {
 			rdbtnMax = new JRadioButton("mayor");
+			rdbtnMax.setSelected(true);
 			buttonGroup.add(rdbtnMax);
 			rdbtnMax.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		}
@@ -351,10 +349,37 @@ public class CreaPresupuestosView extends JDialog{
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("FILTRAR");
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					double precio = (double) spnPrecio.getValue();
+					String tipo = (String) cbxTipos.getSelectedItem();
+					String maxMin;
+					if(rdbtnMax.isSelected()) {
+						maxMin = "mayor";
+					}else {
+						maxMin = "menor";
+					}
+					if(tipo.equals("Sin definir")|| (precio<=0 && maxMin.equals("menor"))){
+						JOptionPane.showMessageDialog(null, "Las opciones de filtrar son incorrectas");
+					}
+					List<Producto> filtrada = presController.filtra(precio,tipo,maxMin);
+					ponerProductos(filtrada);
+				}
+			});
 			btnNewButton.setBackground(Color.WHITE);
 		}
 		return btnNewButton;
 	}
+	
+	protected void ponerProductos(List<Producto> filtrada) {
+		pnCatProductos.removeAll();
+		for(Producto p: filtrada) {
+			pnCatProductos.add(new CatalogoPanel(p,pnCatProductos,this,presController));
+		}
+		pnCatProductos.setVisible(false);
+		pnCatProductos.setVisible(true);
+	}
+
 	private JPanel getPnTablaInfo() {
 		if (pnTablaInfo == null) {
 			pnTablaInfo = new JPanel();
