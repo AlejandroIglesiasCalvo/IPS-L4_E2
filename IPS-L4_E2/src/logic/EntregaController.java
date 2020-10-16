@@ -41,10 +41,10 @@ public class EntregaController {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-		repartidor = new Repartidor(0, "Pedro el disponible", 2);
+		repartidor = new Repartidor(11, "Pedro", 987654321);
 		fecha= new gestionFechas(2020, 11, 22, 17, 00);
 		trasnporte= new Transporte(598, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor);
-		presupuesto = new Presupuesto(99, 987654321, fecha.getFecha(), 2);
+		presupuesto = new Presupuesto(11, 123456789, fecha.getFecha(), 88);
 		venta = new Venta((long)25, fecha.getFecha(), 52.00, 6, trasnporte);
 	}
 
@@ -72,8 +72,8 @@ public class EntregaController {
 		return false;
 	}
 
-	public boolean comprobarFechaYHora(int año, int mes, int dia, int hora, int minutos) {
-		LocalDateTime fecha = LocalDateTime.of(año, mes, dia, hora, minutos);
+	public boolean comprobarFechaYHora(int aÃ±o, int mes, int dia, int hora, int minutos) {
+		LocalDateTime fecha = LocalDateTime.of(aÃ±o, mes, dia, hora, minutos);
 		if (es_fecha_valida(fecha)) {
 			return true;
 		}
@@ -83,6 +83,6 @@ public class EntregaController {
 	public void Asignacion() {
 		Transporte transporte = new Transporte(99, presupuesto.getFecha(), presupuesto.getFecha().getHour(),
 				repartidor);
-		db.getGestionTransporte().añadirTransporte(transporte, venta, repartidor, 2);
+		db.getGestionTransporte().aÃ±adirTransporte(transporte, venta, repartidor, 11);
 	}
 }

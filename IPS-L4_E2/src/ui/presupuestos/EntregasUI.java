@@ -39,7 +39,7 @@ public class EntregasUI extends JDialog {
 	private EntregaController ec;
 	private JSpinner spnDia;
 	private JSpinner spnMes;
-	private JSpinner spnAño;
+	private JSpinner spnaÃ±o;
 	private JSpinner spnHoras;
 	private JSpinner spnMinutos;
 
@@ -118,7 +118,7 @@ public class EntregasUI extends JDialog {
 			pnlFecha.add(getLblFecha());
 			pnlFecha.add(getSpnDia());
 			pnlFecha.add(getSpnMes());
-			pnlFecha.add(getSpnAño());
+			pnlFecha.add(getSpnAÃ±o());
 		}
 		return pnlFecha;
 	}
@@ -163,11 +163,11 @@ public class EntregasUI extends JDialog {
 		return spnMes;
 	}
 
-	private JSpinner getSpnAño() {
-		if (spnAño == null) {
-			spnAño = new JSpinner();
+	private JSpinner getSpnAÃ±o() {
+		if (spnaÃ±o == null) {
+			spnaÃ±o = new JSpinner();
 		}
-		return spnAño;
+		return spnaÃ±o;
 	}
 
 	private JSpinner getSpnHoras() {
@@ -185,13 +185,13 @@ public class EntregasUI extends JDialog {
 	}
 
 	protected void aceptarEntrega() {
-		Boolean valida = ec.comprobarFechaYHora((Integer) spnAño.getValue(), (Integer) spnMes.getValue(),
+		Boolean valida = ec.comprobarFechaYHora((Integer) spnaÃ±o.getValue(), (Integer) spnMes.getValue(),
 				(Integer) spnDia.getValue(), (Integer) spnHoras.getValue(), (Integer) spnMinutos.getValue());
 		if (valida) {
-			//ec.Asignacion();
+			ec.Asignacion();
 			JOptionPane.showConfirmDialog(this, "Okki", "Okki dokki", ERROR, ERROR);
 		} else {
-			JOptionPane.showConfirmDialog(this, "Error", "Fecha no valida", ERROR, ERROR);
+			JOptionPane.showConfirmDialog(this, "Error", "Fecha no valida", JOptionPane.ERROR_MESSAGE, JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

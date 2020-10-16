@@ -26,7 +26,7 @@ public class GestionTransporte {
 		gf = new gestionFechas();
 	}
 
-	public void añadirTransporte(Transporte t, Venta v, Repartidor r, int preoductos) {
+	public void aÃ±adirTransporte(Transporte t, Venta v, Repartidor r, int preoductos) {
 		String SQL = Conf.get("SQL_CREAR_TRANSPORTE");
 		try {
 			pst = con.prepareStatement(SQL);

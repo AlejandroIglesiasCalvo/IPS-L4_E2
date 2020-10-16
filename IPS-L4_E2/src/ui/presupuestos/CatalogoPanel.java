@@ -58,7 +58,7 @@ public class CatalogoPanel extends JPanel {
 			btnAadir = new JButton("A\u00D1ADIR");
 			btnAadir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					añadirProducto();
+					aÃ±adirProducto();
 				}
 			});
 			btnAadir.setToolTipText((String) null);
@@ -74,7 +74,7 @@ public class CatalogoPanel extends JPanel {
 	 * click al botï¿½n de crear presupuesto, porque si no tienes productos para hacer
 	 * un presupuesto, no lo puedes crear vacï¿½o
 	 */
-	protected void añadirProducto() {
+	protected void aÃ±adirProducto() {
 		creaPresupuesto.getTxtTotal().setText(presController.updateTotalAddProduct(producto));
 		creaPresupuesto.getBtnCreate().setEnabled(true);
 		creaPresupuesto.addToPresupuesto(producto);
