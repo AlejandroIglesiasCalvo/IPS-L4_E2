@@ -17,6 +17,7 @@ public class EntregaController {
 	private Repartidor repartidor;
 	private gestionFechas fecha;
 	DataBase db;
+	int montar;
 
 	public EntregaController(Presupuesto presupuesto, Venta venta) {
 		super();
@@ -27,7 +28,7 @@ public class EntregaController {
 		}
 		this.setPresupuesto(presupuesto);
 		this.venta = venta;
-		this.repartidor = new Repartidor(0, "Pedro el disponible", 2);
+
 	}
 
 	/**
@@ -42,9 +43,10 @@ public class EntregaController {
 			e.printStackTrace();
 		}
 		fecha = new gestionFechas(2020, 11, 22, 17, 00);
-		trasnporte = new Transporte(598, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor);
-		venta = new Venta((long) 25, fecha.getFecha(), 52.00, 6, trasnporte);
+		trasnporte = new Transporte(598, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor,montar);
+		venta = new Venta((long) 25, fecha.getFecha(), 52.00, trasnporte);
 		this.setPresupuesto(presupuesto);
+
 	}
 
 	/**
@@ -81,8 +83,8 @@ public class EntregaController {
 
 	public void Asignacion() {
 		int id = Integer.valueOf(generateId());
-		Transporte transporte = new Transporte(id, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor);
-		db.getGestionTransporte().añadirTransporte(transporte, venta, repartidor, 11);
+		Transporte transporte = new Transporte(id, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor, montar);
+		db.getGestionTransporte().añadirTransporte(transporte, venta, repartidor);
 	}
 
 	/**
@@ -131,5 +133,13 @@ public class EntregaController {
 
 	public void setFecha(gestionFechas fecha) {
 		this.fecha = fecha;
+	}
+
+	public int getMontar() {
+		return montar;
+	}
+
+	public void setMontar(int montar) {
+		this.montar = montar;
 	}
 }

@@ -7,13 +7,14 @@ public class Transporte {
 	private LocalDateTime fecha;
 	private double Hora;
 	private Repartidor Repartidor;
-
-	public Transporte(long iD, LocalDateTime fecha, double hora, Repartidor repartidor) {
+	private int Montados_en_casa;
+	public Transporte(long iD, LocalDateTime fecha, double hora, Repartidor repartidor, int Montados_en_casa) {
 		super();
 		ID = iD;
 		this.fecha = fecha;
 		Hora = hora;
 		this.Repartidor = repartidor;
+		this.setMontados_en_casa(Montados_en_casa);
 	}
 
 	public long getID() {
@@ -46,6 +47,14 @@ public class Transporte {
 
 	public void setRepartidor(Repartidor repartidor) {
 		this.Repartidor = repartidor;
+	}
+
+	public int getMontados_en_casa() {
+		return Montados_en_casa;
+	}
+
+	public void setMontados_en_casa(int montados_en_casa) {
+		Montados_en_casa = montados_en_casa;
 	}
 
 }

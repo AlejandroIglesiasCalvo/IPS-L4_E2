@@ -20,8 +20,12 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
 import logic.EntregaController;
+import logic.Repartidores;
 import logic.dto.Presupuesto;
 import logic.dto.Producto;
+import logic.dto.Repartidor;
+
+import java.awt.GridLayout;
 
 @SuppressWarnings("serial")
 public class ProductosTransporte extends JFrame {
@@ -41,12 +45,16 @@ public class ProductosTransporte extends JFrame {
 	private Presupuesto presupuesto;
 	private JButton btnLLevar;
 	private JLabel lblLLevar;
+	private JScrollPane scrollRepartidor;
+	private JList<String> listRepartidores;
+	private Repartidores r;
 
 	/**
 	 * Create the frame.
 	 */
 	public ProductosTransporte(Presupuesto presupuesto) {
 		this.presupuesto = presupuesto;
+		r = new Repartidores();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 789, 673);
 		contentPane = new JPanel();
@@ -81,9 +89,15 @@ public class ProductosTransporte extends JFrame {
 			btnAceptar = new JButton("Continuar");
 			btnAceptar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					EntregasUI entregas = new EntregasUI(ec.getPresupuesto());
-					entregas.setVisible(true);
-					entregas.setLocationRelativeTo(null);
+					try {
+						if ((listRepartidores.getSelectedIndex()) > -1) {
+							EntregasUI entregas = new EntregasUI(ec.getPresupuesto(),r.getRepartidor(listRepartidores.getSelectedIndex()),llevar);
+							entregas.setVisible(true);
+							entregas.setLocationRelativeTo(null);
+						}
+					} catch (NullPointerException ef) {
+						JOptionPane.showMessageDialog(null, "Seleccione un Repartidor");
+					}
 				}
 			});
 		}
@@ -93,8 +107,8 @@ public class ProductosTransporte extends JFrame {
 	private JPanel getPnlCentro() {
 		if (pnlCentro == null) {
 			pnlCentro = new JPanel();
-			pnlCentro.setLayout(new BorderLayout(0, 0));
-			pnlCentro.add(getPnlProductos(), BorderLayout.NORTH);
+			pnlCentro.setLayout(new GridLayout(0, 1, 0, 0));
+			pnlCentro.add(getPnlProductos());
 			pnlCentro.add(getPnlRepartidor());
 		}
 		return pnlCentro;
@@ -103,7 +117,7 @@ public class ProductosTransporte extends JFrame {
 	private JPanel getPnlProductos() {
 		if (pnlProductos == null) {
 			pnlProductos = new JPanel();
-			pnlProductos.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+			pnlProductos.setLayout(new GridLayout(0, 3, 0, 0));
 			pnlProductos.add(getScrollTienda());
 			pnlProductos.add(getBtnLLevar());
 			pnlProductos.add(getLblLLevar());
@@ -115,6 +129,8 @@ public class ProductosTransporte extends JFrame {
 	private JPanel getPnlRepartidor() {
 		if (pnlRepartidor == null) {
 			pnlRepartidor = new JPanel();
+			pnlRepartidor.setLayout(new GridLayout(0, 1, 0, 0));
+			pnlRepartidor.add(getScrollRepartidor());
 		}
 		return pnlRepartidor;
 	}
@@ -152,13 +168,13 @@ public class ProductosTransporte extends JFrame {
 
 	private JButton getBtnLLevar() {
 		if (btnLLevar == null) {
-			btnLLevar = new JButton("Añadir a repartir");
+			btnLLevar = new JButton("Añadir a repartir (SOLO UN USO)");
 			btnLLevar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 
 					try {
 						if ((listTienda.getSelectedIndex()) > -1) {
-							llevar = llevar + 1;
+							llevar = listTienda.getSelectedIndices().length;
 							lblLLevar.setText(String.valueOf(llevar));
 							listTienda.remove(listTienda.getSelectedIndex());
 							scrollTienda.setEnabled(false);
@@ -181,5 +197,32 @@ public class ProductosTransporte extends JFrame {
 			lblLLevar = new JLabel("");
 		}
 		return lblLLevar;
+	}
+
+	private JScrollPane getScrollRepartidor() {
+		if (scrollRepartidor == null) {
+			scrollRepartidor = new JScrollPane();
+			scrollRepartidor.setViewportView(getListRepartidores());
+		}
+		return scrollRepartidor;
+	}
+
+	private JList<String> getListRepartidores() {
+		if (listRepartidores == null) {
+			listRepartidores = new JList<String>();
+			listRepartidores.setModel(modelRepartidores());
+		}
+		return listRepartidores;
+	}
+
+	private DefaultListModel<String> modelRepartidores() {
+		DefaultListModel<String> model = new DefaultListModel<String>();
+		for (Repartidor or : getListaRepartidores())
+			model.addElement(or.getNombre());
+		return model;
+	}
+
+	private List<Repartidor> getListaRepartidores() {
+		return r.getRepartidores();
 	}
 }

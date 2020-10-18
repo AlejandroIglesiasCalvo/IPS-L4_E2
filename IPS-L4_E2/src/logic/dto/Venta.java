@@ -6,15 +6,15 @@ public class Venta {
 	private Long ID;
 	private LocalDateTime Fecha;
 	private double Total;
-	private int Montados_en_casa;
+
 	private Transporte Transporte;
 
-	public Venta(Long iD, LocalDateTime fecha, double total, int montados_en_casa, Transporte transporte) {
+	public Venta(Long iD, LocalDateTime fecha, double total, Transporte transporte) {
 		super();
 		ID = iD;
 		Fecha = fecha;
 		Total = total;
-		Montados_en_casa = montados_en_casa;
+
 		Transporte = transporte;
 	}
 
@@ -42,13 +42,6 @@ public class Venta {
 		Total = total;
 	}
 
-	public int getMontados_en_casa() {
-		return Montados_en_casa;
-	}
-
-	public void setMontados_en_casa(int montados_en_casa) {
-		Montados_en_casa = montados_en_casa;
-	}
 
 	public Transporte getTransporte() {
 		return Transporte;

@@ -11,6 +11,7 @@ public class DataBase {
 	private static String PASS = "";
 	private GestionCreaPresupuesto gestionCreaPresupuesto;
 	private GestionTransporte GestionTransporte;
+	private GestionRepartidores GestionRepartidores;
 
 	// Crea conexion a base de datos
 	private void setConnection() throws SQLException, ClassNotFoundException {
@@ -26,6 +27,7 @@ public class DataBase {
 		setConnection();
 		gestionCreaPresupuesto = new GestionCreaPresupuesto(con, this);
 		GestionTransporte = new GestionTransporte(con, this);
+		GestionRepartidores = new GestionRepartidores(con, this);
 	}
 
 	public GestionCreaPresupuesto getGestionCreaPresupuesto() {
@@ -36,4 +38,7 @@ public class DataBase {
 		return GestionTransporte;
 	}
 
+	public GestionRepartidores getGestionRepartidores() {
+		return GestionRepartidores;
+	}
 }

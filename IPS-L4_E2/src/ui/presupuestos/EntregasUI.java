@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -18,7 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 import logic.EntregaController;
 import logic.dto.Presupuesto;
-import logic.dto.Venta;
+import logic.dto.Repartidor;
 
 public class EntregasUI extends JDialog {
 
@@ -47,7 +46,7 @@ public class EntregasUI extends JDialog {
 	 * Create the frame.
 	 */
 	//public EntregasUI(Presupuesto presupuesto, Venta venta) {
-	public EntregasUI(Presupuesto presupuesto) {
+	public EntregasUI(Presupuesto presupuesto, Repartidor repartidor, int alli) {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 668, 516);
 		contentPane = new JPanel();
@@ -60,6 +59,8 @@ public class EntregasUI extends JDialog {
 		//
 		//ec = new EntregaController(presupuesto, venta);
 		ec = new EntregaController(presupuesto);//Trampas mientras no este el resto
+		ec.setRepartidor(repartidor);
+		ec.setMontar(alli);
 	}
 
 	private JLabel getLblTitulo() {
