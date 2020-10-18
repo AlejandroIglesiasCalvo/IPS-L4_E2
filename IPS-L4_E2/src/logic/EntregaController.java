@@ -25,7 +25,7 @@ public class EntregaController {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-		this.presupuesto = presupuesto;
+		this.setPresupuesto(presupuesto);
 		this.venta = venta;
 		this.repartidor = new Repartidor(0, "Pedro el disponible", 2);
 	}
@@ -41,11 +41,10 @@ public class EntregaController {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-		repartidor = new Repartidor(11, "Pedro", 987654321);
 		fecha = new gestionFechas(2020, 11, 22, 17, 00);
 		trasnporte = new Transporte(598, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor);
 		venta = new Venta((long) 25, fecha.getFecha(), 52.00, 6, trasnporte);
-		this.presupuesto = presupuesto;
+		this.setPresupuesto(presupuesto);
 	}
 
 	/**
@@ -81,9 +80,8 @@ public class EntregaController {
 	}
 
 	public void Asignacion() {
-		int id=Integer.valueOf(generateId());
-		Transporte transporte = new Transporte(id, fecha.getFecha(), fecha.getHoraEnDouble(),
-				repartidor);
+		int id = Integer.valueOf(generateId());
+		Transporte transporte = new Transporte(id, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor);
 		db.getGestionTransporte().añadirTransporte(transporte, venta, repartidor, 11);
 	}
 
@@ -93,5 +91,45 @@ public class EntregaController {
 	private int generateId() {
 		int randomNum = ThreadLocalRandom.current().nextInt(10, 9999 + 1);
 		return randomNum;
+	}
+
+	public Presupuesto getPresupuesto() {
+		return presupuesto;
+	}
+
+	public void setPresupuesto(Presupuesto presupuesto) {
+		this.presupuesto = presupuesto;
+	}
+
+	public Transporte getTrasnporte() {
+		return trasnporte;
+	}
+
+	public void setTrasnporte(Transporte trasnporte) {
+		this.trasnporte = trasnporte;
+	}
+
+	public Venta getVenta() {
+		return venta;
+	}
+
+	public void setVenta(Venta venta) {
+		this.venta = venta;
+	}
+
+	public Repartidor getRepartidor() {
+		return repartidor;
+	}
+
+	public void setRepartidor(Repartidor repartidor) {
+		this.repartidor = repartidor;
+	}
+
+	public gestionFechas getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(gestionFechas fecha) {
+		this.fecha = fecha;
 	}
 }

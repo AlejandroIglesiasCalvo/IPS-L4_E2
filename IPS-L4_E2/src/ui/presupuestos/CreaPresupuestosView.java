@@ -311,9 +311,9 @@ public class CreaPresupuestosView extends JDialog {
 			btnAlex = new JButton("DemoAlex");
 			btnAlex.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					EntregasUI entregas = new EntregasUI(presController.getPresupueso());
-					entregas.setVisible(true);
-					entregas.setLocationRelativeTo(null);
+					ProductosTransporte preparados = new ProductosTransporte(presController.getPresupueso());
+					preparados.setVisible(true);
+					preparados.setLocationRelativeTo(null);
 				}
 			});
 		}
