@@ -106,11 +106,14 @@ public class CreaPresupuestoController {
 
 	/**
 	 * primero miramos si el id del presupuesto ya esta utilizado, para que se
-	 * cumpla la restriccion luego, como no tenemos en cuenta las unidades de los
-	 * productos al a�adirlas, tenemos que mirar si ya se encuentra en la base de
-	 * datos una entrada de este presupuesto con el mismo producto si es as� hacemos
-	 * un update de las unidades Si este producto no esta en el presupuesto creamos
-	 * una nueva entrada en al base de datos
+	 * <<<<<<< HEAD cumpla la restriccion luego, como no tenemos en cuenta las
+	 * unidades de los productos al a�adirlas, tenemos que mirar si ya se encuentra
+	 * en la base de datos una entrada de este presupuesto con el mismo producto si
+	 * es as� hacemos un update de las unidades Si este producto no esta en el
+	 * presupuesto creamos una nueva entrada en al base de datos ======= cumpla la
+	 * restriccion luego, luego creamos un dto de nuestro presupuesto para tenerlo
+	 * en memoria y al final a�adimos el presupuesto a la base de datos >>>>>>>
+	 * branch 'master' of https://github.com/UO247346/IPS-L4_E2.git
 	 */
 	public void crearPresupuesto() {
 		while (db.getGestionCreaPresupuesto().checkSiIdYaUtilizado(this.id)) {
@@ -120,18 +123,20 @@ public class CreaPresupuestoController {
 		añadirPresupuestoABase();
 	}
 
+	/**
+	 * a�adimos el presupuesto a la base y todas sus lineas del carrito que
+	 * contienen los productos de este presupuesto.
+	 */
 	private void añadirPresupuestoABase() {
 		db.getGestionCreaPresupuesto().CreaPresupuesto(this.id, this.total);
 		for (Producto p : productosEnPresupuesto) {
-//			if(db.getGestionCreaPresupuesto().checkYaTenemosProducto(p,this.id)) {
-//				db.getGestionCreaPresupuesto().UpdateUnidadesProducto(p,this.id);
-//			}else {
-//				db.getGestionCreaPresupuesto().CrearEntradaPresupuesto(p,this.id);
-//			}
 			db.getGestionCreaPresupuesto().CrearEntradaPresupuesto(p, this.id);
 		}
 	}
 
+	/**
+	 * creamos el presupuesto en memoria
+	 */
 	private void crearPresupuestoDto() {
 		presupuesto = new Presupuesto(this.id, 123, LocalDateTime.now(), this.total, this.productosEnPresupuesto);
 	}
@@ -184,6 +189,7 @@ public class CreaPresupuestoController {
 
 		return productosFiltrados;
 	}
+
 	public Presupuesto getPresupueso() {
 		return presupuesto;
 	}
