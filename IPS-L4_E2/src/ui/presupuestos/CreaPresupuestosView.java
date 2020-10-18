@@ -303,7 +303,7 @@ public class CreaPresupuestosView extends JDialog {
 		// hago esto para que se muestren los cambios en el panel
 		pnPreProductos.setVisible(false);
 		pnPreProductos.setVisible(true);
-	}<<<<<<<HEAD
+	}
 
 	private JButton getBtnAlex() {
 		if (btnAlex == null) {
@@ -317,7 +317,7 @@ public class CreaPresupuestosView extends JDialog {
 			});
 		}
 		return btnAlex;
-=======
+	}
 
 	private JPanel getPnFiltrar() {
 		if (pnFiltrar == null) {
@@ -498,6 +498,5 @@ public class CreaPresupuestosView extends JDialog {
 			lblNewLabel_2 = new JLabel("");
 		}
 		return lblNewLabel_2;
->>>>>>> branch 'master' of https://github.com/UO247346/IPS-L4_E2.git
 	}
 }
