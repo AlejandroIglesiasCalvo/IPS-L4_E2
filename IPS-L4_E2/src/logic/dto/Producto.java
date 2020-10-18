@@ -1,12 +1,12 @@
 package logic.dto;
 
 public class Producto {
-	private long ID;
+	private String ID;
 	private String Nombre;
 	private String Tipo;
 	private double Precio;
 
-	public Producto(long iD, String nombre, String tipo, double precio) {
+	public Producto(String iD, String nombre, String tipo, double precio) {
 		super();
 		ID = iD;
 		Nombre = nombre;
@@ -14,11 +14,11 @@ public class Producto {
 		Precio = precio;
 	}
 
-	public long getID() {
+	public String getID() {
 		return ID;
 	}
 
-	public void setID(long iD) {
+	public void setID(String iD) {
 		ID = iD;
 	}
 

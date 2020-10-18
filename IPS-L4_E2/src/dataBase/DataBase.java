@@ -6,26 +6,34 @@ import java.sql.SQLException;
 
 public class DataBase {
 	private static Connection con;
-	private static String URL = "jdbc:hsqldb:hsql://localhost:5555";
+	private static String URL = "jdbc:hsqldb:hsql://localhost:9001";
 	private static String USER = "sa";
 	private static String PASS = "";
-	//private GestionActividades gestionActividad;
-	
+	private GestionCreaPresupuesto gestionCreaPresupuesto;
+	private GestionTransporte GestionTransporte;
+
 	// Crea conexion a base de datos
 	private void setConnection() throws SQLException, ClassNotFoundException {
 		con = DriverManager.getConnection(URL, USER, PASS);
 	}
+
 	// Cierra la conexion
 	public void closeConnection() throws SQLException {
 		con.close();
 	}
+
 	public DataBase() throws SQLException, ClassNotFoundException {
 		setConnection();
-		//gestionActividad = new GestionActividades(con, this);
+		gestionCreaPresupuesto = new GestionCreaPresupuesto(con, this);
+		GestionTransporte = new GestionTransporte(con, this);
 	}
-	//Conexion de ejemplo
-//	public GestionActividades getGestionActividad() {
-//		return gestionActividad;
-//	}
-	
+
+	public GestionCreaPresupuesto getGestionCreaPresupuesto() {
+		return gestionCreaPresupuesto;
+	}
+
+	public GestionTransporte getGestionTransporte() {
+		return GestionTransporte;
+	}
+
 }
