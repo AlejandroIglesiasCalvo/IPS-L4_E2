@@ -48,21 +48,21 @@ public class CreaPresupuestosView extends JDialog {
 	private JLabel lblCatalogo;
 	private JLabel lblProductosPresupuesto;
 
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					CreaPresupuestosView window = new CreaPresupuestosView();
-//					window.frmPresupuesto.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					CreaPresupuestosView window = new CreaPresupuestosView();
+					window.frmPresupuesto.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	private CreaPresupuestoController presController = new CreaPresupuestoController();
 	private JButton btnAlex;
@@ -311,7 +311,7 @@ public class CreaPresupuestosView extends JDialog {
 			btnAlex = new JButton("DemoAlex");
 			btnAlex.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					EntregasUI entregas = new EntregasUI(presController.getPresupuesto());
+					EntregasUI entregas = new EntregasUI(presController.getPresupueso());
 					entregas.setVisible(true);
 					entregas.setLocationRelativeTo(null);
 				}

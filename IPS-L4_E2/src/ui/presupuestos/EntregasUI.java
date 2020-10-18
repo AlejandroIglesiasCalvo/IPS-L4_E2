@@ -189,9 +189,9 @@ public class EntregasUI extends JDialog {
 				(Integer) spnDia.getValue(), (Integer) spnHoras.getValue(), (Integer) spnMinutos.getValue());
 		if (valida) {
 			ec.Asignacion();
-			JOptionPane.showConfirmDialog(this, "Okki", "Okki dokki", ERROR, ERROR);
+			JOptionPane.showMessageDialog(this, "Done");
 		} else {
-			JOptionPane.showConfirmDialog(this, "Error", "Fecha no valida", JOptionPane.ERROR_MESSAGE, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Caca");
 		}
 	}
 }

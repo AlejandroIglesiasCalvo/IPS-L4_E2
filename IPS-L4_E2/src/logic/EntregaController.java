@@ -2,6 +2,7 @@ package logic;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.concurrent.ThreadLocalRandom;
 
 import dataBase.DataBase;
 import logic.dto.Presupuesto;
@@ -16,7 +17,6 @@ public class EntregaController {
 	private Repartidor repartidor;
 	private gestionFechas fecha;
 	DataBase db;
-
 
 	public EntregaController(Presupuesto presupuesto, Venta venta) {
 		super();
@@ -42,9 +42,10 @@ public class EntregaController {
 			e.printStackTrace();
 		}
 		repartidor = new Repartidor(11, "Pedro", 987654321);
-		fecha= new gestionFechas(2020, 11, 22, 17, 00);
-		trasnporte= new Transporte(598, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor);
-		venta = new Venta((long)25, fecha.getFecha(), 52.00, 6, trasnporte);
+		fecha = new gestionFechas(2020, 11, 22, 17, 00);
+		trasnporte = new Transporte(598, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor);
+		venta = new Venta((long) 25, fecha.getFecha(), 52.00, 6, trasnporte);
+		this.presupuesto = presupuesto;
 	}
 
 	/**
@@ -80,8 +81,17 @@ public class EntregaController {
 	}
 
 	public void Asignacion() {
-		Transporte transporte = new Transporte(99, presupuesto.getFecha(), presupuesto.getFecha().getHour(),
+		int id=Integer.valueOf(generateId());
+		Transporte transporte = new Transporte(id, fecha.getFecha(), fecha.getHoraEnDouble(),
 				repartidor);
 		db.getGestionTransporte().añadirTransporte(transporte, venta, repartidor, 11);
+	}
+
+	/**
+	 * metodo que genera el id del presupuesto
+	 */
+	private int generateId() {
+		int randomNum = ThreadLocalRandom.current().nextInt(10, 9999 + 1);
+		return randomNum;
 	}
 }

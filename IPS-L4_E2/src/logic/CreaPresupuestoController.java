@@ -184,15 +184,7 @@ public class CreaPresupuestoController {
 
 		return productosFiltrados;
 	}
-
-	/**
-	 * HAY QUE COMPLETARLO
-	 * 
-	 * @return presupuesto
-	 */
-	public Presupuesto getPresupuesto() {
-		this.presupuesto.setProductos(productosEnPresupuesto);
-
+	public Presupuesto getPresupueso() {
 		return presupuesto;
 	}
 
