@@ -47,7 +47,7 @@ public class EntregasUI extends JDialog {
 	 * Create the frame.
 	 */
 	//public EntregasUI(Presupuesto presupuesto, Venta venta) {
-	public EntregasUI() {
+	public EntregasUI(Presupuesto presupuesto) {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 668, 516);
 		contentPane = new JPanel();
@@ -59,7 +59,7 @@ public class EntregasUI extends JDialog {
 		contentPane.add(getPnlCentro(), BorderLayout.CENTER);
 		//
 		//ec = new EntregaController(presupuesto, venta);
-		ec = new EntregaController();//Trampas mientras no este el resto
+		ec = new EntregaController(presupuesto);//Trampas mientras no este el resto
 	}
 
 	private JLabel getLblTitulo() {

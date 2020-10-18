@@ -30,6 +30,7 @@ import javax.swing.SwingConstants;
 import logic.CreaPresupuestoController;
 import logic.dto.Producto;
 
+@SuppressWarnings("serial")
 public class CreaPresupuestosView extends JDialog {
 
 	private JFrame frmPresupuesto;
@@ -310,7 +311,7 @@ public class CreaPresupuestosView extends JDialog {
 			btnAlex = new JButton("DemoAlex");
 			btnAlex.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					EntregasUI entregas = new EntregasUI();
+					EntregasUI entregas = new EntregasUI(presController.getPresupuesto());
 					entregas.setVisible(true);
 					entregas.setLocationRelativeTo(null);
 				}

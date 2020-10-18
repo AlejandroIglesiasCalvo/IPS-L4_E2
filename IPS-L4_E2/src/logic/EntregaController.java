@@ -34,7 +34,7 @@ public class EntregaController {
 	 * Constructor con trampas mientras que no este listo el codigo que me pase los
 	 * datos que necesito
 	 */
-	public EntregaController() {
+	public EntregaController(Presupuesto presupuesto) {
 		super();
 		try {
 			db = new DataBase();
@@ -44,7 +44,6 @@ public class EntregaController {
 		repartidor = new Repartidor(11, "Pedro", 987654321);
 		fecha= new gestionFechas(2020, 11, 22, 17, 00);
 		trasnporte= new Transporte(598, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor);
-		presupuesto = new Presupuesto(11, 123456789, fecha.getFecha(), 88);
 		venta = new Venta((long)25, fecha.getFecha(), 52.00, 6, trasnporte);
 	}
 

@@ -93,7 +93,7 @@ public class CreaPresupuestoController {
 
 	/**
 	 * metodo que se encarga de hacer la addicion de un producto al presupuesto lo
-	 * añade a la lista de productos de este y suma suprecio al total
+	 * aï¿½ade a la lista de productos de este y suma suprecio al total
 	 * 
 	 * @param producto
 	 * @return
@@ -107,8 +107,8 @@ public class CreaPresupuestoController {
 	/**
 	 * primero miramos si el id del presupuesto ya esta utilizado, para que se
 	 * cumpla la restriccion luego, como no tenemos en cuenta las unidades de los
-	 * productos al añadirlas, tenemos que mirar si ya se encuentra en la base de
-	 * datos una entrada de este presupuesto con el mismo producto si es así hacemos
+	 * productos al aï¿½adirlas, tenemos que mirar si ya se encuentra en la base de
+	 * datos una entrada de este presupuesto con el mismo producto si es asï¿½ hacemos
 	 * un update de las unidades Si este producto no esta en el presupuesto creamos
 	 * una nueva entrada en al base de datos
 	 */
@@ -117,10 +117,10 @@ public class CreaPresupuestoController {
 			generateId();
 		}
 		crearPresupuestoDto();
-		añadirPresupuestoABase();
+		aÃ±adirPresupuestoABase();
 	}
 
-	private void añadirPresupuestoABase() {
+	private void aÃ±adirPresupuestoABase() {
 		db.getGestionCreaPresupuesto().CreaPresupuesto(this.id, this.total);
 		for (Producto p : productosEnPresupuesto) {
 //			if(db.getGestionCreaPresupuesto().checkYaTenemosProducto(p,this.id)) {
@@ -183,6 +183,17 @@ public class CreaPresupuestoController {
 		}
 
 		return productosFiltrados;
+	}
+
+	/**
+	 * HAY QUE COMPLETARLO
+	 * 
+	 * @return presupuesto
+	 */
+	public Presupuesto getPresupuesto() {
+		this.presupuesto.setProductos(productosEnPresupuesto);
+
+		return presupuesto;
 	}
 
 }
