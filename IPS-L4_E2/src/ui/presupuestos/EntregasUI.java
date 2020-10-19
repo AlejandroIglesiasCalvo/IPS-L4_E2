@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 import logic.EntregaController;
 import logic.dto.Presupuesto;
 import logic.dto.Repartidor;
+import javax.swing.SpinnerNumberModel;
 
 public class EntregasUI extends JDialog {
 
@@ -153,6 +154,7 @@ public class EntregasUI extends JDialog {
 	private JSpinner getSpnDia() {
 		if (spnDia == null) {
 			spnDia = new JSpinner();
+			spnDia.setModel(new SpinnerNumberModel(1, 1, 31, 1));
 		}
 		return spnDia;
 	}
@@ -160,6 +162,7 @@ public class EntregasUI extends JDialog {
 	private JSpinner getSpnMes() {
 		if (spnMes == null) {
 			spnMes = new JSpinner();
+			spnMes.setModel(new SpinnerNumberModel(1, 1, 12, 1));
 		}
 		return spnMes;
 	}
@@ -167,6 +170,7 @@ public class EntregasUI extends JDialog {
 	private JSpinner getSpnAño() {
 		if (spnaño == null) {
 			spnaño = new JSpinner();
+			spnaño.setModel(new SpinnerNumberModel(new Integer(2020), new Integer(2020), null, new Integer(1)));
 		}
 		return spnaño;
 	}
@@ -174,6 +178,7 @@ public class EntregasUI extends JDialog {
 	private JSpinner getSpnHoras() {
 		if (spnHoras == null) {
 			spnHoras = new JSpinner();
+			spnHoras.setModel(new SpinnerNumberModel(8, 8, 24, 1));
 		}
 		return spnHoras;
 	}
@@ -181,6 +186,7 @@ public class EntregasUI extends JDialog {
 	private JSpinner getSpnMinutos() {
 		if (spnMinutos == null) {
 			spnMinutos = new JSpinner();
+			spnMinutos.setModel(new SpinnerNumberModel(0, 0, 59, 1));
 		}
 		return spnMinutos;
 	}
