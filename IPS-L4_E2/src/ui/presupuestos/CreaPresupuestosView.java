@@ -65,6 +65,8 @@ public class CreaPresupuestosView extends JDialog {
 	}
 
 	private CreaPresupuestoController presController = new CreaPresupuestoController();
+	private CreaPresupuestosView window;
+	private AsignarClientePresupuestoView aCP;
 	private JButton btnAlex;
 	private JPanel pnFiltrar;
 	private JComboBox<String> cbxTipos;
@@ -83,12 +85,14 @@ public class CreaPresupuestosView extends JDialog {
 	private JLabel lblNewLabel_1;
 	private JLabel lblPrecio_1;
 	private JLabel lblNewLabel_2;
+	private JButton btnAsignarCliente;
 
 	/**
 	 * Create the application.
 	 */
 	public CreaPresupuestosView() {
 		initialize();
+		this.window = this;
 	}
 
 	/**
@@ -153,6 +157,7 @@ public class CreaPresupuestosView extends JDialog {
 			pnButtons = new JPanel();
 			pnButtons.setBackground(Color.WHITE);
 			pnButtons.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+			pnButtons.add(getBtnAsignarCliente());
 			pnButtons.add(getBtnAlex());
 			pnButtons.add(getTxtPrecioTotal());
 			pnButtons.add(getTextField());
@@ -499,5 +504,18 @@ public class CreaPresupuestosView extends JDialog {
 			lblNewLabel_2 = new JLabel("");
 		}
 		return lblNewLabel_2;
+	}
+	private JButton getBtnAsignarCliente() {
+		if (btnAsignarCliente == null) {
+			btnAsignarCliente = new JButton("Asignar Cliente");
+			btnAsignarCliente.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					aCP = new AsignarClientePresupuestoView(presController, window);
+					aCP.setModal(true);
+					aCP.setVisible(true);
+				}
+			});
+		}
+		return btnAsignarCliente;
 	}
 }

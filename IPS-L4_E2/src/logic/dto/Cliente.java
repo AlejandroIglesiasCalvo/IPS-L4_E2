@@ -4,8 +4,8 @@ public class Cliente {
 	private long ID;
 	private String Nombre;
 	private String Apellidos;
-	private double Telefono;
-	public Cliente(long iD, String nombre, String apellidos, double telefono) {
+	private int Telefono;
+	public Cliente(long iD, String nombre, String apellidos, int telefono) {
 		super();
 		ID = iD;
 		Nombre = nombre;
@@ -30,10 +30,14 @@ public class Cliente {
 	public void setApellidos(String apellidos) {
 		Apellidos = apellidos;
 	}
-	public double getTelefono() {
+	public int getTelefono() {
 		return Telefono;
 	}
-	public void setTelefono(double telefono) {
+	public void setTelefono(int telefono) {
 		Telefono = telefono;
+	}
+	
+	public String toString(){
+		return "DNI: " + ID +" Nombre: "+ Nombre +" "+ Apellidos + " Telefono: "+ Telefono +".";
 	}
 }

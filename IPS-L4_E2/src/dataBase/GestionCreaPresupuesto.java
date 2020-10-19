@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import confg.Conf;
+import logic.dto.Cliente;
 import logic.dto.Producto;
 
 public class GestionCreaPresupuesto {
@@ -64,7 +65,7 @@ public class GestionCreaPresupuesto {
 	}
 
 	/**
-	 * metodo que mira si el id del presupuesto ya está siendo utilizado en la base de datos
+	 * metodo que mira si el id del presupuesto ya estï¿½ siendo utilizado en la base de datos
 	 * devuelve true cuando hay un id igual y false cuando no
 	 * @param id
 	 * @return
@@ -201,5 +202,26 @@ public class GestionCreaPresupuesto {
 			throw new RuntimeException(e);
 		}
 	}
+	public void CreaPresupuestoConCliente(String id, Cliente c, double total) {
+		String SQL = Conf.get("SQL_CREAR_PRESUPUESTO");
+		
+		try {
+			pst = con.prepareStatement(SQL);
+			pst.setString(1, id);
+			//no hay d, por eso meto una string cualquiera
+			pst.setString(2, Long.toString(c.getID()));
+			long millis = System.currentTimeMillis();
+			pst.setDate(3, new java.sql.Date(millis));
+			pst.setString(4, Double.toString(total));
+			
+			pst.executeUpdate();
+
+			pst.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 
 }
