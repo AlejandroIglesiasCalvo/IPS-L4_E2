@@ -49,7 +49,6 @@ public class CreaPresupuestoController {
 
 	private void addTipos() {
 		tipos.add("Sin definir");
-		tipos.add("Todos productos");
 		for (Producto p : catalogo) {
 			tipos.add(p.getTipo());
 		}
@@ -93,7 +92,7 @@ public class CreaPresupuestoController {
 
 	/**
 	 * metodo que se encarga de hacer la addicion de un producto al presupuesto lo
-	 * añade a la lista de productos de este y suma suprecio al total
+	 * aï¿½ade a la lista de productos de este y suma suprecio al total
 	 * 
 	 * @param producto
 	 * @return
@@ -107,21 +106,21 @@ public class CreaPresupuestoController {
 	/**
 	 * primero miramos si el id del presupuesto ya esta utilizado, para que se
 	 * cumpla la restriccion luego, luego creamos un dto de nuestro presupuesto para
-	 * tenerlo en memoria y al final añadimos el presupuesto a la base de datos
+	 * tenerlo en memoria y al final aï¿½adimos el presupuesto a la base de datos
 	 */
 	public void crearPresupuesto() {
 		while (db.getGestionCreaPresupuesto().checkSiIdYaUtilizado(this.id)) {
 			generateId();
 		}
 		crearPresupuestoDto();
-		añadirPresupuestoABase();
+		aÃ±adirPresupuestoABase();
 	}
 
 	/**
-	 * añadimos el presupuesto a la base y todas sus lineas del carrito
+	 * aï¿½adimos el presupuesto a la base y todas sus lineas del carrito
 	 * que contienen los productos de este presupuesto.
 	 */
-	private void añadirPresupuestoABase() {
+	private void aÃ±adirPresupuestoABase() {
 		db.getGestionCreaPresupuesto().CreaPresupuesto(this.id, this.total);
 		for (Producto p : productosEnPresupuesto) {
 			db.getGestionCreaPresupuesto().CrearEntradaPresupuesto(p, this.id);
@@ -164,7 +163,7 @@ public class CreaPresupuestoController {
 	 */
 	public List<Producto> filtra(double precio, String tipo, String maxMin) {
 		List<Producto> productosFiltrados;
-		if (!tipo.equals("Todos productos")) {
+		if (!tipo.equals("Sin definir")) {
 			if (maxMin.equals("mayor")) {
 				productosFiltrados = catalogo.stream().filter(p -> p.getPrecio() > precio && p.getTipo().equals(tipo))
 						.collect(Collectors.toList());

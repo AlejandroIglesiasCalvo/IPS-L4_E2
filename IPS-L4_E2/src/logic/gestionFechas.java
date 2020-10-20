@@ -28,9 +28,9 @@ public class gestionFechas {
 	 * "00" Osea, las 4:04 am son las 04,04
 	 * 
 	 */
-	public gestionFechas(int año, int mes, int dia, int hora, int minutos) {
+	public gestionFechas(int aÃ±o, int mes, int dia, int hora, int minutos) {
 		super();
-		this.fecha = LocalDateTime.of(año, mes, dia, hora, minutos);
+		this.fecha = LocalDateTime.of(aÃ±o, mes, dia, hora, minutos);
 		this.hora = LocalTime.of(fecha.getHour(), 00);
 	}
 
