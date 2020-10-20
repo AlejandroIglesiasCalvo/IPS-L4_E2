@@ -59,6 +59,10 @@ public class gestionFechas {
 		LocalTime hora = LocalTime.of(fecha.getHour(), fecha.getMinute());
 		return hora;
 	}
+	
+	public double getHoraEnDouble() {
+		return fecha.getHour();
+	}
 
 	/** Devuelve el dia de la semana de la fecha */
 	public DayOfWeek getDiaSemana() {

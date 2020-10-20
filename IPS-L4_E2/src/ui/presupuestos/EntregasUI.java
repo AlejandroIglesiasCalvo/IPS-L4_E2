@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -18,7 +17,8 @@ import javax.swing.border.EmptyBorder;
 
 import logic.EntregaController;
 import logic.dto.Presupuesto;
-import logic.dto.Venta;
+import logic.dto.Repartidor;
+import javax.swing.SpinnerNumberModel;
 
 public class EntregasUI extends JDialog {
 
@@ -39,15 +39,16 @@ public class EntregasUI extends JDialog {
 	private EntregaController ec;
 	private JSpinner spnDia;
 	private JSpinner spnMes;
-	private JSpinner spnAño;
+	private JSpinner spnaño;
 	private JSpinner spnHoras;
 	private JSpinner spnMinutos;
 
 	/**
 	 * Create the frame.
 	 */
-	public EntregasUI(Presupuesto presupuesto, Venta venta) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	// public EntregasUI(Presupuesto presupuesto, Venta venta) {
+	public EntregasUI(Presupuesto presupuesto, Repartidor repartidor, int alli) {
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 668, 516);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -57,7 +58,10 @@ public class EntregasUI extends JDialog {
 		contentPane.add(getPnlAbajo(), BorderLayout.SOUTH);
 		contentPane.add(getPnlCentro(), BorderLayout.CENTER);
 		//
-		ec = new EntregaController(presupuesto, venta);
+		// ec = new EntregaController(presupuesto, venta);
+		ec = new EntregaController(presupuesto);// Trampas mientras no este el resto
+		ec.setRepartidor(repartidor);
+		ec.setMontar(alli);
 	}
 
 	private JLabel getLblTitulo() {
@@ -150,6 +154,7 @@ public class EntregasUI extends JDialog {
 	private JSpinner getSpnDia() {
 		if (spnDia == null) {
 			spnDia = new JSpinner();
+			spnDia.setModel(new SpinnerNumberModel(1, 1, 31, 1));
 		}
 		return spnDia;
 	}
@@ -157,20 +162,28 @@ public class EntregasUI extends JDialog {
 	private JSpinner getSpnMes() {
 		if (spnMes == null) {
 			spnMes = new JSpinner();
+			spnMes.setModel(new SpinnerNumberModel(1, 1, 12, 1));
 		}
 		return spnMes;
 	}
 
 	private JSpinner getSpnAño() {
-		if (spnAño == null) {
-			spnAño = new JSpinner();
+
+		if (spnaño == null) {
+			spnaño = new JSpinner();
+			spnaño.setModel(new SpinnerNumberModel(new Integer(2020), new Integer(2020), null, new Integer(1)));
+
 		}
-		return spnAño;
+
+
+		return spnaño;
+
 	}
 
 	private JSpinner getSpnHoras() {
 		if (spnHoras == null) {
 			spnHoras = new JSpinner();
+			spnHoras.setModel(new SpinnerNumberModel(8, 8, 24, 1));
 		}
 		return spnHoras;
 	}
@@ -178,17 +191,21 @@ public class EntregasUI extends JDialog {
 	private JSpinner getSpnMinutos() {
 		if (spnMinutos == null) {
 			spnMinutos = new JSpinner();
+			spnMinutos.setModel(new SpinnerNumberModel(0, 0, 59, 1));
 		}
 		return spnMinutos;
 	}
 
 	protected void aceptarEntrega() {
-		Boolean valida = ec.comprobarFechaYHora((Integer) spnAño.getValue(), (Integer) spnMes.getValue(),
+
+		Boolean valida = ec.comprobarFechaYHora((Integer) spnaño.getValue(), (Integer) spnMes.getValue(),
+
 				(Integer) spnDia.getValue(), (Integer) spnHoras.getValue(), (Integer) spnMinutos.getValue());
 		if (valida) {
 			ec.Asignacion();
+			JOptionPane.showMessageDialog(this, "Done");
 		} else {
-			JOptionPane.showConfirmDialog(this, "Error", "Fecha no valida", ERROR, ERROR);
+			JOptionPane.showMessageDialog(this, "Caca");
 		}
 	}
 }

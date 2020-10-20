@@ -183,4 +183,8 @@ public class CreaPresupuestoController {
 		return productosFiltrados;
 	}
 
+	public Presupuesto getPresupueso() {
+		return presupuesto;
+	}
+
 }

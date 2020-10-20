@@ -30,9 +30,8 @@ import javax.swing.SwingConstants;
 import logic.CreaPresupuestoController;
 import logic.dto.Producto;
 
-
-
-public class CreaPresupuestosView extends JDialog{
+@SuppressWarnings("serial")
+public class CreaPresupuestosView extends JDialog {
 
 	private JFrame frmPresupuesto;
 	private JPanel pnListas;
@@ -48,26 +47,25 @@ public class CreaPresupuestosView extends JDialog{
 	private JPanel pnInfo;
 	private JLabel lblCatalogo;
 	private JLabel lblProductosPresupuesto;
-	
-	
-	
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					CreaPresupuestosView window = new CreaPresupuestosView();
-//					window.frmPresupuesto.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-	
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					CreaPresupuestosView window = new CreaPresupuestosView();
+					window.frmPresupuesto.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
 	private CreaPresupuestoController presController = new CreaPresupuestoController();
+	private JButton btnAlex;
 	private JPanel pnFiltrar;
 	private JComboBox<String> cbxTipos;
 	private JSpinner spnPrecio;
@@ -106,20 +104,20 @@ public class CreaPresupuestosView extends JDialog{
 		frmPresupuesto.getContentPane().add(getPnInfo(), BorderLayout.NORTH);
 		frmPresupuesto.setBounds(100, 100, 958, 720);
 		frmPresupuesto.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//añade a la lista catalogo todos los productos
+		// aï¿½ade a la lista catalogo todos los productos
 		addCatalogo();
 		cbxTipos.setSelectedIndex(0);
 	}
 
 	/**
-	 * añade a la lista catalogo todos los productos
-	 * cada uno de estos va a estar compuesto por un panel CatalogoPanel
-	 * y estos se añadel al panel correspondiente
+	 * aï¿½ade a la lista catalogo todos los productos cada uno de estos va a estar
+	 * compuesto por un panel CatalogoPanel y estos se aï¿½adel al panel
+	 * correspondiente
 	 */
 	private void addCatalogo() {
 		List<Producto> productos = presController.getProductos();
-		for(Producto p: productos) {
-			pnCatProductos.add(new CatalogoPanel(p,pnCatProductos,this,presController));
+		for (Producto p : productos) {
+			pnCatProductos.add(new CatalogoPanel(p, pnCatProductos, this, presController));
 		}
 	}
 
@@ -133,6 +131,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return pnListas;
 	}
+
 	private JScrollPane getSpCatalogo() {
 		if (spCatalogo == null) {
 			spCatalogo = new JScrollPane();
@@ -140,6 +139,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return spCatalogo;
 	}
+
 	private JScrollPane getSpPresupuesto() {
 		if (spPresupuesto == null) {
 			spPresupuesto = new JScrollPane();
@@ -147,11 +147,13 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return spPresupuesto;
 	}
+
 	private JPanel getPnButtons() {
 		if (pnButtons == null) {
 			pnButtons = new JPanel();
 			pnButtons.setBackground(Color.WHITE);
 			pnButtons.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+			pnButtons.add(getBtnAlex());
 			pnButtons.add(getTxtPrecioTotal());
 			pnButtons.add(getTextField());
 			pnButtons.add(getBtnAceptar());
@@ -159,6 +161,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return pnButtons;
 	}
+
 	private JButton getBtnAceptar() {
 		if (btnAceptar == null) {
 			btnAceptar = new JButton("CREAR PRESUPUESTO");
@@ -175,13 +178,13 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return btnAceptar;
 	}
-	
+
 	/**
 	 * metodo para crear el presupuesto y pasar a la siguiente ventana
 	 */
 	protected void crearPresupuesto() {
 		presController.crearPresupuesto();
-		//se añadiria código aquí para ir a la pestaña siguiente
+		// se aï¿½adiria cï¿½digo aquï¿½ para ir a la pestaï¿½a siguiente
 	}
 
 	private JButton getBtnCancelar() {
@@ -198,6 +201,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return btnCancelar;
 	}
+
 	private JPanel getPnCatProductos() {
 		if (pnCatProductos == null) {
 			pnCatProductos = new JPanel();
@@ -207,6 +211,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return pnCatProductos;
 	}
+
 	private JPanel getPnPreProductos() {
 		if (pnPreProductos == null) {
 			pnPreProductos = new JPanel();
@@ -215,6 +220,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return pnPreProductos;
 	}
+
 	private JTextField getTextField() {
 		if (textField == null) {
 			textField = new JTextField();
@@ -227,6 +233,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return textField;
 	}
+
 	private JTextField getTxtPrecioTotal() {
 		if (txtPrecioTotal == null) {
 			txtPrecioTotal = new JTextField();
@@ -238,7 +245,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return txtPrecioTotal;
 	}
-	
+
 	private JPanel getPnInfo() {
 		if (pnInfo == null) {
 			pnInfo = new JPanel();
@@ -252,6 +259,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return pnInfo;
 	}
+
 	private JLabel getLblCatalogo() {
 		if (lblCatalogo == null) {
 			lblCatalogo = new JLabel("Productos cat\u00E1logo");
@@ -260,6 +268,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return lblCatalogo;
 	}
+
 	private JLabel getLblProductosPresupuesto() {
 		if (lblProductosPresupuesto == null) {
 			lblProductosPresupuesto = new JLabel("Productos a comprar");
@@ -272,26 +281,45 @@ public class CreaPresupuestosView extends JDialog{
 	public JFrame getFrame() {
 		return frmPresupuesto;
 	}
+
 	public JTextField getTxtTotal() {
 		return textField;
 	}
+
 	public JPanel getPnPresupProducts() {
 		return pnPreProductos;
 	}
+
 	public JButton getBtnCreate() {
 		return btnAceptar;
 	}
 
 	/**
-	 * metodo que añade un producto al presupuesto
+	 * metodo que aï¿½ade un producto al presupuesto
+	 * 
 	 * @param producto
 	 */
 	public void addToPresupuesto(Producto producto, CatalogoPanel cg) {
 		pnPreProductos.add(new ProductosPanel(producto, pnPreProductos, this, presController, cg));
-		//hago esto para que se muestren los cambios en el panel
+		// hago esto para que se muestren los cambios en el panel
 		pnPreProductos.setVisible(false);
 		pnPreProductos.setVisible(true);
 	}
+
+	private JButton getBtnAlex() {
+		if (btnAlex == null) {
+			btnAlex = new JButton("DemoAlex");
+			btnAlex.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					ProductosTransporte preparados = new ProductosTransporte(presController.getPresupueso());
+					preparados.setVisible(true);
+					preparados.setLocationRelativeTo(null);
+				}
+			});
+		}
+		return btnAlex;
+	}
+
 	private JPanel getPnFiltrar() {
 		if (pnFiltrar == null) {
 			pnFiltrar = new JPanel();
@@ -303,6 +331,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return pnFiltrar;
 	}
+
 	private JComboBox<String> getCbxTipos() {
 		if (cbxTipos == null) {
 			cbxTipos = new JComboBox<String>();
@@ -311,6 +340,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return cbxTipos;
 	}
+
 	private JSpinner getSpnPrecio() {
 		if (spnPrecio == null) {
 			spnPrecio = new JSpinner();
@@ -319,6 +349,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return spnPrecio;
 	}
+
 	private JPanel getPnBtns() {
 		if (pnBtns == null) {
 			pnBtns = new JPanel();
@@ -329,6 +360,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return pnBtns;
 	}
+
 	private JRadioButton getRdbtnMin() {
 		if (rdbtnMin == null) {
 			rdbtnMin = new JRadioButton("menor");
@@ -337,6 +369,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return rdbtnMin;
 	}
+
 	private JRadioButton getRdbtnMax() {
 		if (rdbtnMax == null) {
 			rdbtnMax = new JRadioButton("mayor");
@@ -346,6 +379,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return rdbtnMax;
 	}
+
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("FILTRAR");
@@ -354,15 +388,15 @@ public class CreaPresupuestosView extends JDialog{
 					double precio = (double) spnPrecio.getValue();
 					String tipo = (String) cbxTipos.getSelectedItem();
 					String maxMin;
-					if(rdbtnMax.isSelected()) {
+					if (rdbtnMax.isSelected()) {
 						maxMin = "mayor";
-					}else {
+					} else {
 						maxMin = "menor";
 					}
-					if(tipo.equals("Sin definir")|| (precio<=0 && maxMin.equals("menor"))){
+					if (tipo.equals("Sin definir") || (precio <= 0 && maxMin.equals("menor"))) {
 						JOptionPane.showMessageDialog(null, "Las opciones de filtrar son incorrectas");
 					}
-					List<Producto> filtrada = presController.filtra(precio,tipo,maxMin);
+					List<Producto> filtrada = presController.filtra(precio, tipo, maxMin);
 					ponerProductos(filtrada);
 				}
 			});
@@ -370,11 +404,11 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return btnNewButton;
 	}
-	
+
 	protected void ponerProductos(List<Producto> filtrada) {
 		pnCatProductos.removeAll();
-		for(Producto p: filtrada) {
-			pnCatProductos.add(new CatalogoPanel(p,pnCatProductos,this,presController));
+		for (Producto p : filtrada) {
+			pnCatProductos.add(new CatalogoPanel(p, pnCatProductos, this, presController));
 		}
 		pnCatProductos.setVisible(false);
 		pnCatProductos.setVisible(true);
@@ -390,6 +424,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return pnTablaInfo;
 	}
+
 	private JLabel getLblName1() {
 		if (lblName1 == null) {
 			lblName1 = new JLabel("Nombre");
@@ -399,6 +434,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return lblName1;
 	}
+
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("Tipo");
@@ -408,6 +444,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return lblNewLabel;
 	}
+
 	private JLabel getLblPrecio() {
 		if (lblPrecio == null) {
 			lblPrecio = new JLabel("Precio");
@@ -416,6 +453,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return lblPrecio;
 	}
+
 	private JPanel getPnTablaInfoCatalogo() {
 		if (pnTablaInfoCatalogo == null) {
 			pnTablaInfoCatalogo = new JPanel();
@@ -426,6 +464,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return pnTablaInfoCatalogo;
 	}
+
 	private JLabel getLblName1_1() {
 		if (lblName1_1 == null) {
 			lblName1_1 = new JLabel("Nombre");
@@ -435,6 +474,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return lblName1_1;
 	}
+
 	private JLabel getLblNewLabel_1() {
 		if (lblNewLabel_1 == null) {
 			lblNewLabel_1 = new JLabel("Tipo");
@@ -444,6 +484,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return lblNewLabel_1;
 	}
+
 	private JLabel getLblPrecio_1() {
 		if (lblPrecio_1 == null) {
 			lblPrecio_1 = new JLabel("Precio");
@@ -452,6 +493,7 @@ public class CreaPresupuestosView extends JDialog{
 		}
 		return lblPrecio_1;
 	}
+
 	private JLabel getLblNewLabel_2() {
 		if (lblNewLabel_2 == null) {
 			lblNewLabel_2 = new JLabel("");

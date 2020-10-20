@@ -2,6 +2,7 @@ package logic;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.concurrent.ThreadLocalRandom;
 
 import dataBase.DataBase;
 import logic.dto.Presupuesto;
@@ -11,22 +12,41 @@ import logic.dto.Venta;
 
 public class EntregaController {
 	private Presupuesto presupuesto;
-	private gestionFechas fecha;
-	private Repartidor repartidor;
-	DataBase db;
+	private Transporte trasnporte;
 	private Venta venta;
+	private Repartidor repartidor;
+	private gestionFechas fecha;
+	DataBase db;
+	int montar;
 
 	public EntregaController(Presupuesto presupuesto, Venta venta) {
 		super();
 		try {
 			db = new DataBase();
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.presupuesto = presupuesto;
+		this.setPresupuesto(presupuesto);
 		this.venta = venta;
-		this.repartidor = new Repartidor(0, "Pedro el disponible", 2);
+
+	}
+
+	/**
+	 * Constructor con trampas mientras que no este listo el codigo que me pase los
+	 * datos que necesito
+	 */
+	public EntregaController(Presupuesto presupuesto) {
+		super();
+		try {
+			db = new DataBase();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		fecha = new gestionFechas(2020, 11, 22, 17, 00);
+		trasnporte = new Transporte(598, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor, montar);
+		venta = new Venta((long) 25, fecha.getFecha(), 52.00, trasnporte);
+		this.setPresupuesto(presupuesto);
+
 	}
 
 	/**
@@ -62,8 +82,64 @@ public class EntregaController {
 	}
 
 	public void Asignacion() {
-		Transporte transporte = new Transporte(99, presupuesto.getFecha(), presupuesto.getFecha().getHour(),
-				repartidor);
-		db.getGestionTransporte().añadirTransporte(transporte, venta, repartidor, 2);
+		int id = Integer.valueOf(generateId());
+		Transporte transporte = new Transporte(id, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor, montar);
+		db.getGestionTransporte().añadirTransporte(transporte, venta, repartidor);
+	}
+
+	/**
+	 * metodo que genera el id del presupuesto
+	 */
+	private int generateId() {
+		int randomNum = ThreadLocalRandom.current().nextInt(10, 9999 + 1);
+		return randomNum;
+	}
+
+	public Presupuesto getPresupuesto(){
+		return presupuesto;
+	}
+
+	public void setPresupuesto(Presupuesto presupuesto) {
+		this.presupuesto = presupuesto;
+	}
+
+	public Transporte getTrasnporte() {
+		return trasnporte;
+	}
+
+	public void setTrasnporte(Transporte trasnporte) {
+		this.trasnporte = trasnporte;
+	}
+
+	public Venta getVenta() {
+		return venta;
+	}
+
+	public void setVenta(Venta venta) {
+		this.venta = venta;
+	}
+
+	public Repartidor getRepartidor() {
+		return repartidor;
+	}
+
+	public void setRepartidor(Repartidor repartidor) {
+		this.repartidor = repartidor;
+	}
+
+	public gestionFechas getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(gestionFechas fecha) {
+		this.fecha = fecha;
+	}
+
+	public int getMontar() {
+		return montar;
+	}
+
+	public void setMontar(int montar) {
+		this.montar = montar;
 	}
 }
