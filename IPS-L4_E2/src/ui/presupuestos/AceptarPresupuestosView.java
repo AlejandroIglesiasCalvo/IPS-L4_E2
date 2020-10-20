@@ -16,6 +16,7 @@ import logic.dto.Presupuesto;
 import ui.clientes.CrearClientesView;
 
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 
@@ -28,6 +29,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import java.awt.Component;
@@ -135,7 +137,7 @@ public class AceptarPresupuestosView extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					int index = getList().getSelectedIndex();
 					Presupuesto p = presupuestos.get(index);
-					
+					createVenta(p);
 				}
 			});
 		}
@@ -144,6 +146,11 @@ public class AceptarPresupuestosView extends JDialog {
 	private JButton getBtnCancelar() {
 		if (btnCancelar == null) {
 			btnCancelar = new JButton("Cancelar");
+			btnCancelar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+				}
+			});
 			btnCancelar.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		}
 		return btnCancelar;
@@ -218,8 +225,9 @@ public class AceptarPresupuestosView extends JDialog {
 		}
 		
 	}
-	
-	private void createVenta(Presupuesto p) {
 		
+	private void createVenta(Presupuesto p) {
+		aceptPresController.crearVenta(p);
+		JOptionPane.showMessageDialog(null, "Venta creada con exito");
 	}
 }
