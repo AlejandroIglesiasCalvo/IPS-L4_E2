@@ -1,21 +1,21 @@
 package logic.dto;
 
 public class Cliente {
-	private long ID;
+	private int ID;
 	private String Nombre;
 	private String Apellidos;
 	private int Telefono;
-	public Cliente(long iD, String nombre, String apellidos, int telefono) {
+	public Cliente(int iD, String nombre, String apellidos, int telefono) {
 		super();
 		ID = iD;
 		Nombre = nombre;
 		Apellidos = apellidos;
 		Telefono = telefono;
 	}
-	public long getID() {
+	public int getID() {
 		return ID;
 	}
-	public void setID(long iD) {
+	public void setID(int iD) {
 		ID = iD;
 	}
 	public String getNombre() {

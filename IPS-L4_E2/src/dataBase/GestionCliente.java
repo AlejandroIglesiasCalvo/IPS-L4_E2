@@ -10,12 +10,12 @@ import confg.Conf;
 import logic.dto.Cliente;
 import logic.dto.Producto;
 
-public class GestionCreaCliente {
+public class GestionCliente {
 	private Connection con;
 	private DataBase db;
 	
 	
-	public GestionCreaCliente(Connection con, DataBase dataBase) {
+	public GestionCliente(Connection con, DataBase dataBase) {
 			this.con = con;
 			this.db = db;
 	}
@@ -46,7 +46,7 @@ public class GestionCreaCliente {
 		PreparedStatement pst;
 		ArrayList<Cliente> list = new ArrayList<>();
 		
-		long id;
+		int id;
 		String nombre;
 		String apellidos;
 		int telefono;
@@ -58,19 +58,48 @@ public class GestionCreaCliente {
 			
 			ResultSet rs = pst.getResultSet();
 			while(rs.next()) {
-				id = Long.valueOf(rs.getString(1));
+				id = Integer.valueOf(rs.getString(1));
 				nombre = rs.getString(2);
 				apellidos = rs.getString(3);
 				telefono = Integer.valueOf(rs.getString(4));
 				c = new Cliente(id, nombre, apellidos, telefono);				
 				list.add(c);
 			}
+			rs.close();
 			pst.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 		return list;		
 	} 
+	
+	public Cliente getClienteById(int id) {
+		String SQL = Conf.get("SQL_SELECCIONAR_CLIENTE_BY_ID");
+		
+		PreparedStatement pst;
+		Cliente c = null;		
+		String nombre;
+		String apellidos;
+		int telefono;
+		
+		try {
+			pst = con.prepareStatement(SQL);
+			pst.setString(1, Long.toString(id));
+			pst.execute();
+			
+			ResultSet rs = pst.getResultSet();
+			while(rs.next()) {			
+				nombre = rs.getString(1);
+				apellidos = rs.getString(2);
+				telefono = Integer.valueOf(rs.getString(3));
+				c = new Cliente(id, nombre, apellidos, telefono);				
+			}
+			pst.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return c;		
+	}
 	
 
 }

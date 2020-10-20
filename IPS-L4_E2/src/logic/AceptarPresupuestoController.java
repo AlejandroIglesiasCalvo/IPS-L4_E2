@@ -5,12 +5,13 @@ import java.util.ArrayList;
 
 import dataBase.DataBase;
 import logic.dto.Cliente;
+import logic.dto.Presupuesto;
 
-public class CreaClienteController {
+public class AceptarPresupuestoController {
 	
 	private DataBase db;
 	
-	public CreaClienteController() {
+	public AceptarPresupuestoController() {
 		
 		try {
 			db = new DataBase();
@@ -20,15 +21,14 @@ public class CreaClienteController {
 		}		
 	}
 	
-	public void CrearNuevoCliente(Cliente c) {
-		db.getGestionCliente().CrearClienteNuevo(c);		
-	}
-	
-	public ArrayList<Cliente> showClientes(){
-		return db.getGestionCliente().getListaClientes();
-	}
+
 	public Cliente getClienteById(int id) {
 		return db.getGestionCliente().getClienteById(id);
+	}
+	
+	public ArrayList<Presupuesto> getPresupuestosValidos(){
+		
+		return db.getGestionCreaPresupuesto().getPresupuestosValidos();
 	}
 
 
