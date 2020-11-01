@@ -10,6 +10,7 @@ import java.util.List;
 
 import confg.Conf;
 import logic.dto.Producto;
+import logic.dto.ProductoCarrito;
 
 public class GestionCreaPresupuesto {
 
@@ -64,7 +65,7 @@ public class GestionCreaPresupuesto {
 	}
 
 	/**
-	 * metodo que mira si el id del presupuesto ya está siendo utilizado en la base de datos
+	 * metodo que mira si el id del presupuesto ya estï¿½ siendo utilizado en la base de datos
 	 * devuelve true cuando hay un id igual y false cuando no
 	 * @param id
 	 * @return
@@ -157,14 +158,14 @@ public class GestionCreaPresupuesto {
 	 * @param p
 	 * @param id
 	 */
-	public void CrearEntradaPresupuesto(Producto p,String id) {
+	public void CrearEntradaPresupuesto(ProductoCarrito p,String id) {
 		String SQL = Conf.get("SQL_CREA_LINEA_CARRITO");
 		
 		try {
 			pst = con.prepareStatement(SQL);
 			pst.setString(1, p.getID());
 			pst.setString(2, id);
-			pst.setInt(3, 1);
+			pst.setInt(3, p.getUnidades());
 			
 			pst.executeUpdate();
 

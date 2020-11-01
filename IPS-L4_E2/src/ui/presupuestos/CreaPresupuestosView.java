@@ -29,6 +29,7 @@ import javax.swing.SwingConstants;
 
 import logic.CreaPresupuestoController;
 import logic.dto.Producto;
+import logic.dto.ProductoCarrito;
 
 @SuppressWarnings("serial")
 public class CreaPresupuestosView extends JDialog {
@@ -294,18 +295,6 @@ public class CreaPresupuestosView extends JDialog {
 		return btnAceptar;
 	}
 
-	/**
-	 * metodo que a�ade un producto al presupuesto
-	 * 
-	 * @param producto
-	 */
-	public void addToPresupuesto(Producto producto, CatalogoPanel cg) {
-		pnPreProductos.add(new ProductosPanel(producto, pnPreProductos, this, presController, cg));
-		// hago esto para que se muestren los cambios en el panel
-		pnPreProductos.setVisible(false);
-		pnPreProductos.setVisible(true);
-	}
-
 	private JButton getBtnAlex() {
 		if (btnAlex == null) {
 			btnAlex = new JButton("DemoAlex");
@@ -499,5 +488,16 @@ public class CreaPresupuestosView extends JDialog {
 			lblNewLabel_2 = new JLabel("");
 		}
 		return lblNewLabel_2;
+	}
+
+	public void updatePresupuesto() {
+		pnPreProductos.removeAll();
+		for (ProductoCarrito p : presController.getProductosEnPresupuesto()) {
+			pnPreProductos.add(new ProductosPanel(p, pnPreProductos, this, presController));
+		}
+		// hago esto para que se muestren los cambios en el panel
+		pnPreProductos.setVisible(false);
+		pnPreProductos.setVisible(true);
+
 	}
 }

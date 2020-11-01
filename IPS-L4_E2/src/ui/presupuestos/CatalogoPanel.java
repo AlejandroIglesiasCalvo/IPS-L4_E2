@@ -83,8 +83,7 @@ public class CatalogoPanel extends JPanel {
 	protected void añadirProducto() {
 		creaPresupuesto.getTxtTotal().setText(presController.updateTotalAddProduct(producto));
 		creaPresupuesto.getBtnCreate().setEnabled(true);
-		creaPresupuesto.addToPresupuesto(producto,this);
-		this.btnAadir.setEnabled(false);
+		creaPresupuesto.updatePresupuesto();
 	}
 	
 	private JLabel getLblTipo() {

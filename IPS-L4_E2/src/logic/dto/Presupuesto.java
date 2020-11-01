@@ -10,23 +10,23 @@ public class Presupuesto {
 	private int DNI_Cliente;
 	private LocalDateTime fecha;
 	private double precio;
-	private List<Producto> productos = new ArrayList<>();
+	private List<ProductoCarrito> productos = new ArrayList<>();
 
 	public Presupuesto(String iD_Presupuesto, int dNI_Cliente, LocalDateTime fecha, double precio,
-			List<Producto> productos) {
+			List<ProductoCarrito> productosEnPresupuesto) {
 		super();
 		ID_Presupuesto = iD_Presupuesto;
 		DNI_Cliente = dNI_Cliente;
 		this.fecha = fecha;
 		this.precio = precio;
-		this.productos = productos;
+		this.productos = productosEnPresupuesto;
 	}
 
-	public List<Producto> getProductos() {
+	public List<ProductoCarrito> getProductos() {
 		return productos;
 	}
 
-	public void setProductos(List<Producto> productos) {
+	public void setProductos(List<ProductoCarrito> productos) {
 		this.productos = productos;
 	}
 

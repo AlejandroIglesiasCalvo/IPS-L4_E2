@@ -23,6 +23,7 @@ import logic.EntregaController;
 import logic.Repartidores;
 import logic.dto.Presupuesto;
 import logic.dto.Producto;
+import logic.dto.ProductoCarrito;
 import logic.dto.Repartidor;
 
 import java.awt.GridLayout;
@@ -162,7 +163,7 @@ public class ProductosTransporte extends JFrame {
 		return model;
 	}
 
-	private List<Producto> getListaProductosTienda() {
+	private List<ProductoCarrito> getListaProductosTienda() {
 		return presupuesto.getProductos();
 	}
 

@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import dataBase.DataBase;
 import logic.dto.Presupuesto;
 import logic.dto.Producto;
+import logic.dto.ProductoCarrito;
 
 public class CreaPresupuestoController {
 
@@ -19,7 +20,7 @@ public class CreaPresupuestoController {
 
 	private double total = 0.0;
 
-	private List<Producto> productosEnPresupuesto;
+	private List<ProductoCarrito> productosEnPresupuesto;
 
 	private List<Producto> catalogo;
 
@@ -85,7 +86,15 @@ public class CreaPresupuestoController {
 	 * @return
 	 */
 	public String updateTotalEliminarProduct(Producto producto) {
-		productosEnPresupuesto.remove(producto);
+		for (int i = 0; i < productosEnPresupuesto.size(); i++) {
+			if (productosEnPresupuesto.get(i).getID().equals(producto.getID())) {
+				if (productosEnPresupuesto.get(i).getUnidades() - 1 > 0) {
+					productosEnPresupuesto.get(i).setUnidades(productosEnPresupuesto.get(i).getUnidades() - 1);
+				} else {
+					productosEnPresupuesto.remove(i);
+				}
+			}
+		}
 		total -= producto.getPrecio();
 		return Double.toString(total);
 	}
@@ -98,7 +107,16 @@ public class CreaPresupuestoController {
 	 * @return
 	 */
 	public String updateTotalAddProduct(Producto producto) {
-		productosEnPresupuesto.add(producto);
+		boolean updated = false;
+		for (int i = 0; i < productosEnPresupuesto.size(); i++) {
+			if (productosEnPresupuesto.get(i).getID().equals(producto.getID())) {
+				updated = true;
+				productosEnPresupuesto.get(i).setUnidades(productosEnPresupuesto.get(i).getUnidades() + 1);
+			}
+		}
+		if(!updated) {
+			productosEnPresupuesto.add(new ProductoCarrito(producto));
+		}
 		total += producto.getPrecio();
 		return Double.toString(total);
 	}
@@ -117,12 +135,12 @@ public class CreaPresupuestoController {
 	}
 
 	/**
-	 * a�adimos el presupuesto a la base y todas sus lineas del carrito
-	 * que contienen los productos de este presupuesto.
+	 * a�adimos el presupuesto a la base y todas sus lineas del carrito que
+	 * contienen los productos de este presupuesto.
 	 */
 	private void añadirPresupuestoABase() {
 		db.getGestionCreaPresupuesto().CreaPresupuesto(this.id, this.total);
-		for (Producto p : productosEnPresupuesto) {
+		for (ProductoCarrito p : productosEnPresupuesto) {
 			db.getGestionCreaPresupuesto().CrearEntradaPresupuesto(p, this.id);
 		}
 	}
@@ -185,6 +203,10 @@ public class CreaPresupuestoController {
 
 	public Presupuesto getPresupueso() {
 		return presupuesto;
+	}
+
+	public List<ProductoCarrito> getProductosEnPresupuesto() {
+		return productosEnPresupuesto;
 	}
 
 }
