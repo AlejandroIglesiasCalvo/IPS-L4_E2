@@ -25,7 +25,6 @@ import javax.swing.border.EmptyBorder;
 import logic.EntregaController;
 import logic.Repartidores;
 import logic.dto.Presupuesto;
-import logic.dto.Producto;
 import logic.dto.ProductoCarrito;
 import logic.dto.Repartidor;
 
@@ -38,7 +37,7 @@ public class ProductosTransporte extends JFrame {
 	private JPanel pnlSur;
 	private JButton btnAceptar;
 	private JPanel pnlCentro;
-	private JPanel pnlProductos;
+	private JPanel pnlProductoCarritos;
 	private JPanel pnlRepartidor;
 	private JScrollPane scrollTienda;
 
@@ -54,9 +53,9 @@ public class ProductosTransporte extends JFrame {
 	private JScrollPane scrollRepartir;
 	private JScrollPane scrollMontarEnCasa;
 	private JButton btnMontar;
-	private List<Producto> Tienda;
-	private List<Producto> LLevar = new ArrayList<>();
-	private List<Producto> Montar = new ArrayList<>();
+	private List<ProductoCarrito> Tienda;
+	private List<ProductoCarrito> LLevar = new ArrayList<>();
+	private List<ProductoCarrito> Montar = new ArrayList<>();
 
 	/**
 	 * Create the frame.
@@ -126,24 +125,24 @@ public class ProductosTransporte extends JFrame {
 		if (pnlCentro == null) {
 			pnlCentro = new JPanel();
 			pnlCentro.setLayout(new GridLayout(0, 1, 0, 0));
-			pnlCentro.add(getPnlProductos());
+			pnlCentro.add(getPnlProductoCarritos());
 			pnlCentro.add(getPnlRepartidor());
 		}
 		return pnlCentro;
 	}
 
-	private JPanel getPnlProductos() {
-		if (pnlProductos == null) {
-			pnlProductos = new JPanel();
-			pnlProductos.setLayout(new GridLayout(0, 5, 0, 0));
-			pnlProductos.add(getScrollTienda());
-			pnlProductos.add(getBtnLLevar());
-			pnlProductos.add(getScrollRepartir());
-			pnlProductos.add(getBtnMontar());
-			pnlProductos.add(getScrollMontarEnCasa());
+	private JPanel getPnlProductoCarritos() {
+		if (pnlProductoCarritos == null) {
+			pnlProductoCarritos = new JPanel();
+			pnlProductoCarritos.setLayout(new GridLayout(0, 5, 0, 0));
+			pnlProductoCarritos.add(getScrollTienda());
+			pnlProductoCarritos.add(getBtnLLevar());
+			pnlProductoCarritos.add(getScrollRepartir());
+			pnlProductoCarritos.add(getBtnMontar());
+			pnlProductoCarritos.add(getScrollMontarEnCasa());
 
 		}
-		return pnlProductos;
+		return pnlProductoCarritos;
 	}
 
 	private JPanel getPnlRepartidor() {
@@ -177,19 +176,15 @@ public class ProductosTransporte extends JFrame {
 
 	private DefaultListModel<String> modelListTienda() {
 		DefaultListModel<String> model = new DefaultListModel<String>();
-		for (Producto or : getListaProductosTienda())
+		for (ProductoCarrito or : getListaProductoCarritosTienda())
 			model.addElement(or.getNombre());
 		return model;
 	}
 
-<<<<<<< HEAD
-	private List<Producto> getListaProductosTienda() {
+	private List<ProductoCarrito> getListaProductoCarritosTienda() {
 		Tienda = presupuesto.getProductos();
 		return Tienda;
-=======
-	private List<ProductoCarrito> getListaProductosTienda() {
-		return presupuesto.getProductos();
->>>>>>> branch 'master' of https://github.com/UO247346/IPS-L4_E2.git
+
 	}
 
 	private JButton getBtnLLevar() {
@@ -202,16 +197,16 @@ public class ProductosTransporte extends JFrame {
 					try {
 						if ((listTienda.getSelectedIndex()) > -1) {
 							List<String> llevar = listTienda.getSelectedValuesList();
-							List<Producto> tmp = new ArrayList<>();
+							List<ProductoCarrito> tmp = new ArrayList<>();
 							for (int x = 0; x < llevar.size(); x++) {
-								for (Producto p : Tienda) {
+								for (ProductoCarrito p : Tienda) {
 									if (llevar.get(x).equals(p.getNombre())) {
 										LLevar.add(p);
 										tmp.add(p);
 									}
 								}
 							}
-							for (Producto p : tmp) {
+							for (ProductoCarrito p : tmp) {
 								Tienda.remove(p);
 							}
 							getListTienda().setModel(modelListTienda());
@@ -222,7 +217,7 @@ public class ProductosTransporte extends JFrame {
 						}
 
 					} catch (NullPointerException ef) {
-						JOptionPane.showMessageDialog(null, "Seleccione un producto");
+						JOptionPane.showMessageDialog(null, "Seleccione un ProductoCarrito");
 					}
 				}
 
@@ -300,12 +295,12 @@ public class ProductosTransporte extends JFrame {
 
 	private DefaultListModel<String> modelListRepartir() {
 		DefaultListModel<String> model = new DefaultListModel<String>();
-		for (Producto or : getProductosRepartir())
+		for (ProductoCarrito or : getProductoCarritosRepartir())
 			model.addElement(or.getNombre());
 		return model;
 	}
 
-	private List<Producto> getProductosRepartir() {
+	private List<ProductoCarrito> getProductoCarritosRepartir() {
 		return LLevar;
 	}
 
@@ -320,12 +315,12 @@ public class ProductosTransporte extends JFrame {
 
 	private DefaultListModel<String> modelListMontar() {
 		DefaultListModel<String> model = new DefaultListModel<String>();
-		for (Producto or : getProductosMontar())
+		for (ProductoCarrito or : getProductoCarritosMontar())
 			model.addElement(or.getNombre());
 		return model;
 	}
 
-	private List<Producto> getProductosMontar() {
+	private List<ProductoCarrito> getProductoCarritosMontar() {
 		return Montar;
 	}
 
@@ -338,16 +333,16 @@ public class ProductosTransporte extends JFrame {
 					try {
 						if ((listRepartir.getSelectedIndex()) > -1) {
 							List<String> montar = listRepartir.getSelectedValuesList();
-							List<Producto> tmp = new ArrayList<>();
+							List<ProductoCarrito> tmp = new ArrayList<>();
 							for (int x = 0; x < montar.size(); x++) {
-								for (Producto p : LLevar) {
+								for (ProductoCarrito p : LLevar) {
 									if (montar.get(x).equals(p.getNombre())) {
 										Montar.add(p);
 										tmp.add(p);
 									}
 								}
 							}
-							for (Producto p : tmp) {
+							for (ProductoCarrito p : tmp) {
 								LLevar.remove(p);
 							}
 							getListaRepartir().setModel(modelListRepartir());
@@ -358,7 +353,7 @@ public class ProductosTransporte extends JFrame {
 						}
 
 					} catch (NullPointerException ef) {
-						JOptionPane.showMessageDialog(null, "Seleccione un producto");
+						JOptionPane.showMessageDialog(null, "Seleccione un Producto");
 					}
 				}
 			});

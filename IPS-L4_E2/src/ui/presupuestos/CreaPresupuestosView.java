@@ -86,11 +86,8 @@ public class CreaPresupuestosView extends JDialog {
 	private JLabel lblTipo;
 	private JLabel lblPrecio_1;
 	private JLabel lblNewLabel_2;
-<<<<<<< HEAD
 	private JButton btnAsignarCliente;
-=======
 	private JLabel lblUnidades;
->>>>>>> branch 'master' of https://github.com/UO247346/IPS-L4_E2.git
 
 	/**
 	 * Create the application.
@@ -499,7 +496,7 @@ public class CreaPresupuestosView extends JDialog {
 		}
 		return lblNewLabel_2;
 	}
-<<<<<<< HEAD
+
 	private JButton getBtnAsignarCliente() {
 		if (btnAsignarCliente == null) {
 			btnAsignarCliente = new JButton("Asignar Cliente");
@@ -512,7 +509,7 @@ public class CreaPresupuestosView extends JDialog {
 			});
 		}
 		return btnAsignarCliente;
-=======
+	}
 
 	public void updatePresupuesto() {
 		pnPreProductos.removeAll();
@@ -524,6 +521,7 @@ public class CreaPresupuestosView extends JDialog {
 		pnPreProductos.setVisible(true);
 
 	}
+
 	private JLabel getLblUnidades() {
 		if (lblUnidades == null) {
 			lblUnidades = new JLabel("Unidades");
@@ -531,6 +529,6 @@ public class CreaPresupuestosView extends JDialog {
 			lblUnidades.setHorizontalAlignment(SwingConstants.CENTER);
 		}
 		return lblUnidades;
->>>>>>> branch 'master' of https://github.com/UO247346/IPS-L4_E2.git
+
 	}
 }
