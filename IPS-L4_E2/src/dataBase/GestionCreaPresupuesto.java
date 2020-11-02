@@ -17,6 +17,7 @@ import confg.Conf;
 import logic.dto.Cliente;
 import logic.dto.Presupuesto;
 import logic.dto.Producto;
+import logic.dto.ProductoCarrito;
 
 public class GestionCreaPresupuesto {
 
@@ -164,14 +165,14 @@ public class GestionCreaPresupuesto {
 	 * @param p
 	 * @param id
 	 */
-	public void CrearEntradaPresupuesto(Producto p,String id) {
+	public void CrearEntradaPresupuesto(ProductoCarrito p,String id) {
 		String SQL = Conf.get("SQL_CREA_LINEA_CARRITO");
 		
 		try {
 			pst = con.prepareStatement(SQL);
 			pst.setString(1, p.getID());
 			pst.setString(2, id);
-			pst.setInt(3, 1);
+			pst.setInt(3, p.getUnidades());
 			
 			pst.executeUpdate();
 

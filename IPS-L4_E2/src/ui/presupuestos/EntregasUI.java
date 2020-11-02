@@ -168,11 +168,16 @@ public class EntregasUI extends JDialog {
 	}
 
 	private JSpinner getSpnAño() {
+
 		if (spnaño == null) {
 			spnaño = new JSpinner();
 			spnaño.setModel(new SpinnerNumberModel(new Integer(2020), new Integer(2020), null, new Integer(1)));
+
 		}
+
+
 		return spnaño;
+
 	}
 
 	private JSpinner getSpnHoras() {
@@ -192,7 +197,9 @@ public class EntregasUI extends JDialog {
 	}
 
 	protected void aceptarEntrega() {
+
 		Boolean valida = ec.comprobarFechaYHora((Integer) spnaño.getValue(), (Integer) spnMes.getValue(),
+
 				(Integer) spnDia.getValue(), (Integer) spnHoras.getValue(), (Integer) spnMinutos.getValue());
 		if (valida) {
 			if (ec.Asignacion()) {

@@ -109,7 +109,7 @@ public class EntregaController {
 		return randomNum;
 	}
 
-	public Presupuesto getPresupuesto() {
+	public Presupuesto getPresupuesto(){
 		return presupuesto;
 	}
 

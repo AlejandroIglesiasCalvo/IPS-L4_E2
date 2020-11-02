@@ -8,6 +8,7 @@ import java.sql.Statement;
 
 import confg.Conf;
 import logic.gestionFechas;
+import logic.dto.Producto;
 import logic.dto.Repartidor;
 import logic.dto.Transporte;
 import logic.dto.Venta;

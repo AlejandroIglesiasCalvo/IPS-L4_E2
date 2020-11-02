@@ -13,6 +13,7 @@ import dataBase.DataBase;
 import logic.dto.Cliente;
 import logic.dto.Presupuesto;
 import logic.dto.Producto;
+import logic.dto.ProductoCarrito;
 
 public class CreaPresupuestoController {
 
@@ -20,7 +21,7 @@ public class CreaPresupuestoController {
 
 	private double total = 0.0;
 
-	private List<Producto> productosEnPresupuesto;
+	private List<ProductoCarrito> productosEnPresupuesto;
 
 	private List<Producto> catalogo;
 
@@ -53,7 +54,6 @@ public class CreaPresupuestoController {
 
 	private void addTipos() {
 		tipos.add("Sin definir");
-		tipos.add("Todos productos");
 		for (Producto p : catalogo) {
 			tipos.add(p.getTipo());
 		}
@@ -90,7 +90,15 @@ public class CreaPresupuestoController {
 	 * @return
 	 */
 	public String updateTotalEliminarProduct(Producto producto) {
-		productosEnPresupuesto.remove(producto);
+		for (int i = 0; i < productosEnPresupuesto.size(); i++) {
+			if (productosEnPresupuesto.get(i).getID().equals(producto.getID())) {
+				if (productosEnPresupuesto.get(i).getUnidades() - 1 > 0) {
+					productosEnPresupuesto.get(i).setUnidades(productosEnPresupuesto.get(i).getUnidades() - 1);
+				} else {
+					productosEnPresupuesto.remove(i);
+				}
+			}
+		}
 		total -= producto.getPrecio();
 		return Double.toString(total);
 	}
@@ -103,21 +111,24 @@ public class CreaPresupuestoController {
 	 * @return
 	 */
 	public String updateTotalAddProduct(Producto producto) {
-		productosEnPresupuesto.add(producto);
+		boolean updated = false;
+		for (int i = 0; i < productosEnPresupuesto.size(); i++) {
+			if (productosEnPresupuesto.get(i).getID().equals(producto.getID())) {
+				updated = true;
+				productosEnPresupuesto.get(i).setUnidades(productosEnPresupuesto.get(i).getUnidades() + 1);
+			}
+		}
+		if(!updated) {
+			productosEnPresupuesto.add(new ProductoCarrito(producto));
+		}
 		total += producto.getPrecio();
 		return Double.toString(total);
 	}
 
 	/**
 	 * primero miramos si el id del presupuesto ya esta utilizado, para que se
-	 * <<<<<<< HEAD cumpla la restriccion luego, como no tenemos en cuenta las
-	 * unidades de los productos al a�adirlas, tenemos que mirar si ya se encuentra
-	 * en la base de datos una entrada de este presupuesto con el mismo producto si
-	 * es as� hacemos un update de las unidades Si este producto no esta en el
-	 * presupuesto creamos una nueva entrada en al base de datos ======= cumpla la
-	 * restriccion luego, luego creamos un dto de nuestro presupuesto para tenerlo
-	 * en memoria y al final a�adimos el presupuesto a la base de datos >>>>>>>
-	 * branch 'master' of https://github.com/UO247346/IPS-L4_E2.git
+	 * cumpla la restriccion luego, luego creamos un dto de nuestro presupuesto para
+	 * tenerlo en memoria y al final a�adimos el presupuesto a la base de datos
 	 */
 	public void crearPresupuesto() {
 		while (db.getGestionCreaPresupuesto().checkSiIdYaUtilizado(this.id)) {
@@ -132,12 +143,17 @@ public class CreaPresupuestoController {
 	 * contienen los productos de este presupuesto.
 	 */
 	private void añadirPresupuestoABase() {
+<<<<<<< HEAD
 		if(this.cliente != null) {
 			db.getGestionCreaPresupuesto().CreaPresupuestoConCliente(this.id, this.cliente, this.total);
 		}else {
 			db.getGestionCreaPresupuesto().CreaPresupuesto(this.id, this.total);
 		}
 		for (Producto p : productosEnPresupuesto) {
+=======
+		db.getGestionCreaPresupuesto().CreaPresupuesto(this.id, this.total);
+		for (ProductoCarrito p : productosEnPresupuesto) {
+>>>>>>> branch 'master' of https://github.com/UO247346/IPS-L4_E2.git
 			db.getGestionCreaPresupuesto().CrearEntradaPresupuesto(p, this.id);
 		}
 	}
@@ -178,7 +194,7 @@ public class CreaPresupuestoController {
 	 */
 	public List<Producto> filtra(double precio, String tipo, String maxMin) {
 		List<Producto> productosFiltrados;
-		if (!tipo.equals("Todos productos")) {
+		if (!tipo.equals("Sin definir")) {
 			if (maxMin.equals("mayor")) {
 				productosFiltrados = catalogo.stream().filter(p -> p.getPrecio() > precio && p.getTipo().equals(tipo))
 						.collect(Collectors.toList());
@@ -204,6 +220,10 @@ public class CreaPresupuestoController {
 	
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public List<ProductoCarrito> getProductosEnPresupuesto() {
+		return productosEnPresupuesto;
 	}
 
 }

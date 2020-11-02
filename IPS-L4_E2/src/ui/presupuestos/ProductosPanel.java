@@ -13,6 +13,8 @@ import javax.swing.SwingConstants;
 
 import logic.CreaPresupuestoController;
 import logic.dto.Producto;
+import logic.dto.ProductoCarrito;
+
 import java.awt.Dimension;
 
 
@@ -25,29 +27,30 @@ public class ProductosPanel extends JPanel {
 	private JLabel lblName;
 	private JPanel container;
 	private JButton btnEliminiar;
-	private Producto producto;
+	private ProductoCarrito producto;
 	private CreaPresupuestosView creaPresupuesto;
 	private CreaPresupuestoController presController;
 	private JLabel lblTipo;
 	private JLabel lblPrecio;
-	private CatalogoPanel cg;
+	private JLabel lblUnidades;
 
 
-	public ProductosPanel(Producto p, JPanel container, CreaPresupuestosView creaPresupuesto, CreaPresupuestoController presController, CatalogoPanel cg) {
+	public ProductosPanel(ProductoCarrito p, JPanel container, CreaPresupuestosView creaPresupuesto, CreaPresupuestoController presController) {
 		setBackground(Color.WHITE);
 		this.container = container;
 		this.producto = p;
 		this.creaPresupuesto = creaPresupuesto;
 		this.presController = presController;
-		this.cg = cg;
-		setLayout(new GridLayout(0, 4, 0, 0));
+		setLayout(new GridLayout(0, 5, 0, 0));
 		add(getLblName());
 		add(getLblTipo());
 		add(getLblPrecio());
+		add(getLblUnidades());
 		add(getBtnEliminar());
 		getLblName().setText(p.getNombre());
 		getLblTipo().setText(p.getTipo());
 		getLblPrecio().setText(Double.toString(p.getPrecio()));
+		getLblUnidades().setText(Integer.toString(p.getUnidades()));
 		this.setVisible(true);
 	}
 
@@ -70,7 +73,7 @@ public class ProductosPanel extends JPanel {
 			});
 			btnEliminiar.setToolTipText((String) null);
 			btnEliminiar.setForeground(Color.BLACK);
-			btnEliminiar.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			btnEliminiar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			btnEliminiar.setBackground(Color.ORANGE);
 		}
 		return btnEliminiar;
@@ -78,7 +81,7 @@ public class ProductosPanel extends JPanel {
 
 	/**
 	 * metodo que elimina un producto del presupuesto, mira si despues de eliminar el producto
-	 * queda alguno y si no es así desabilita el botón de crear presupuesto
+	 * queda alguno y si no es asï¿½ desabilita el botï¿½n de crear presupuesto
 	 */
 	protected void eliminarProducto() {
 		creaPresupuesto.getTxtTotal().setText(presController.updateTotalEliminarProduct(producto));
@@ -87,8 +90,7 @@ public class ProductosPanel extends JPanel {
 		if(!presController.hasProductosEnCompra()) {
 			creaPresupuesto.getBtnCreate().setEnabled(false);
 		}
-		container.remove(this);
-		cg.getBtnAniadir().setEnabled(true);
+		creaPresupuesto.updatePresupuesto();
 		//hago esto para que se muestren los cambios en el panel
 		container.setVisible(false);
 		container.setVisible(true);
@@ -108,5 +110,13 @@ public class ProductosPanel extends JPanel {
 			lblPrecio.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		}
 		return lblPrecio;
+	}
+	private JLabel getLblUnidades() {
+		if (lblUnidades == null) {
+			lblUnidades = new JLabel("0.0");
+			lblUnidades.setHorizontalAlignment(SwingConstants.CENTER);
+			lblUnidades.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		}
+		return lblUnidades;
 	}
 }

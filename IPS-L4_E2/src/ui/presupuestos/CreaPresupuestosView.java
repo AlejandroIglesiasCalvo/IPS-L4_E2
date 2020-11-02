@@ -29,6 +29,7 @@ import javax.swing.SwingConstants;
 
 import logic.CreaPresupuestoController;
 import logic.dto.Producto;
+import logic.dto.ProductoCarrito;
 
 @SuppressWarnings("serial")
 public class CreaPresupuestosView extends JDialog {
@@ -81,11 +82,15 @@ public class CreaPresupuestosView extends JDialog {
 	private JLabel lblNewLabel;
 	private JLabel lblPrecio;
 	private JPanel pnTablaInfoCatalogo;
-	private JLabel lblName1_1;
-	private JLabel lblNewLabel_1;
+	private JLabel lblNombre2;
+	private JLabel lblTipo;
 	private JLabel lblPrecio_1;
 	private JLabel lblNewLabel_2;
+<<<<<<< HEAD
 	private JButton btnAsignarCliente;
+=======
+	private JLabel lblUnidades;
+>>>>>>> branch 'master' of https://github.com/UO247346/IPS-L4_E2.git
 
 	/**
 	 * Create the application.
@@ -299,18 +304,6 @@ public class CreaPresupuestosView extends JDialog {
 		return btnAceptar;
 	}
 
-	/**
-	 * metodo que a�ade un producto al presupuesto
-	 * 
-	 * @param producto
-	 */
-	public void addToPresupuesto(Producto producto, CatalogoPanel cg) {
-		pnPreProductos.add(new ProductosPanel(producto, pnPreProductos, this, presController, cg));
-		// hago esto para que se muestren los cambios en el panel
-		pnPreProductos.setVisible(false);
-		pnPreProductos.setVisible(true);
-	}
-
 	private JButton getBtnAlex() {
 		if (btnAlex == null) {
 			btnAlex = new JButton("DemoAlex");
@@ -462,32 +455,33 @@ public class CreaPresupuestosView extends JDialog {
 	private JPanel getPnTablaInfoCatalogo() {
 		if (pnTablaInfoCatalogo == null) {
 			pnTablaInfoCatalogo = new JPanel();
-			pnTablaInfoCatalogo.setLayout(new GridLayout(0, 4, 0, 0));
-			pnTablaInfoCatalogo.add(getLblName1_1());
-			pnTablaInfoCatalogo.add(getLblNewLabel_1());
+			pnTablaInfoCatalogo.setLayout(new GridLayout(0, 5, 0, 0));
+			pnTablaInfoCatalogo.add(getLblNombre2());
+			pnTablaInfoCatalogo.add(getLblTipo());
 			pnTablaInfoCatalogo.add(getLblPrecio_1());
+			pnTablaInfoCatalogo.add(getLblUnidades());
 		}
 		return pnTablaInfoCatalogo;
 	}
 
-	private JLabel getLblName1_1() {
-		if (lblName1_1 == null) {
-			lblName1_1 = new JLabel("Nombre");
-			lblName1_1.setHorizontalAlignment(SwingConstants.CENTER);
-			lblName1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-			lblName1_1.setBackground(Color.WHITE);
+	private JLabel getLblNombre2() {
+		if (lblNombre2 == null) {
+			lblNombre2 = new JLabel("Nombre");
+			lblNombre2.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNombre2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			lblNombre2.setBackground(Color.WHITE);
 		}
-		return lblName1_1;
+		return lblNombre2;
 	}
 
-	private JLabel getLblNewLabel_1() {
-		if (lblNewLabel_1 == null) {
-			lblNewLabel_1 = new JLabel("Tipo");
-			lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-			lblNewLabel_1.setBackground(Color.WHITE);
+	private JLabel getLblTipo() {
+		if (lblTipo == null) {
+			lblTipo = new JLabel("Tipo");
+			lblTipo.setHorizontalAlignment(SwingConstants.CENTER);
+			lblTipo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			lblTipo.setBackground(Color.WHITE);
 		}
-		return lblNewLabel_1;
+		return lblTipo;
 	}
 
 	private JLabel getLblPrecio_1() {
@@ -505,6 +499,7 @@ public class CreaPresupuestosView extends JDialog {
 		}
 		return lblNewLabel_2;
 	}
+<<<<<<< HEAD
 	private JButton getBtnAsignarCliente() {
 		if (btnAsignarCliente == null) {
 			btnAsignarCliente = new JButton("Asignar Cliente");
@@ -517,5 +512,25 @@ public class CreaPresupuestosView extends JDialog {
 			});
 		}
 		return btnAsignarCliente;
+=======
+
+	public void updatePresupuesto() {
+		pnPreProductos.removeAll();
+		for (ProductoCarrito p : presController.getProductosEnPresupuesto()) {
+			pnPreProductos.add(new ProductosPanel(p, pnPreProductos, this, presController));
+		}
+		// hago esto para que se muestren los cambios en el panel
+		pnPreProductos.setVisible(false);
+		pnPreProductos.setVisible(true);
+
+	}
+	private JLabel getLblUnidades() {
+		if (lblUnidades == null) {
+			lblUnidades = new JLabel("Unidades");
+			lblUnidades.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			lblUnidades.setHorizontalAlignment(SwingConstants.CENTER);
+		}
+		return lblUnidades;
+>>>>>>> branch 'master' of https://github.com/UO247346/IPS-L4_E2.git
 	}
 }

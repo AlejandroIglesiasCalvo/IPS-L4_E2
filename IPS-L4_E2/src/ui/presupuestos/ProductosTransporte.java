@@ -26,6 +26,7 @@ import logic.EntregaController;
 import logic.Repartidores;
 import logic.dto.Presupuesto;
 import logic.dto.Producto;
+import logic.dto.ProductoCarrito;
 import logic.dto.Repartidor;
 
 @SuppressWarnings("serial")
@@ -181,9 +182,14 @@ public class ProductosTransporte extends JFrame {
 		return model;
 	}
 
+<<<<<<< HEAD
 	private List<Producto> getListaProductosTienda() {
 		Tienda = presupuesto.getProductos();
 		return Tienda;
+=======
+	private List<ProductoCarrito> getListaProductosTienda() {
+		return presupuesto.getProductos();
+>>>>>>> branch 'master' of https://github.com/UO247346/IPS-L4_E2.git
 	}
 
 	private JButton getBtnLLevar() {
