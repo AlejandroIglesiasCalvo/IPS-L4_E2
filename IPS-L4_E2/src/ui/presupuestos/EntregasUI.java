@@ -192,7 +192,7 @@ public class EntregasUI extends JDialog {
 			ec.Asignacion();
 			JOptionPane.showMessageDialog(this, "Done");
 		} else {
-			JOptionPane.showMessageDialog(this, "Caca");
+			JOptionPane.showMessageDialog(this, "Fecha no valida");
 		}
 	}
 }

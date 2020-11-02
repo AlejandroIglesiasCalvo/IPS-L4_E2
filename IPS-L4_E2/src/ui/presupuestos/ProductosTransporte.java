@@ -26,6 +26,7 @@ import logic.dto.Producto;
 import logic.dto.Repartidor;
 
 import java.awt.GridLayout;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class ProductosTransporte extends JFrame {
@@ -48,6 +49,7 @@ public class ProductosTransporte extends JFrame {
 	private JScrollPane scrollRepartidor;
 	private JList<String> listRepartidores;
 	private Repartidores r;
+	private JLabel lblRepartidores;
 
 	/**
 	 * Create the frame.
@@ -195,6 +197,8 @@ public class ProductosTransporte extends JFrame {
 	private JLabel getLblLLevar() {
 		if (lblLLevar == null) {
 			lblLLevar = new JLabel("");
+			lblLLevar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			lblLLevar.setHorizontalAlignment(SwingConstants.CENTER);
 		}
 		return lblLLevar;
 	}
@@ -203,6 +207,7 @@ public class ProductosTransporte extends JFrame {
 		if (scrollRepartidor == null) {
 			scrollRepartidor = new JScrollPane();
 			scrollRepartidor.setViewportView(getListRepartidores());
+			scrollRepartidor.setColumnHeaderView(getLblRepartidores());
 		}
 		return scrollRepartidor;
 	}
@@ -224,5 +229,12 @@ public class ProductosTransporte extends JFrame {
 
 	private List<Repartidor> getListaRepartidores() {
 		return r.getRepartidores();
+	}
+	private JLabel getLblRepartidores() {
+		if (lblRepartidores == null) {
+			lblRepartidores = new JLabel("Seleccione un repartidor:");
+			lblRepartidores.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		}
+		return lblRepartidores;
 	}
 }

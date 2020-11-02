@@ -195,7 +195,7 @@ public class GestionCreaPresupuesto {
 			pst = con.prepareStatement(SQL);
 			pst.setString(1, id);
 			//no hay cliente, por eso meto una string cualquiera
-			pst.setString(2, "");
+			pst.setString(2, "11");
 			long millis = System.currentTimeMillis();
 			pst.setDate(3, new java.sql.Date(millis));
 			pst.setString(4, Double.toString(total));
