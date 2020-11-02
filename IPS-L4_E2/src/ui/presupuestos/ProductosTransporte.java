@@ -1,10 +1,13 @@
 package ui.presupuestos;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Component;
 import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -15,8 +18,8 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import logic.EntregaController;
@@ -24,8 +27,6 @@ import logic.Repartidores;
 import logic.dto.Presupuesto;
 import logic.dto.Producto;
 import logic.dto.Repartidor;
-
-import java.awt.GridLayout;
 
 @SuppressWarnings("serial")
 public class ProductosTransporte extends JFrame {
@@ -40,14 +41,21 @@ public class ProductosTransporte extends JFrame {
 	private JPanel pnlRepartidor;
 	private JScrollPane scrollTienda;
 
-	private int llevar = 0;
 	private JList<String> listTienda;
+	private JList<String> listRepartir;;
+	private JList<String> listMontar;
 	private Presupuesto presupuesto;
 	private JButton btnLLevar;
-	private JLabel lblLLevar;
 	private JScrollPane scrollRepartidor;
 	private JList<String> listRepartidores;
 	private Repartidores r;
+	private JLabel lblRepartidores;
+	private JScrollPane scrollRepartir;
+	private JScrollPane scrollMontarEnCasa;
+	private JButton btnMontar;
+	private List<Producto> Tienda;
+	private List<Producto> LLevar = new ArrayList<>();
+	private List<Producto> Montar = new ArrayList<>();
 
 	/**
 	 * Create the frame.
@@ -91,17 +99,26 @@ public class ProductosTransporte extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					try {
 						if ((listRepartidores.getSelectedIndex()) > -1) {
-							EntregasUI entregas = new EntregasUI(ec.getPresupuesto(),r.getRepartidor(listRepartidores.getSelectedIndex()),llevar);
+							EntregasUI entregas = new EntregasUI(ec.getPresupuesto(),
+									r.getRepartidor(listRepartidores.getSelectedIndex()), LLevar.size());
 							entregas.setVisible(true);
 							entregas.setLocationRelativeTo(null);
+							close();
 						}
 					} catch (NullPointerException ef) {
 						JOptionPane.showMessageDialog(null, "Seleccione un Repartidor");
 					}
+
 				}
+
 			});
 		}
 		return btnAceptar;
+	}
+
+	private void close() {
+		Component comp = SwingUtilities.getRoot(this);
+		((Window) comp).dispose();
 	}
 
 	private JPanel getPnlCentro() {
@@ -117,10 +134,12 @@ public class ProductosTransporte extends JFrame {
 	private JPanel getPnlProductos() {
 		if (pnlProductos == null) {
 			pnlProductos = new JPanel();
-			pnlProductos.setLayout(new GridLayout(0, 3, 0, 0));
+			pnlProductos.setLayout(new GridLayout(0, 5, 0, 0));
 			pnlProductos.add(getScrollTienda());
 			pnlProductos.add(getBtnLLevar());
-			pnlProductos.add(getLblLLevar());
+			pnlProductos.add(getScrollRepartir());
+			pnlProductos.add(getBtnMontar());
+			pnlProductos.add(getScrollMontarEnCasa());
 
 		}
 		return pnlProductos;
@@ -163,20 +182,34 @@ public class ProductosTransporte extends JFrame {
 	}
 
 	private List<Producto> getListaProductosTienda() {
-		return presupuesto.getProductos();
+		Tienda = presupuesto.getProductos();
+		return Tienda;
 	}
 
 	private JButton getBtnLLevar() {
 		if (btnLLevar == null) {
-			btnLLevar = new JButton("Añadir a repartir (SOLO UN USO)");
+			btnLLevar = new JButton("Añadir a repartir");
+			btnLLevar.setToolTipText("(SOLO UN USO)");
 			btnLLevar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 
 					try {
 						if ((listTienda.getSelectedIndex()) > -1) {
-							llevar = listTienda.getSelectedIndices().length;
-							lblLLevar.setText(String.valueOf(llevar));
-							listTienda.remove(listTienda.getSelectedIndex());
+							List<String> llevar = listTienda.getSelectedValuesList();
+							List<Producto> tmp = new ArrayList<>();
+							for (int x = 0; x < llevar.size(); x++) {
+								for (Producto p : Tienda) {
+									if (llevar.get(x).equals(p.getNombre())) {
+										LLevar.add(p);
+										tmp.add(p);
+									}
+								}
+							}
+							for (Producto p : tmp) {
+								Tienda.remove(p);
+							}
+							getListTienda().setModel(modelListTienda());
+							getListaRepartir().setModel(modelListRepartir());
 							scrollTienda.setEnabled(false);
 							listTienda.setEnabled(false);
 							btnLLevar.setEnabled(false);
@@ -192,17 +225,11 @@ public class ProductosTransporte extends JFrame {
 		return btnLLevar;
 	}
 
-	private JLabel getLblLLevar() {
-		if (lblLLevar == null) {
-			lblLLevar = new JLabel("");
-		}
-		return lblLLevar;
-	}
-
 	private JScrollPane getScrollRepartidor() {
 		if (scrollRepartidor == null) {
 			scrollRepartidor = new JScrollPane();
 			scrollRepartidor.setViewportView(getListRepartidores());
+			scrollRepartidor.setColumnHeaderView(getLblRepartidores());
 		}
 		return scrollRepartidor;
 	}
@@ -218,11 +245,119 @@ public class ProductosTransporte extends JFrame {
 	private DefaultListModel<String> modelRepartidores() {
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		for (Repartidor or : getListaRepartidores())
-			model.addElement(or.getNombre());
+			model.addElement(or.getNombre() + " Tlfn: " + or.getTelefono());
 		return model;
 	}
 
 	private List<Repartidor> getListaRepartidores() {
 		return r.getRepartidores();
+	}
+
+	private JLabel getLblRepartidores() {
+		if (lblRepartidores == null) {
+			lblRepartidores = new JLabel("Seleccione un repartidor:");
+			lblRepartidores.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		}
+		return lblRepartidores;
+	}
+
+	private JScrollPane getScrollRepartir() {
+		if (scrollRepartir == null) {
+			scrollRepartir = new JScrollPane();
+			scrollRepartir.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+			scrollRepartir.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+			scrollRepartir.setViewportView(getListaRepartir());
+		}
+		return scrollRepartir;
+	}
+
+	private JScrollPane getScrollMontarEnCasa() {
+		if (scrollMontarEnCasa == null) {
+			scrollMontarEnCasa = new JScrollPane();
+			scrollMontarEnCasa.setEnabled(false);
+			scrollMontarEnCasa.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+			scrollMontarEnCasa.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+			scrollMontarEnCasa.setViewportView(getListaMontarEnCasa());
+		}
+		return scrollMontarEnCasa;
+	}
+
+	private JList<String> getListaRepartir() {
+		if (listRepartir == null) {
+			listRepartir = new JList<String>();
+
+			listRepartir.setBounds(10, 63, 644, 261);
+			listRepartir.setModel(modelListRepartir());
+		}
+		return listRepartir;
+	}
+
+	private DefaultListModel<String> modelListRepartir() {
+		DefaultListModel<String> model = new DefaultListModel<String>();
+		for (Producto or : getProductosRepartir())
+			model.addElement(or.getNombre());
+		return model;
+	}
+
+	private List<Producto> getProductosRepartir() {
+		return LLevar;
+	}
+
+	private JList<String> getListaMontarEnCasa() {
+		if (listMontar == null) {
+			listMontar = new JList<String>();
+			listMontar.setBounds(10, 63, 644, 261);
+			listMontar.setModel(modelListMontar());
+		}
+		return listMontar;
+	}
+
+	private DefaultListModel<String> modelListMontar() {
+		DefaultListModel<String> model = new DefaultListModel<String>();
+		for (Producto or : getProductosMontar())
+			model.addElement(or.getNombre());
+		return model;
+	}
+
+	private List<Producto> getProductosMontar() {
+		return Montar;
+	}
+
+	private JButton getBtnMontar() {
+		if (btnMontar == null) {
+			btnMontar = new JButton("Montar en casa");
+			btnMontar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+
+					try {
+						if ((listRepartir.getSelectedIndex()) > -1) {
+							List<String> montar = listRepartir.getSelectedValuesList();
+							List<Producto> tmp = new ArrayList<>();
+							for (int x = 0; x < montar.size(); x++) {
+								for (Producto p : LLevar) {
+									if (montar.get(x).equals(p.getNombre())) {
+										Montar.add(p);
+										tmp.add(p);
+									}
+								}
+							}
+							for (Producto p : tmp) {
+								LLevar.remove(p);
+							}
+							getListaRepartir().setModel(modelListRepartir());
+							getListaMontarEnCasa().setModel(modelListMontar());
+							scrollRepartir.setEnabled(false);
+							listRepartir.setEnabled(false);
+							btnMontar.setEnabled(false);
+						}
+
+					} catch (NullPointerException ef) {
+						JOptionPane.showMessageDialog(null, "Seleccione un producto");
+					}
+				}
+			});
+			btnMontar.setToolTipText("(SOLO UN USO)");
+		}
+		return btnMontar;
 	}
 }

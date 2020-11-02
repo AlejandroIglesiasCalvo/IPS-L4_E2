@@ -46,7 +46,7 @@ public class EntregasUI extends JDialog {
 	/**
 	 * Create the frame.
 	 */
-	//public EntregasUI(Presupuesto presupuesto, Venta venta) {
+	// public EntregasUI(Presupuesto presupuesto, Venta venta) {
 	public EntregasUI(Presupuesto presupuesto, Repartidor repartidor, int alli) {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 668, 516);
@@ -58,8 +58,8 @@ public class EntregasUI extends JDialog {
 		contentPane.add(getPnlAbajo(), BorderLayout.SOUTH);
 		contentPane.add(getPnlCentro(), BorderLayout.CENTER);
 		//
-		//ec = new EntregaController(presupuesto, venta);
-		ec = new EntregaController(presupuesto);//Trampas mientras no este el resto
+		// ec = new EntregaController(presupuesto, venta);
+		ec = new EntregaController(presupuesto);// Trampas mientras no este el resto
 		ec.setRepartidor(repartidor);
 		ec.setMontar(alli);
 	}
@@ -195,10 +195,16 @@ public class EntregasUI extends JDialog {
 		Boolean valida = ec.comprobarFechaYHora((Integer) spnaño.getValue(), (Integer) spnMes.getValue(),
 				(Integer) spnDia.getValue(), (Integer) spnHoras.getValue(), (Integer) spnMinutos.getValue());
 		if (valida) {
-			ec.Asignacion();
-			JOptionPane.showMessageDialog(this, "Done");
+			if (ec.Asignacion()) {
+				JOptionPane.showMessageDialog(this, "Done");
+			} else {
+				JOptionPane.showMessageDialog(this, "El repartidor no trabaja en ese horario, su horario es de:"
+						+ ec.getRepartidor().getEntrada() + " a " + ec.getRepartidor().getSalida());
+			}
+
+			this.dispose();
 		} else {
-			JOptionPane.showMessageDialog(this, "Caca");
+			JOptionPane.showMessageDialog(this, "Fecha no valida");
 		}
 	}
 }
