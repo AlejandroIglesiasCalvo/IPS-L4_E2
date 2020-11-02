@@ -30,6 +30,7 @@ import javax.swing.SwingConstants;
 import logic.CreaPresupuestoController;
 import logic.dto.Producto;
 import logic.dto.ProductoCarrito;
+import ui.Ventas.ListarVentas;
 
 @SuppressWarnings("serial")
 public class CreaPresupuestosView extends JDialog {
@@ -303,12 +304,12 @@ public class CreaPresupuestosView extends JDialog {
 
 	private JButton getBtnAlex() {
 		if (btnAlex == null) {
-			btnAlex = new JButton("DemoAlex");
+			btnAlex = new JButton("ListarVentas");
 			btnAlex.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					ProductosTransporte preparados = new ProductosTransporte(presController.getPresupueso());
-					preparados.setVisible(true);
-					preparados.setLocationRelativeTo(null);
+					ListarVentas listarVentas = new ListarVentas();
+					listarVentas.setVisible(true);
+					listarVentas.setLocationRelativeTo(null);
 				}
 			});
 		}
