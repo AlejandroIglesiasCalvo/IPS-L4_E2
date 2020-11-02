@@ -1,8 +1,10 @@
 package ui.presupuestos;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import logic.EntregaController;
@@ -38,7 +41,6 @@ public class ProductosTransporte extends JFrame {
 	private JPanel pnlRepartidor;
 	private JScrollPane scrollTienda;
 
-	private int llevar = 0;
 	private JList<String> listTienda;
 	private JList<String> listRepartir;;
 	private JList<String> listMontar;
@@ -98,17 +100,25 @@ public class ProductosTransporte extends JFrame {
 					try {
 						if ((listRepartidores.getSelectedIndex()) > -1) {
 							EntregasUI entregas = new EntregasUI(ec.getPresupuesto(),
-									r.getRepartidor(listRepartidores.getSelectedIndex()), llevar);
+									r.getRepartidor(listRepartidores.getSelectedIndex()), LLevar.size());
 							entregas.setVisible(true);
 							entregas.setLocationRelativeTo(null);
+							close();
 						}
 					} catch (NullPointerException ef) {
 						JOptionPane.showMessageDialog(null, "Seleccione un Repartidor");
 					}
+
 				}
+
 			});
 		}
 		return btnAceptar;
+	}
+
+	private void close() {
+		Component comp = SwingUtilities.getRoot(this);
+		((Window) comp).dispose();
 	}
 
 	private JPanel getPnlCentro() {

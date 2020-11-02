@@ -60,7 +60,8 @@ public class GestionRepartidores {
 	}
 
 	private Repartidor toRepartidorDto(ResultSet rs) throws SQLException {
-		Repartidor dto = new Repartidor(rs.getString(1), rs.getString(2), rs.getString(3));
+		Repartidor dto = new Repartidor(rs.getString(1), rs.getString(2), rs.getString(3),
+				Double.valueOf(rs.getString(4)), Double.valueOf(rs.getString(5)));
 		return dto;
 	}
 }
