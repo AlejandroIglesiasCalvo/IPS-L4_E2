@@ -10,6 +10,7 @@ public class ClientesTabla extends JTable {
 		setModel(new ClientesTablaModel());
 		setRowHeight(25);
 		setAutoCreateRowSorter(true);
+		setAlignmentX(CENTER_ALIGNMENT);
 	}
 
 }

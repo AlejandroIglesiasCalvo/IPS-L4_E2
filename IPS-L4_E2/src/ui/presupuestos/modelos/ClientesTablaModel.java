@@ -15,7 +15,7 @@ public class ClientesTablaModel extends AbstractTableModel {
 
 	private String[] columnNames = { "DNI","Nombre", "Apellido", "Direccion", "Telefono"};
 	protected List<Cliente> clientes;
-	protected Class<?>[] types = new Class[] { Integer.class, String.class, String.class, String.class, String.class};
+	protected Class<?>[] types = new Class[] { String.class, String.class, String.class, String.class, String.class};
 
 	public ClientesTablaModel() {
 		

@@ -27,7 +27,7 @@ public class CreaClienteController {
 	public ArrayList<Cliente> showClientes(){
 		return db.getGestionCliente().getListaClientes();
 	}
-	public Cliente getClienteById(int id) {
+	public Cliente getClienteById(String id) {
 		return db.getGestionCliente().getClienteById(id);
 	}
 
