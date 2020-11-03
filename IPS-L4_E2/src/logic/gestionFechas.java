@@ -73,7 +73,7 @@ public class gestionFechas {
 	/** Comprueba que no es domingo */
 	public boolean no_es_domingo() {
 
-		if (fecha.getDayOfWeek() != DayOfWeek.WEDNESDAY) {
+		if (fecha.getDayOfWeek() != DayOfWeek.SUNDAY) {
 			return true;
 		}
 		return false;

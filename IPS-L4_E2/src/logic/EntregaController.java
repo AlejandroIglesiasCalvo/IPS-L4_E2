@@ -83,10 +83,24 @@ public class EntregaController {
 		return false;
 	}
 
-	public void Asignacion() {
-		int id = Integer.valueOf(generateId());
-		Transporte transporte = new Transporte(id, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor, montar);
-		db.getGestionTransporte().añadirTransporte(transporte, venta, repartidor);
+	public boolean Asignacion() {
+		if (horarioDeTrabajo(fecha.getHoraEnDouble())) {
+			int id = Integer.valueOf(generateId());
+			Transporte transporte = new Transporte(id, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor, montar);
+			db.getGestionTransporte().añadirTransporte(transporte, venta, repartidor);
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+	private boolean horarioDeTrabajo(Double Hora) {
+		if (repartidor.getEntrada() <= Hora && repartidor.getSalida() > Hora) {
+			return true;
+		}
+		return false;
+
 	}
 
 	/**

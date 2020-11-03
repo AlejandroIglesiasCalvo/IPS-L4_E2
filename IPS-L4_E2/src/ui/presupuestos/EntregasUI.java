@@ -52,7 +52,6 @@ public class EntregasUI extends JDialog {
 
 	/**
 	 * Create the frame.
-	 * @wbp.parser.constructor
 	 */
 	// public EntregasUI(Presupuesto presupuesto, Venta venta) {
 	public EntregasUI(Presupuesto presupuesto, Repartidor repartidor, int alli) {
@@ -226,15 +225,16 @@ public class EntregasUI extends JDialog {
 
 				(Integer) spnDia.getValue(), (Integer) spnHoras.getValue(), (Integer) spnMinutos.getValue());
 		if (valida) {
-			if(trasnporte != null) {
-				veController.setNuevaFechaEntrega(trasnporte, (Integer) spnaño.getValue(), (Integer) spnMes.getValue(),
-						(Integer) spnDia.getValue(), (Integer) spnHoras.getValue(), (Integer) spnMinutos.getValue());
-			}else {
-				ec.Asignacion();
+			if (ec.Asignacion()) {
+				JOptionPane.showMessageDialog(this, "Done");
+			} else {
+				JOptionPane.showMessageDialog(this, "El repartidor no trabaja en ese horario, su horario es de:"
+						+ ec.getRepartidor().getEntrada() + " a " + ec.getRepartidor().getSalida());
 			}
-			JOptionPane.showMessageDialog(this, "Done");
+
+			this.dispose();
 		} else {
-			JOptionPane.showMessageDialog(this, "Caca");
+			JOptionPane.showMessageDialog(this, "Fecha no valida");
 		}
 	};
 }

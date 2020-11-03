@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import dataBase.DataBase;
+import logic.dto.Cliente;
 import logic.dto.Presupuesto;
 import logic.dto.Producto;
 import logic.dto.ProductoCarrito;
@@ -27,6 +28,7 @@ public class CreaPresupuestoController {
 	private String id;
 
 	private Presupuesto presupuesto;
+	private Cliente cliente;
 
 	private Set<String> tipos = new HashSet<>();
 	private String[] tiposComoBox = new String[tipos.size()];
@@ -113,7 +115,7 @@ public class CreaPresupuestoController {
 				productosEnPresupuesto.get(i).setUnidades(productosEnPresupuesto.get(i).getUnidades() + 1);
 			}
 		}
-		if(!updated) {
+		if (!updated) {
 			productosEnPresupuesto.add(new ProductoCarrito(producto));
 		}
 		total += producto.getPrecio();
@@ -138,8 +140,14 @@ public class CreaPresupuestoController {
 	 * contienen los productos de este presupuesto.
 	 */
 	private void añadirPresupuestoABase() {
-		db.getGestionCreaPresupuesto().CreaPresupuesto(this.id, this.total);
+
+		if (this.cliente != null) {
+			db.getGestionCreaPresupuesto().CreaPresupuestoConCliente(this.id, this.cliente, this.total);
+		} else {
+			db.getGestionCreaPresupuesto().CreaPresupuesto(this.id, this.total);
+		}
 		for (ProductoCarrito p : productosEnPresupuesto) {
+
 			db.getGestionCreaPresupuesto().CrearEntradaPresupuesto(p, this.id);
 		}
 	}
@@ -202,6 +210,10 @@ public class CreaPresupuestoController {
 
 	public Presupuesto getPresupueso() {
 		return presupuesto;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	public List<ProductoCarrito> getProductosEnPresupuesto() {
