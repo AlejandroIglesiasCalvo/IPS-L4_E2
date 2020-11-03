@@ -14,6 +14,7 @@ import logic.dto.Cliente;
 import ui.clientes.CrearClientesView;
 
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 
@@ -38,7 +39,7 @@ public class AsignarClientePresupuestoView extends JDialog {
 	private JScrollPane scrollPane;
 	private JList<Cliente> list;
 	private JPanel panel;
-	private JButton btnCrearPresupuesto;
+	private JButton btnAsignarCliente;
 	private JButton btnCancelar;
 	private JPanel panel_1;
 	private JLabel lblNewLabel;
@@ -101,7 +102,7 @@ public class AsignarClientePresupuestoView extends JDialog {
 			list.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					getBtnCrearPresupuesto().setEnabled(true);
+					getBtnAsignarCliente().setEnabled(true);
 				}
 			});
 			list.setModel(getModel());
@@ -113,28 +114,27 @@ public class AsignarClientePresupuestoView extends JDialog {
 			panel = new JPanel();
 			panel.setAlignmentX(Component.RIGHT_ALIGNMENT);
 			panel.add(getBtnNuevoCliente());
-			panel.add(getBtnCrearPresupuesto());
+			panel.add(getBtnAsignarCliente());
 			panel.add(getBtnCancelar());
 		}
 		return panel;
 	}
-	private JButton getBtnCrearPresupuesto() {
-		if (btnCrearPresupuesto == null) {
-			btnCrearPresupuesto = new JButton("Crear Presupuesto");
-			btnCrearPresupuesto.setEnabled(false);
-			btnCrearPresupuesto.addActionListener(new ActionListener() {
+	private JButton getBtnAsignarCliente() {
+		if (btnAsignarCliente == null) {
+			btnAsignarCliente = new JButton("Asignar Cliente");
+			btnAsignarCliente.setEnabled(false);
+			btnAsignarCliente.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int index =  getList().getSelectedIndex();
 					Cliente c = getList().getModel().getElementAt(index);
 					System.out.println(c);
 					presController.setCliente(c);
-					presController.crearPresupuesto();
-					presController.setCliente(null);
+					JOptionPane.showMessageDialog(null, "Cliente asignado al presupuesto");
 					dispose();
 				}
 			});
 		}
-		return btnCrearPresupuesto;
+		return btnAsignarCliente;
 	}
 	private JButton getBtnCancelar() {
 		if (btnCancelar == null) {

@@ -30,6 +30,7 @@ public class GestionCliente {
 			pst.setString(2, c.getNombre());
 			pst.setString(3, c.getApellidos());
 			pst.setString(4, Integer.toString(c.getTelefono()));
+			pst.setString(5, c.getDireccion());
 			
 			pst.execute();
 

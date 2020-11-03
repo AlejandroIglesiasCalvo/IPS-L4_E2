@@ -116,7 +116,7 @@ public class CrearClientesView extends JDialog {
 				}
 			});
 			
-			txtTelefono.setBounds(93, 226, 480, 37);
+			txtTelefono.setBounds(93, 298, 480, 37);
 			txtTelefono.setColumns(10);
 		}
 		return txtTelefono;
@@ -148,7 +148,7 @@ public class CrearClientesView extends JDialog {
 	private JLabel getLblTelefono() {
 		if (lblTelefono == null) {
 			lblTelefono = new JLabel("Telefono:");
-			lblTelefono.setBounds(15, 226, 68, 25);
+			lblTelefono.setBounds(15, 302, 68, 25);
 			lblTelefono.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		}
 		return lblTelefono;
@@ -227,7 +227,7 @@ public class CrearClientesView extends JDialog {
 		if (txtDireccion == null) {
 			txtDireccion = new JTextField();
 			txtDireccion.setColumns(10);
-			txtDireccion.setBounds(93, 302, 480, 37);
+			txtDireccion.setBounds(93, 222, 480, 37);
 		}
 		return txtDireccion;
 	}
@@ -235,7 +235,7 @@ public class CrearClientesView extends JDialog {
 		if (lblDireccion == null) {
 			lblDireccion = new JLabel("Direccion:");
 			lblDireccion.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			lblDireccion.setBounds(15, 302, 79, 25);
+			lblDireccion.setBounds(15, 226, 79, 25);
 		}
 		return lblDireccion;
 	}
