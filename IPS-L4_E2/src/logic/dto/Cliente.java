@@ -5,12 +5,15 @@ public class Cliente {
 	private String Nombre;
 	private String Apellidos;
 	private int Telefono;
-	public Cliente(int iD, String nombre, String apellidos, int telefono) {
+	private String direccion;
+	
+	public Cliente(int iD, String nombre, String apellidos, int telefono, String direccion) {
 		super();
 		ID = iD;
 		Nombre = nombre;
 		Apellidos = apellidos;
 		Telefono = telefono;
+		this.direccion = direccion;
 	}
 	public int getID() {
 		return ID;
