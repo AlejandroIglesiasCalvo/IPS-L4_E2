@@ -16,8 +16,11 @@ import javax.swing.JSpinner;
 import javax.swing.border.EmptyBorder;
 
 import logic.EntregaController;
+import logic.VisualizadorEntregasController;
 import logic.dto.Presupuesto;
 import logic.dto.Repartidor;
+import logic.dto.Transporte;
+
 import javax.swing.SpinnerNumberModel;
 
 public class EntregasUI extends JDialog {
@@ -42,9 +45,14 @@ public class EntregasUI extends JDialog {
 	private JSpinner spnaño;
 	private JSpinner spnHoras;
 	private JSpinner spnMinutos;
+	
+	
+	private Transporte trasnporte = null;
+	private VisualizadorEntregasController veController;
 
 	/**
 	 * Create the frame.
+	 * @wbp.parser.constructor
 	 */
 	// public EntregasUI(Presupuesto presupuesto, Venta venta) {
 	public EntregasUI(Presupuesto presupuesto, Repartidor repartidor, int alli) {
@@ -62,6 +70,22 @@ public class EntregasUI extends JDialog {
 		ec = new EntregaController(presupuesto);// Trampas mientras no este el resto
 		ec.setRepartidor(repartidor);
 		ec.setMontar(alli);
+	}
+	
+	public EntregasUI(Transporte transporte, VisualizadorEntregasController veController) {
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 668, 516);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout(0, 0));
+		contentPane.add(getLblTitulo(), BorderLayout.NORTH);
+		contentPane.add(getPnlAbajo(), BorderLayout.SOUTH);
+		contentPane.add(getPnlCentro(), BorderLayout.CENTER);
+		this.trasnporte = transporte;
+		this.veController = veController;
+		ec = new EntregaController();
+		
 	}
 
 	private JLabel getLblTitulo() {
@@ -202,10 +226,15 @@ public class EntregasUI extends JDialog {
 
 				(Integer) spnDia.getValue(), (Integer) spnHoras.getValue(), (Integer) spnMinutos.getValue());
 		if (valida) {
-			ec.Asignacion();
+			if(trasnporte != null) {
+				veController.setNuevaFechaEntrega(trasnporte, (Integer) spnaño.getValue(), (Integer) spnMes.getValue(),
+						(Integer) spnDia.getValue(), (Integer) spnHoras.getValue(), (Integer) spnMinutos.getValue());
+			}else {
+				ec.Asignacion();
+			}
 			JOptionPane.showMessageDialog(this, "Done");
 		} else {
 			JOptionPane.showMessageDialog(this, "Caca");
 		}
-	}
+	};
 }

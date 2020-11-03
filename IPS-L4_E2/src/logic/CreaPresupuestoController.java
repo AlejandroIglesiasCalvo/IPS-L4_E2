@@ -40,7 +40,6 @@ public class CreaPresupuestoController {
 		try {
 			db = new DataBase();
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catalogo = db.getGestionCreaPresupuesto().getProductos();

@@ -48,6 +48,8 @@ public class EntregaController {
 		this.setPresupuesto(presupuesto);
 
 	}
+	
+	public EntregaController() {}
 
 	/**
 	 * Mira si la fecha no es domingo y esta en horario de 8 a 22
