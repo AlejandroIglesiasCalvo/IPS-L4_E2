@@ -47,8 +47,9 @@ public class EntregasUI extends JDialog {
 	private JSpinner spnMinutos;
 	
 	
-	private Transporte trasnporte = null;
+	private Transporte transporte = null;
 	private VisualizadorEntregasController veController;
+	private EntregaPanel entregaPanel;
 
 	/**
 	 * Create the frame.
@@ -71,7 +72,10 @@ public class EntregasUI extends JDialog {
 		ec.setMontar(alli);
 	}
 	
-	public EntregasUI(Transporte transporte, VisualizadorEntregasController veController) {
+	/**
+	 * @wbp.parser.constructor
+	 */
+	public EntregasUI(Transporte transporte, VisualizadorEntregasController veController, EntregaPanel entregaPanel) {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 668, 516);
 		contentPane = new JPanel();
@@ -81,10 +85,11 @@ public class EntregasUI extends JDialog {
 		contentPane.add(getLblTitulo(), BorderLayout.NORTH);
 		contentPane.add(getPnlAbajo(), BorderLayout.SOUTH);
 		contentPane.add(getPnlCentro(), BorderLayout.CENTER);
-		this.trasnporte = transporte;
+		this.transporte = transporte;
 		this.veController = veController;
+		this.entregaPanel = entregaPanel;
 		ec = new EntregaController();
-		
+		ec.setRepartidor(transporte.getRepartidor());
 	}
 
 	private JLabel getLblTitulo() {
@@ -225,13 +230,16 @@ public class EntregasUI extends JDialog {
 
 				(Integer) spnDia.getValue(), (Integer) spnHoras.getValue(), (Integer) spnMinutos.getValue());
 		if (valida) {
-			if (ec.Asignacion()) {
+			if (transporte == null && ec.Asignacion()) {
 				JOptionPane.showMessageDialog(this, "Done");
+			} else if(transporte != null && ec.ComprobarRepartidor()) {
+				veController.setNuevaFechaEntrega(transporte, (Integer) spnaño.getValue(), (Integer) spnMes.getValue(),
+						(Integer) spnDia.getValue(), (Integer) spnHoras.getValue(), (Integer) spnMinutos.getValue());
+				entregaPanel.refresh();
 			} else {
 				JOptionPane.showMessageDialog(this, "El repartidor no trabaja en ese horario, su horario es de:"
 						+ ec.getRepartidor().getEntrada() + " a " + ec.getRepartidor().getSalida());
 			}
-
 			this.dispose();
 		} else {
 			JOptionPane.showMessageDialog(this, "Fecha no valida");

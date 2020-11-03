@@ -4,11 +4,9 @@ Drop table Carrito;
 Drop table Venta_Producto;
 Drop table Encargo;
 
-
 Drop table Producto;
 Drop table Venta;
 Drop table Presupuesto;
-
 
 Drop table Pedido;
 Drop table CLiente;
@@ -25,6 +23,8 @@ create table Repartidor(
 ID_Repartidor varchar (9) not null,
 Nombre varchar (40) not null,
 Telefono varchar (9) not null,
+Entrada varchar (8),
+Salida varchar (8),
 constraint PK_Repartidor primary key (ID_Repartidor) 
 );
 create table Pedido(
@@ -42,7 +42,7 @@ constraint PK_Producto primary key (ID_Producto)
 
 create table Presupuesto(
 ID_Presupuesto varchar (9) not null,
-DNI varchar (9) not null,
+DNI varchar (9),
 Fecha Date not null,
 Precio varchar (9) not null,
 constraint PK_Presupuesto primary key (ID_Presupuesto),
@@ -87,7 +87,7 @@ constraint FK_Venta_Producto_Producto foreign key (ID_Producto) references Produ
 );
 
 create table Transporte(
-ID_trasporte varchar (9) not null,
+ID_transporte varchar (9) not null,
 ID_Venta varchar (9) not null,
 ID_producto varchar (9) not null,
 Hora varchar (9) not null,

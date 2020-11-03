@@ -94,6 +94,14 @@ public class EntregaController {
 		}
 
 	}
+	
+	public boolean ComprobarRepartidor() {
+		if(horarioDeTrabajo(fecha.getHoraEnDouble())) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 
 	private boolean horarioDeTrabajo(Double Hora) {
 		if (repartidor.getEntrada() <= Hora && repartidor.getSalida() > Hora) {

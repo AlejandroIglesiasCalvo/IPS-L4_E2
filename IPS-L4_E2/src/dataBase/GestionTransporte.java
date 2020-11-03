@@ -88,7 +88,7 @@ public class GestionTransporte {
 	}
 
 	private Transporte toTransporteDto(ResultSet rs) throws SQLException {
-		Transporte trans = new Transporte(rs.getLong("ID_TRASPORTE"), rs.getTimestamp("FECHA").toLocalDateTime() , rs.getDouble("HORA"), getRepartidor(rs.getString("ID_REPARTIDOR")), rs.getString("ESTADO"));
+		Transporte trans = new Transporte(rs.getLong("ID_TRANSPORTE"), rs.getTimestamp("FECHA").toLocalDateTime() , rs.getDouble("HORA"), getRepartidor(rs.getString("ID_REPARTIDOR")), rs.getString("ESTADO"));
 		return trans;
 	}
 

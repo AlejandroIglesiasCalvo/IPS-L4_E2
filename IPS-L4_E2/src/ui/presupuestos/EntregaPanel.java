@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -92,11 +93,18 @@ public class EntregaPanel extends JPanel {
 	protected void modificarEstado() {
 		if(!this.trasporte.getEstado().equals("RETRASADO")) {
 			veController.updateEstado(trasporte);
+			refresh();
 		}else {
-			EntregasUI entregas = new EntregasUI(trasporte,veController);
+			EntregasUI entregas = new EntregasUI(trasporte,veController,this);
+			entregas.setModal(true);
 			entregas.setVisible(true);
 			entregas.setLocationRelativeTo(this);
 		}
+	}
+	
+	
+	public void refresh() {
+		JOptionPane.showMessageDialog(this, "Se ha cambiado el estado de la entrega");
 		veView.refresh();
 	}
 
