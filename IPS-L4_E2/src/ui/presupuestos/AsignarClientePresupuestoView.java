@@ -12,6 +12,8 @@ import logic.CreaClienteController;
 import logic.CreaPresupuestoController;
 import logic.dto.Cliente;
 import ui.clientes.CrearClientesView;
+import ui.presupuestos.modelos.ClientesTabla;
+import ui.presupuestos.modelos.ClientesTablaModel;
 
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -48,6 +50,7 @@ public class AsignarClientePresupuestoView extends JDialog {
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_1_1;
 	private DefaultListModel<Cliente> model;
+	private ClientesTabla tabla;
 	
 	private CreaClienteController controller = new CreaClienteController();
 	private CreaPresupuestosView presView;
@@ -92,7 +95,8 @@ public class AsignarClientePresupuestoView extends JDialog {
 	private JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
-			scrollPane.setViewportView(getList());
+			//scrollPane.setViewportView(getList());
+			scrollPane.setViewportView(getClientesTabla());
 		}
 		return scrollPane;
 	}
@@ -108,6 +112,20 @@ public class AsignarClientePresupuestoView extends JDialog {
 			list.setModel(getModel());
 		}
 		return list;
+	}
+	
+	private ClientesTabla getClientesTabla() {
+		if(this.tabla == null) {
+			this.tabla = new ClientesTabla();
+			fillClientesModel();
+			tabla.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					getBtnAsignarCliente().setEnabled(true);
+				}
+			});
+		}
+		return tabla;
 	}
 	private JPanel getPanel() {
 		if (panel == null) {
@@ -125,8 +143,14 @@ public class AsignarClientePresupuestoView extends JDialog {
 			btnAsignarCliente.setEnabled(false);
 			btnAsignarCliente.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					int index =  getList().getSelectedIndex();
-					Cliente c = getList().getModel().getElementAt(index);
+//					int index =  getList().getSelectedIndex();
+//					Cliente c = getList().getModel().getElementAt(index);
+//					System.out.println(c);
+//					presController.setCliente(c);
+//					JOptionPane.showMessageDialog(null, "Cliente asignado al presupuesto");
+//					dispose();
+					int index = getClientesTabla().getSelectedRow();
+					Cliente c =((ClientesTablaModel) getClientesTabla().getModel()).getValueAtRow(index);
 					System.out.println(c);
 					presController.setCliente(c);
 					JOptionPane.showMessageDialog(null, "Cliente asignado al presupuesto");
@@ -139,6 +163,11 @@ public class AsignarClientePresupuestoView extends JDialog {
 	private JButton getBtnCancelar() {
 		if (btnCancelar == null) {
 			btnCancelar = new JButton("Cancelar");
+			btnCancelar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+				}
+			});
 			btnCancelar.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		}
 		return btnCancelar;
@@ -193,9 +222,13 @@ public class AsignarClientePresupuestoView extends JDialog {
 	}
 	
 	public void fillClientesModel() {
-		this.model.clear();
+//		this.model.clear();
+//		List<Cliente> l = controller.showClientes();
+//		l.stream().forEach(c -> this.model.addElement(c));
+		ClientesTablaModel m = (ClientesTablaModel)this.tabla.getModel();
+		m.clearRows();
 		List<Cliente> l = controller.showClientes();
-		l.stream().forEach(c -> this.model.addElement(c));
+		l.stream().forEach(c -> m.addRow(c));
 	}
 
 	private JButton getBtnNuevoCliente() {
