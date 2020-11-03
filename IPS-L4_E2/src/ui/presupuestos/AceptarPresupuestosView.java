@@ -211,7 +211,7 @@ public class AceptarPresupuestosView extends JDialog {
 		this.clientes = new ArrayList<Cliente>();
 		System.out.println(presupuestos);
 		presupuestos.stream().forEach(p -> {
-			int dni = p.getDNI_Cliente();
+			String dni = p.getDNI_Cliente();
 			clientes.add(controller.getClienteById(dni));
 		});
 		

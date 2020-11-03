@@ -156,7 +156,12 @@ public class CreaPresupuestoController {
 	 * creamos el presupuesto en memoria
 	 */
 	private void crearPresupuestoDto() {
-		presupuesto = new Presupuesto(this.id, 123, LocalDateTime.now(), this.total, this.productosEnPresupuesto);
+		if(cliente == null) {
+			presupuesto = new Presupuesto(this.id, null, LocalDateTime.now(), this.total, this.productosEnPresupuesto);
+		}else {
+			presupuesto = new Presupuesto(this.id, cliente.getID(), LocalDateTime.now(), this.total, this.productosEnPresupuesto);
+		}
+		
 	}
 
 	/**

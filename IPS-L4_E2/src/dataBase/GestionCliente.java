@@ -26,7 +26,7 @@ public class GestionCliente {
 		
 		try {
 			pst = con.prepareStatement(SQL);
-			pst.setString(1, Long.toString(c.getID()));
+			pst.setString(1, c.getID());
 			pst.setString(2, c.getNombre());
 			pst.setString(3, c.getApellidos());
 			pst.setString(4, Integer.toString(c.getTelefono()));
@@ -46,7 +46,7 @@ public class GestionCliente {
 		PreparedStatement pst;
 		ArrayList<Cliente> list = new ArrayList<>();
 		
-		int id;
+		String id;
 		String nombre;
 		String apellidos;
 		int telefono;
@@ -58,7 +58,7 @@ public class GestionCliente {
 			
 			ResultSet rs = pst.getResultSet();
 			while(rs.next()) {
-				id = Integer.valueOf(rs.getString(1));
+				id = rs.getString(1);
 				nombre = rs.getString(2);
 				apellidos = rs.getString(3);
 				telefono = Integer.valueOf(rs.getString(4));
@@ -73,7 +73,7 @@ public class GestionCliente {
 		return list;		
 	} 
 	
-	public Cliente getClienteById(int id) {
+	public Cliente getClienteById(String id) {
 		String SQL = Conf.get("SQL_SELECCIONAR_CLIENTE_BY_ID");
 		
 		PreparedStatement pst;
@@ -84,7 +84,7 @@ public class GestionCliente {
 		
 		try {
 			pst = con.prepareStatement(SQL);
-			pst.setString(1, Long.toString(id));
+			pst.setString(1, id);
 			pst.execute();
 			
 			ResultSet rs = pst.getResultSet();

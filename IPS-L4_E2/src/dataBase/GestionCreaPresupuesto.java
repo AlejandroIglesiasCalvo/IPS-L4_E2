@@ -200,7 +200,7 @@ public class GestionCreaPresupuesto {
 			pst = con.prepareStatement(SQL);
 			pst.setString(1, id);
 			// no hay cliente, por eso meto una string cualquiera
-			pst.setString(2, "11");
+			pst.setString(2, null);
 			long millis = System.currentTimeMillis();
 			pst.setDate(3, new java.sql.Date(millis));
 			pst.setString(4, Double.toString(total));
@@ -220,7 +220,7 @@ public class GestionCreaPresupuesto {
 		try {
 			pst = con.prepareStatement(SQL);
 			pst.setString(1, id);
-			pst.setString(2, Long.toString(c.getID()));
+			pst.setString(2, c.getID());
 			long millis = System.currentTimeMillis();
 			pst.setDate(3, new java.sql.Date(millis));
 			pst.setString(4, Double.toString(total));
@@ -239,7 +239,7 @@ public class GestionCreaPresupuesto {
 
 		ArrayList<Presupuesto> sol = new ArrayList<Presupuesto>();
 		Presupuesto p;
-		int dni;
+		String dni;
 		String id_Pres;
 		LocalDate date;
 		LocalDateTime fecha;
@@ -255,7 +255,7 @@ public class GestionCreaPresupuesto {
 			ResultSet rs = pst.getResultSet();
 			while (rs.next()) {
 				id_Pres = rs.getString(1);
-				dni = Integer.valueOf(rs.getString(2));
+				dni = rs.getString(2);
 				date = LocalDate.parse(rs.getString(3));
 				fecha = LocalDateTime.of(date, LocalTime.now());
 

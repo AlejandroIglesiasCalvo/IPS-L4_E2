@@ -7,12 +7,12 @@ import java.util.List;
 public class Presupuesto {
 
 	private String ID_Presupuesto;
-	private int DNI_Cliente;
+	private String DNI_Cliente;
 	private LocalDateTime fecha;
 	private double precio;
 	private List<ProductoCarrito> productos = new ArrayList<>();
 
-	public Presupuesto(String iD_Presupuesto, int dNI_Cliente, LocalDateTime fecha, double precio,
+	public Presupuesto(String iD_Presupuesto, String dNI_Cliente, LocalDateTime fecha, double precio,
 			List<ProductoCarrito> productosEnPresupuesto) {
 		super();
 		ID_Presupuesto = iD_Presupuesto;
@@ -38,11 +38,11 @@ public class Presupuesto {
 		ID_Presupuesto = iD_Presupuesto;
 	}
 
-	public int getDNI_Cliente() {
+	public String getDNI_Cliente() {
 		return DNI_Cliente;
 	}
 
-	public void setDNI_Cliente(int dNI_Cliente) {
+	public void setDNI_Cliente(String dNI_Cliente) {
 		DNI_Cliente = dNI_Cliente;
 	}
 

@@ -23,7 +23,7 @@ public class AceptarPresupuestoController {
 	}
 	
 
-	public Cliente getClienteById(int id) {
+	public Cliente getClienteById(String id) {
 		return db.getGestionCliente().getClienteById(id);
 	}
 	
