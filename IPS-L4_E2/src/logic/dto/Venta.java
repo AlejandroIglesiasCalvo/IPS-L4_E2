@@ -3,13 +3,21 @@ package logic.dto;
 import java.time.LocalDateTime;
 
 public class Venta {
-	private Long ID;
+	private String ID;
 	private LocalDateTime Fecha;
 	private double Total;
 
 	private Transporte Transporte;
+	
+	public Venta(String iD, LocalDateTime fecha, double total) {
+		super();
+		ID = iD;
+		Fecha = fecha;
+		Total = total;
+		
+	}
 
-	public Venta(Long iD, LocalDateTime fecha, double total, Transporte transporte) {
+	public Venta(String iD, LocalDateTime fecha, double total, Transporte transporte) {
 		super();
 		ID = iD;
 		Fecha = fecha;
@@ -18,11 +26,11 @@ public class Venta {
 		Transporte = transporte;
 	}
 
-	public Long getID() {
+	public String getID() {
 		return ID;
 	}
 
-	public void setID(Long iD) {
+	public void setID(String iD) {
 		ID = iD;
 	}
 

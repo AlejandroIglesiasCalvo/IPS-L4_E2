@@ -31,13 +31,13 @@ public class GestionTransporte {
 		try {
 			pst = con.prepareStatement(SQL);
 			int id_transporte = (int) t.getID();
-			int id_venta = v.getID().intValue();
+			String id_venta = v.getID();
 			String id_repartidor =  r.getID();
 			Date fecha = gf.convertir_A_SQL(t.getFecha());
 			String hora = String.valueOf(t.getHora());
 
 			pst.setInt(1, id_transporte);
-			pst.setInt(2, id_venta);
+			pst.setString(2, id_venta);
 			pst.setInt(3, t.getMontados_en_casa());
 			pst.setString(4, hora);
 			pst.setDate(5, fecha);

@@ -13,6 +13,7 @@ import logic.CreaClienteController;
 import logic.CreaPresupuestoController;
 import logic.dto.Cliente;
 import logic.dto.Presupuesto;
+import logic.dto.Venta;
 import ui.clientes.CrearClientesView;
 import ui.presupuestos.modelos.ClientesTabla;
 import ui.presupuestos.modelos.PresupuestosTabla;
@@ -132,6 +133,11 @@ public class AceptarPresupuestosView extends JDialog {
 	public PresupuestosTabla getTable() {
 		if(table == null) {
 			table = new PresupuestosTabla();
+			table.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					getBtnCrearPresupuesto().setEnabled(true);
+				}
+			});
 			fillPresupuestosModel();
 		}
 		return table;
@@ -152,8 +158,9 @@ public class AceptarPresupuestosView extends JDialog {
 			btnCrearPresupuesto.setEnabled(false);
 			btnCrearPresupuesto.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					int index = getList().getSelectedIndex();
-					Presupuesto p = presupuestos.get(index);
+					int index = getTable().getSelectedRow();
+					Presupuesto p = ((PresupuestosTablaModel)getTable().getModel()).getValueAtRow(index);
+					System.out.println(p);
 					createVenta(p);
 				}
 			});
@@ -242,7 +249,10 @@ public class AceptarPresupuestosView extends JDialog {
 	}
 		
 	private void createVenta(Presupuesto p) {
-		aceptPresController.crearVenta(p);
+		Venta v = aceptPresController.crearVenta(p);
 		JOptionPane.showMessageDialog(null, "Venta creada con exito");
+		ProductosTransporte preparados = new ProductosTransporte(p, v);
+		preparados.setVisible(true);
+
 	}
 }

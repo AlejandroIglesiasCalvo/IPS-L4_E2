@@ -7,6 +7,7 @@ import java.util.Random;
 import dataBase.DataBase;
 import logic.dto.Cliente;
 import logic.dto.Presupuesto;
+import logic.dto.Venta;
 
 public class AceptarPresupuestoController {
 	
@@ -50,8 +51,8 @@ public class AceptarPresupuestoController {
 	}
 
 	
-	public void crearVenta(Presupuesto p) {
-		db.getGestionVentas().insertarVenta(generateId(),p);
+	public Venta crearVenta(Presupuesto p) {
+		return db.getGestionVentas().insertarVenta(generateId(),p);
 	}
 
 
