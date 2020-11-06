@@ -137,12 +137,20 @@ public class AceptarPresupuestosView extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					int index = getList().getSelectedIndex();
 					Presupuesto p = presupuestos.get(index);
+					checkAndUpdateStock(p);
 					createVenta(p);
 				}
 			});
 		}
 		return btnCrearPresupuesto;
 	}
+	
+	protected void checkAndUpdateStock(Presupuesto p) {
+		if(!this.aceptPresController.checkStockInAlmacen(p)) {
+			JOptionPane.showMessageDialog(this, "Se a creado un pedido al proveedor");
+		}
+	}
+
 	private JButton getBtnCancelar() {
 		if (btnCancelar == null) {
 			btnCancelar = new JButton("Cancelar");

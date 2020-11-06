@@ -175,6 +175,7 @@ public class CreaPresupuestosView extends JDialog {
 			btnAceptar.setEnabled(false);
 			btnAceptar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					checkStock();
 					crearPresupuesto();
 				}
 			});
@@ -184,6 +185,13 @@ public class CreaPresupuestosView extends JDialog {
 			btnAceptar.setAlignmentX(Component.CENTER_ALIGNMENT);
 		}
 		return btnAceptar;
+	}
+
+	protected void checkStock() {
+		if(!presController.checkStockInAlmacen()) {
+			JOptionPane.showMessageDialog(this, "Su presupuesto va a tardar en crearse. No tenemos suficientes unidades para crearlo en este momento");
+		}
+		
 	}
 
 	/**
