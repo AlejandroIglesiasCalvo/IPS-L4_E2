@@ -28,6 +28,10 @@ public class EntregaController {
 		}
 		this.setPresupuesto(presupuesto);
 		this.venta = venta;
+		this.trasnporte = new Transporte(598, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor, montar);
+		
+		this.venta.setTransporte(trasnporte);
+		
 
 	}
 
@@ -44,7 +48,7 @@ public class EntregaController {
 		}
 		fecha = new gestionFechas(2020, 11, 22, 17, 00);
 		trasnporte = new Transporte(598, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor, montar);
-		venta = new Venta((long) 25, fecha.getFecha(), 52.00, trasnporte);
+		venta = new Venta( "25", fecha.getFecha(), 52.00, trasnporte);
 		this.setPresupuesto(presupuesto);
 
 	}

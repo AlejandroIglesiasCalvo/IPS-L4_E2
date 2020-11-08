@@ -18,5 +18,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="src/lib/hsqldb.jar"/>
+	<classpathentry kind="lib" path="hsqldb-2.5.1/hsqldb/lib/hsqldb.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

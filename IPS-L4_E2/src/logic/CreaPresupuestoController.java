@@ -180,7 +180,6 @@ public class CreaPresupuestoController {
 		}else {
 			presupuesto = new Presupuesto(this.id, cliente.getID(), LocalDateTime.now(), this.total, this.productosEnPresupuesto);
 		}
-		
 	}
 
 	/**

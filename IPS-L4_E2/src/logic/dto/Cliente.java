@@ -5,12 +5,19 @@ public class Cliente {
 	private String Nombre;
 	private String Apellidos;
 	private int Telefono;
-	public Cliente(String iD, String nombre, String apellidos, int telefono) {
+	private String direccion;
+	
+	public String getDireccion() {
+		return direccion;
+	}
+	
+	public Cliente(String iD, String nombre, String apellidos, int telefono, String direccion) {
 		super();
 		ID = iD;
 		Nombre = nombre;
 		Apellidos = apellidos;
 		Telefono = telefono;
+		this.direccion = direccion;
 	}
 	public String getID() {
 		return ID;
@@ -38,6 +45,10 @@ public class Cliente {
 	}
 	
 	public String toString(){
-		return "DNI: " + ID +" Nombre: "+ Nombre +" "+ Apellidos + " Telefono: "+ Telefono +".";
+		String r = "DNI: " + ID +" Nombre: "+ Nombre +" "+ Apellidos + " Telefono: "+ Telefono;
+		if(this.direccion != null) {
+			r+= "Direccion: " + direccion;
+		}
+		return r + " .";
 	}
 }

@@ -183,4 +183,4 @@ insert into Transporte (ID_Transporte, ID_Venta, ID_Producto, Hora, Fecha, ID_Re
 insert into Transporte (ID_Transporte, ID_Venta, ID_Producto, Hora, Fecha, ID_Repartidor, Estado) values ('2','2','5','10.00',to_date('12-02-2021', 'dd-mm-yyyy'),'3','PENDIENTE');
 insert into Transporte (ID_Transporte, ID_Venta, ID_Producto, Hora, Fecha, ID_Repartidor, Estado) values ('3','3','4','14.00',to_date('12-02-2009', 'dd-mm-yyyy'),'5','FINALIZADO');
 insert into Transporte (ID_Transporte, ID_Venta, ID_Producto, Hora, Fecha, ID_Repartidor, Estado) values ('4','4','1','15.00',to_date('15-12-2020', 'dd-mm-yyyy'),'2','EN ENTREGA');
-insert into Transporte (ID_Transporte, ID_Venta, ID_Producto, Hora, Fecha, ID_Repartidor, Estado) values ('5','5','5','18.00',to_date('12-12-2020', 'dd-mm-yyyy'),'1','EN ENTREGA')
+insert into Transporte (ID_Transporte, ID_Venta, ID_Producto, Hora, Fecha, ID_Repartidor, Estado) values ('5','5','5','18.00',to_date('12-12-2020', 'dd-mm-yyyy'),'1','EN ENTREGA');
