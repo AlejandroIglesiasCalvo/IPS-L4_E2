@@ -104,7 +104,6 @@ public class GestionCliente {
 			throw new RuntimeException(e);
 		}
 		return c;		
-	}
-	
+	}	
 
 }
