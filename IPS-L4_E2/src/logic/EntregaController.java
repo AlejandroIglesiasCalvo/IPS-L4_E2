@@ -73,7 +73,7 @@ public class EntregaController {
 
 	public boolean asignar_reparto(LocalDateTime fecha_propuesta) {
 		if (es_fecha_valida(fecha_propuesta)) {
-			// Completar en casa
+			//TODO Completar en casa
 			return true;
 		}
 		return false;

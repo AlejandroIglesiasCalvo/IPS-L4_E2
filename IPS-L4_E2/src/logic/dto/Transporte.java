@@ -28,6 +28,10 @@ public class Transporte {
 		this.estado = estado;
 	}
 
+	public Transporte() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public long getID() {
 		return ID;
 	}

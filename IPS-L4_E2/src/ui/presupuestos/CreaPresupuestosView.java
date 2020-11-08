@@ -28,8 +28,12 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
 import logic.CreaPresupuestoController;
+import logic.dto.Presupuesto;
 import logic.dto.Producto;
 import logic.dto.ProductoCarrito;
+import logic.dto.Repartidor;
+import ui.Ventas.ListarVentas;
+import ui.Ventas.RangoMostrarVentas;
 
 @SuppressWarnings("serial")
 public class CreaPresupuestosView extends JDialog {
@@ -320,12 +324,12 @@ public class CreaPresupuestosView extends JDialog {
 
 	private JButton getBtnAlex() {
 		if (btnAlex == null) {
-			btnAlex = new JButton("DemoAlex");
+			btnAlex = new JButton("ListarVentas");
 			btnAlex.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					ProductosTransporte preparados = new ProductosTransporte(presController.getPresupueso());
-					preparados.setVisible(true);
-					preparados.setLocationRelativeTo(null);
+					RangoMostrarVentas rangoVentas = new RangoMostrarVentas();
+					rangoVentas.setVisible(true);
+					rangoVentas.setLocationRelativeTo(null);
 				}
 			});
 		}
@@ -546,6 +550,5 @@ public class CreaPresupuestosView extends JDialog {
 			lblUnidades.setHorizontalAlignment(SwingConstants.CENTER);
 		}
 		return lblUnidades;
-
 	}
 }
