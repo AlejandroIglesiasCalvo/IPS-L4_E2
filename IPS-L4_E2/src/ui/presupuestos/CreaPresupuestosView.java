@@ -33,6 +33,7 @@ import logic.dto.Producto;
 import logic.dto.ProductoCarrito;
 import logic.dto.Repartidor;
 import ui.Ventas.ListarVentas;
+import ui.Ventas.RangoMostrarVentas;
 
 @SuppressWarnings("serial")
 public class CreaPresupuestosView extends JDialog {
@@ -326,9 +327,9 @@ public class CreaPresupuestosView extends JDialog {
 			btnAlex = new JButton("ListarVentas");
 			btnAlex.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					ListarVentas listarVentas = new ListarVentas();
-					listarVentas.setVisible(true);
-					listarVentas.setLocationRelativeTo(null);
+					RangoMostrarVentas rangoVentas = new RangoMostrarVentas();
+					rangoVentas.setVisible(true);
+					rangoVentas.setLocationRelativeTo(null);
 				}
 			});
 		}

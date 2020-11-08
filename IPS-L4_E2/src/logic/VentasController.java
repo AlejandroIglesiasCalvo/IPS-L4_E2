@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import dataBase.DataBase;
-import logic.dto.Repartidor;
 import logic.dto.Venta;
 
 public class VentasController {
@@ -13,12 +12,13 @@ public class VentasController {
 
 	public VentasController() {
 		
+		super();
 		try {
 			db = new DataBase();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-		ventas = db.getGestionVentas();
+		ventas = db.getGestionVentas().getVentas();
 	}
 
 

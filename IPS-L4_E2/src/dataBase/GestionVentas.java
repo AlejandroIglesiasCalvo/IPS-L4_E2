@@ -80,7 +80,7 @@ public class GestionVentas {
 	 * 
 	 * @return Lista de ventas
 	 */
-	public List<Venta> getRepartidores() {
+	public List<Venta> getVentas() {
 		List<Venta> repartidores;
 		String SQL = Conf.get("SQL_SELECCIONAR_VENTAS");
 		try {
@@ -110,12 +110,10 @@ public class GestionVentas {
 	}
 
 	private Venta toVentaDto(ResultSet rs) throws SQLException {
-		Transporte t= new Transporte();
-		t.setID(Long.valueOf(rs.getString(2)));	
+		Transporte t = new Transporte();
 		LocalDate a = rs.getDate(3).toLocalDate();
-		gestionFechas gf = new gestionFechas(a.getYear(),a.getMonthValue(),a.getDayOfYear(),00,00);
-		Venta dto = new Venta(Long.valueOf(rs.getString(1)),gf.getFecha() ,
-				Double.valueOf(rs.getString(4)),t));
+		gestionFechas gf = new gestionFechas(a.getYear(), a.getMonthValue(), a.getDayOfMonth(), 00, 00);
+		Venta dto = new Venta(Long.valueOf(rs.getString(1)), gf.getFecha(), Double.valueOf(rs.getString(4)), t);
 		return dto;
 	}
 }

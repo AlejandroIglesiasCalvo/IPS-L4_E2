@@ -1,7 +1,6 @@
 package ui.Ventas;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -38,6 +37,8 @@ public class ListarVentas extends JFrame {
 	 */
 	public ListarVentas(LocalDateTime inicio, LocalDateTime fin) {
 		vc = new VentasController();
+		this.inicio = inicio;
+		this.fin = fin;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 671, 492);
 		contentPane = new JPanel();
@@ -46,8 +47,7 @@ public class ListarVentas extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.add(getLblTitulo(), BorderLayout.NORTH);
 		contentPane.add(getScrollVentas(), BorderLayout.CENTER);
-		this.inicio = inicio;
-		this.fin = fin;
+
 	}
 
 	private JLabel getLblTitulo() {
@@ -70,7 +70,7 @@ public class ListarVentas extends JFrame {
 	private DefaultListModel<String> modelListVentas() {
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		for (Venta or : getListaProductoCarritosTienda())
-			model.addElement(or.getID() + "  " + or.getFecha() + "  " + or.getTotal());
+			model.addElement("Id: "+or.getID() + "  Fecha: " + or.getFecha() + "  Total: " + or.getTotal()+"€");
 		return model;
 	}
 
@@ -78,11 +78,11 @@ public class ListarVentas extends JFrame {
 		Ventas = vc.getTodasLasVentas();
 		List<Venta> filtrado = new ArrayList<>();
 		for (Venta v : Ventas) {
-			if (v.getFecha().isBefore(inicio) || v.getFecha().isAfter(fin)) {
-				Ventas.remove(v);
+			if (v.getFecha().isAfter(inicio) && v.getFecha().isBefore(fin)) {
+				filtrado.add(v);
 			}
 		}
-		return Ventas;
+		return filtrado;
 
 	}
 
