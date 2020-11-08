@@ -3,6 +3,7 @@ package ui.almacen;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.util.List;
+import java.util.stream.Stream;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -17,6 +18,11 @@ import ui.almacen.modelos.InventarioTabla;
 import ui.almacen.modelos.InventarioTablaModel;
 
 import javax.swing.JScrollPane;
+import javax.swing.JComboBox;
+import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
 
 public class VisualizarInventarioView extends JDialog {
 
@@ -25,6 +31,8 @@ public class VisualizarInventarioView extends JDialog {
 	private InventarioTabla tabla;
 	
 	private InventarioController controller = new InventarioController();
+	private JPanel pnComboBox;
+	private JComboBox comboBox;
 	
 	/**
 	 * Launch the application.
@@ -43,7 +51,8 @@ public class VisualizarInventarioView extends JDialog {
 	 * Create the dialog.
 	 */
 	public VisualizarInventarioView() {
-		setBounds(100, 100, 450, 300);
+		setTitle("Visualizar Inventario");
+		setBounds(100, 100, 1265, 814);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -51,6 +60,7 @@ public class VisualizarInventarioView extends JDialog {
 		{
 			contentPanel.add(getScrollPane(), BorderLayout.CENTER);
 		}
+		contentPanel.add(getPnComboBox(), BorderLayout.NORTH);
 	}
 
 	public JScrollPane getScrollPane() {
@@ -66,18 +76,44 @@ public class VisualizarInventarioView extends JDialog {
 	public InventarioTabla getTable() {
 		if(tabla == null) {
 			tabla = new InventarioTabla();
-			fillModel();
+			fillModel(null);
 		}
 		return tabla;
 	}
 	
-	public void fillModel() {
+	public void fillModel(String filter) {
 		InventarioTablaModel model = (InventarioTablaModel)getTable().getModel();
 		model.clearRows();
 		List<Producto_Almacen> p = controller.getStock();
 		
+		if(filter != null && !filter.equals("") ) {
+			ArrayList<Producto_Almacen> re = new ArrayList<>();
+			Stream<Producto_Almacen> s = p.stream().filter(ch -> ch.getTipo().equals(filter));
+			s.forEach(var -> re.add(var));
+			p = re	;		
+		}
 		p.stream().forEach(pa -> model.addRow(pa));
 		
+		
 	}
-
+	private JPanel getPnComboBox() {
+		if (pnComboBox == null) {
+			pnComboBox = new JPanel();
+			pnComboBox.setLayout(new GridLayout(0, 10, 0, 0));
+			pnComboBox.add(getComboBox());
+		}
+		return pnComboBox;
+	}
+	private JComboBox getComboBox() {
+		if (comboBox == null) {
+			comboBox = new JComboBox();
+			comboBox.setModel(new DefaultComboBoxModel(new String[] {"","Cocina", "Oficina"}));
+			comboBox.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					fillModel((String)comboBox.getSelectedItem());
+				}
+			});
+		}
+		return comboBox;
+	}
 }
