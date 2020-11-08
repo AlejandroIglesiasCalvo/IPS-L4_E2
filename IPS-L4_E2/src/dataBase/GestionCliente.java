@@ -30,6 +30,7 @@ public class GestionCliente {
 			pst.setString(2, c.getNombre());
 			pst.setString(3, c.getApellidos());
 			pst.setString(4, Integer.toString(c.getTelefono()));
+			pst.setString(5, c.getDireccion());
 			
 			pst.execute();
 
@@ -50,6 +51,7 @@ public class GestionCliente {
 		String nombre;
 		String apellidos;
 		int telefono;
+		String direccion;
 		Cliente c;
 		
 		try {
@@ -62,7 +64,8 @@ public class GestionCliente {
 				nombre = rs.getString(2);
 				apellidos = rs.getString(3);
 				telefono = Integer.valueOf(rs.getString(4));
-				c = new Cliente(id, nombre, apellidos, telefono);				
+				direccion= rs.getString(5);
+				c = new Cliente(id, nombre, apellidos, telefono, direccion);				
 				list.add(c);
 			}
 			rs.close();
@@ -81,6 +84,7 @@ public class GestionCliente {
 		String nombre;
 		String apellidos;
 		int telefono;
+		String direccion;
 		
 		try {
 			pst = con.prepareStatement(SQL);
@@ -92,7 +96,8 @@ public class GestionCliente {
 				nombre = rs.getString(1);
 				apellidos = rs.getString(2);
 				telefono = Integer.valueOf(rs.getString(3));
-				c = new Cliente(id, nombre, apellidos, telefono);				
+				direccion = rs.getString(4);
+				c = new Cliente(id, nombre, apellidos, telefono, direccion);				
 			}
 			pst.close();
 		} catch (SQLException e) {

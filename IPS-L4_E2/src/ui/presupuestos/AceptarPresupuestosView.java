@@ -14,6 +14,7 @@ import logic.CreaPresupuestoController;
 import logic.dto.Cliente;
 import logic.dto.Presupuesto;
 import ui.clientes.CrearClientesView;
+import ui.presupuestos.modelos.ClientesTabla;
 
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -55,6 +56,7 @@ public class AceptarPresupuestosView extends JDialog {
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_1_1;
 	private DefaultListModel<String> model;
+
 	
 	private CreaClienteController controller = new CreaClienteController();
 	private CreaPresupuestosView presView;
@@ -120,6 +122,7 @@ public class AceptarPresupuestosView extends JDialog {
 		}
 		return list;
 	}
+	
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
