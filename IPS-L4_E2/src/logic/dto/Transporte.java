@@ -1,5 +1,6 @@
 package logic.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Transporte {
@@ -8,6 +9,7 @@ public class Transporte {
 	private double Hora;
 	private Repartidor Repartidor;
 	private int Montados_en_casa;
+	private String estado;
 	public Transporte(long iD, LocalDateTime fecha, double hora, Repartidor repartidor, int Montados_en_casa) {
 		super();
 		ID = iD;
@@ -15,6 +17,15 @@ public class Transporte {
 		Hora = hora;
 		this.Repartidor = repartidor;
 		this.setMontados_en_casa(Montados_en_casa);
+	}
+	
+	public Transporte(long iD, LocalDateTime fecha, double hora, Repartidor repartidor, String estado) {
+		super();
+		ID = iD;
+		this.fecha = fecha;
+		Hora = hora;
+		this.Repartidor = repartidor;
+		this.estado = estado;
 	}
 
 	public long getID() {
@@ -56,5 +67,15 @@ public class Transporte {
 	public void setMontados_en_casa(int montados_en_casa) {
 		Montados_en_casa = montados_en_casa;
 	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	
+	
 
 }

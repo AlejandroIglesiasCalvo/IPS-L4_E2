@@ -46,7 +46,7 @@ public class CreaPresupuestosView extends JDialog {
 	private JButton btnCancelar;
 	private JPanel pnCatProductos;
 	private JPanel pnPreProductos;
-	private JTextField textField;
+	private JTextField textTotal;
 	private JTextField txtPrecioTotal;
 	private JPanel pnInfo;
 	private JLabel lblCatalogo;
@@ -112,7 +112,7 @@ public class CreaPresupuestosView extends JDialog {
 		frmPresupuesto.getContentPane().add(getPnButtons(), BorderLayout.SOUTH);
 		frmPresupuesto.getContentPane().add(getPnInfo(), BorderLayout.NORTH);
 		frmPresupuesto.setBounds(100, 100, 958, 720);
-		frmPresupuesto.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmPresupuesto.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		// a�ade a la lista catalogo todos los productos
 		addCatalogo();
 		cbxTipos.setSelectedIndex(0);
@@ -165,7 +165,7 @@ public class CreaPresupuestosView extends JDialog {
 			pnButtons.add(getBtnAsignarCliente());
 			pnButtons.add(getBtnAlex());
 			pnButtons.add(getTxtPrecioTotal());
-			pnButtons.add(getTextField());
+			pnButtons.add(getTextTotal());
 			pnButtons.add(getBtnAceptar());
 			pnButtons.add(getBtnCancelar());
 		}
@@ -178,6 +178,7 @@ public class CreaPresupuestosView extends JDialog {
 			btnAceptar.setEnabled(false);
 			btnAceptar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					checkStock();
 					crearPresupuesto();
 				}
 			});
@@ -189,12 +190,24 @@ public class CreaPresupuestosView extends JDialog {
 		return btnAceptar;
 	}
 
+	protected void checkStock() {
+		if(!presController.checkStockInAlmacen()) {
+			JOptionPane.showMessageDialog(this, "Su presupuesto va a tardar en crearse. No tenemos suficientes unidades para crearlo en este momento");
+		}
+		
+	}
+
 	/**
 	 * metodo para crear el presupuesto y pasar a la siguiente ventana
 	 */
 	protected void crearPresupuesto() {
 		presController.crearPresupuesto();
-		// se a�adiria c�digo aqu� para ir a la pesta�a siguiente
+		JOptionPane.showMessageDialog(this, "Presupuesto creado");
+		pnPreProductos.removeAll();
+		pnPreProductos.setVisible(false);
+		pnPreProductos.setVisible(true);
+		this.presController = new CreaPresupuestoController();
+		this.getTextTotal().setText("0,0");
 	}
 
 	private JButton getBtnCancelar() {
@@ -202,7 +215,7 @@ public class CreaPresupuestosView extends JDialog {
 			btnCancelar = new JButton("CANCELAR");
 			btnCancelar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					dispose();
+					cerrar();
 				}
 			});
 			btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -210,6 +223,10 @@ public class CreaPresupuestosView extends JDialog {
 			btnCancelar.setBackground(new Color(255, 0, 0));
 		}
 		return btnCancelar;
+	}
+
+	protected void cerrar() {
+		this.dispose();
 	}
 
 	private JPanel getPnCatProductos() {
@@ -231,17 +248,17 @@ public class CreaPresupuestosView extends JDialog {
 		return pnPreProductos;
 	}
 
-	private JTextField getTextField() {
-		if (textField == null) {
-			textField = new JTextField();
-			textField.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			textField.setBackground(Color.WHITE);
-			textField.setEditable(false);
-			textField.setHorizontalAlignment(SwingConstants.CENTER);
-			textField.setText("0,0");
-			textField.setColumns(10);
+	private JTextField getTextTotal() {
+		if (textTotal == null) {
+			textTotal = new JTextField();
+			textTotal.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			textTotal.setBackground(Color.WHITE);
+			textTotal.setEditable(false);
+			textTotal.setHorizontalAlignment(SwingConstants.CENTER);
+			textTotal.setText("0,0");
+			textTotal.setColumns(10);
 		}
-		return textField;
+		return textTotal;
 	}
 
 	private JTextField getTxtPrecioTotal() {
@@ -293,7 +310,7 @@ public class CreaPresupuestosView extends JDialog {
 	}
 
 	public JTextField getTxtTotal() {
-		return textField;
+		return textTotal;
 	}
 
 	public JPanel getPnPresupProducts() {

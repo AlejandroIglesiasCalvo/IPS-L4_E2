@@ -9,11 +9,14 @@ import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.swing.JOptionPane;
+
 import dataBase.DataBase;
 import logic.dto.Cliente;
 import logic.dto.Presupuesto;
 import logic.dto.Producto;
 import logic.dto.ProductoCarrito;
+import logic.dto.Producto_Almacen;
 
 public class CreaPresupuestoController {
 
@@ -24,6 +27,7 @@ public class CreaPresupuestoController {
 	private List<ProductoCarrito> productosEnPresupuesto;
 
 	private List<Producto> catalogo;
+	private List<Producto_Almacen> almacen;
 
 	private String id;
 
@@ -42,10 +46,10 @@ public class CreaPresupuestoController {
 		try {
 			db = new DataBase();
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catalogo = db.getGestionCreaPresupuesto().getProductos();
+		
 		generateId();
 		addTipos();
 	}
@@ -135,6 +139,20 @@ public class CreaPresupuestoController {
 		crearPresupuestoDto();
 		añadirPresupuestoABase();
 	}
+	
+
+	public boolean checkStockInAlmacen() {
+		almacen = db.getGestionCreaPresupuesto().getProductosAlmacen();
+		for(Producto_Almacen pa : almacen) {
+			for(ProductoCarrito pc : productosEnPresupuesto) {
+				if(pa.getID().equals(pc.getID()) && pa.getStock()-pc.getUnidades()<0) {
+					return false;
+				}
+			}
+		}
+		return true;
+		
+	}
 
 	/**
 	 * a�adimos el presupuesto a la base y todas sus lineas del carrito que
@@ -157,7 +175,12 @@ public class CreaPresupuestoController {
 	 * creamos el presupuesto en memoria
 	 */
 	private void crearPresupuestoDto() {
-		presupuesto = new Presupuesto(this.id, 123, LocalDateTime.now(), this.total, this.productosEnPresupuesto);
+		if(cliente == null) {
+			presupuesto = new Presupuesto(this.id, null, LocalDateTime.now(), this.total, this.productosEnPresupuesto);
+		}else {
+			presupuesto = new Presupuesto(this.id, cliente.getID(), LocalDateTime.now(), this.total, this.productosEnPresupuesto);
+		}
+		
 	}
 
 	/**

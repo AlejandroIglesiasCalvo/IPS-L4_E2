@@ -3,50 +3,40 @@ package logic.dto;
 import java.util.List;
 
 public class Pedido {
-	private long ID;
-	private Boolean Estado;
+	private String ID;
+	private String Estado;
 	//estos dos rellenarlos como tupla, 1 producto, x unidades
-	private List<Producto> Productos;
-	private List<Integer> Uidades;
+	private List<ProductoPedido> Productos;
 
-	public Pedido(long iD, Boolean estado, List<Producto> productos, List<Integer> uidades) {
+	public Pedido(String iD, String estado, List<ProductoPedido> productos) {
 		super();
 		ID = iD;
 		Estado = estado;
 		Productos = productos;
-		Uidades = uidades;
 	}
 
-	public long getID() {
+	public String getID() {
 		return ID;
 	}
 
-	public void setID(long iD) {
+	public void setID(String iD) {
 		ID = iD;
 	}
 
-	public Boolean getEstado() {
+	public String getEstado() {
 		return Estado;
 	}
 
-	public void setEstado(Boolean estado) {
+	public void setEstado(String estado) {
 		Estado = estado;
 	}
 
-	public List<Producto> getProductos() {
+	public List<ProductoPedido> getProductos() {
 		return Productos;
 	}
 
-	public void setProductos(List<Producto> productos) {
+	public void setProductos(List<ProductoPedido> productos) {
 		Productos = productos;
-	}
-
-	public List<Integer> getUidades() {
-		return Uidades;
-	}
-
-	public void setUidades(List<Integer> uidades) {
-		Uidades = uidades;
 	}
 
 }

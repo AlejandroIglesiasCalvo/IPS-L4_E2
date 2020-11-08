@@ -48,6 +48,8 @@ public class EntregaController {
 		this.setPresupuesto(presupuesto);
 
 	}
+	
+	public EntregaController() {}
 
 	/**
 	 * Mira si la fecha no es domingo y esta en horario de 8 a 22
@@ -91,6 +93,14 @@ public class EntregaController {
 			return false;
 		}
 
+	}
+	
+	public boolean ComprobarRepartidor() {
+		if(horarioDeTrabajo(fecha.getHoraEnDouble())) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	private boolean horarioDeTrabajo(Double Hora) {
