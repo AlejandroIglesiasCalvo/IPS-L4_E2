@@ -16,8 +16,11 @@ import javax.swing.JSpinner;
 import javax.swing.border.EmptyBorder;
 
 import logic.EntregaController;
+import logic.VisualizadorEntregasController;
 import logic.dto.Presupuesto;
 import logic.dto.Repartidor;
+import logic.dto.Transporte;
+
 import javax.swing.SpinnerNumberModel;
 
 public class EntregasUI extends JDialog {
@@ -42,6 +45,11 @@ public class EntregasUI extends JDialog {
 	private JSpinner spnaño;
 	private JSpinner spnHoras;
 	private JSpinner spnMinutos;
+	
+	
+	private Transporte transporte = null;
+	private VisualizadorEntregasController veController;
+	private EntregaPanel entregaPanel;
 
 	/**
 	 * Create the frame.
@@ -62,6 +70,26 @@ public class EntregasUI extends JDialog {
 		ec = new EntregaController(presupuesto);// Trampas mientras no este el resto
 		ec.setRepartidor(repartidor);
 		ec.setMontar(alli);
+	}
+	
+	/**
+	 * @wbp.parser.constructor
+	 */
+	public EntregasUI(Transporte transporte, VisualizadorEntregasController veController, EntregaPanel entregaPanel) {
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 668, 516);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout(0, 0));
+		contentPane.add(getLblTitulo(), BorderLayout.NORTH);
+		contentPane.add(getPnlAbajo(), BorderLayout.SOUTH);
+		contentPane.add(getPnlCentro(), BorderLayout.CENTER);
+		this.transporte = transporte;
+		this.veController = veController;
+		this.entregaPanel = entregaPanel;
+		ec = new EntregaController();
+		ec.setRepartidor(transporte.getRepartidor());
 	}
 
 	private JLabel getLblTitulo() {
@@ -202,16 +230,19 @@ public class EntregasUI extends JDialog {
 
 				(Integer) spnDia.getValue(), (Integer) spnHoras.getValue(), (Integer) spnMinutos.getValue());
 		if (valida) {
-			if (ec.Asignacion()) {
+			if (transporte == null && ec.Asignacion()) {
 				JOptionPane.showMessageDialog(this, "Done");
+			} else if(transporte != null && ec.ComprobarRepartidor()) {
+				veController.setNuevaFechaEntrega(transporte, (Integer) spnaño.getValue(), (Integer) spnMes.getValue(),
+						(Integer) spnDia.getValue(), (Integer) spnHoras.getValue(), (Integer) spnMinutos.getValue());
+				entregaPanel.refresh();
 			} else {
 				JOptionPane.showMessageDialog(this, "El repartidor no trabaja en ese horario, su horario es de:"
 						+ ec.getRepartidor().getEntrada() + " a " + ec.getRepartidor().getSalida());
 			}
-
 			this.dispose();
 		} else {
 			JOptionPane.showMessageDialog(this, "Fecha no valida");
 		}
-	}
+	};
 }

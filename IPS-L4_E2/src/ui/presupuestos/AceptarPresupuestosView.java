@@ -161,12 +161,20 @@ public class AceptarPresupuestosView extends JDialog {
 					int index = getTable().getSelectedRow();
 					Presupuesto p = ((PresupuestosTablaModel)getTable().getModel()).getValueAtRow(index);
 					System.out.println(p);
+					checkAndUpdateStock(p);
 					createVenta(p);
 				}
 			});
 		}
 		return btnCrearPresupuesto;
 	}
+	
+	protected void checkAndUpdateStock(Presupuesto p) {
+		if(!this.aceptPresController.checkStockInAlmacen(p)) {
+			JOptionPane.showMessageDialog(this, "Se a creado un pedido al proveedor");
+		}
+	}
+
 	private JButton getBtnCancelar() {
 		if (btnCancelar == null) {
 			btnCancelar = new JButton("Cancelar");

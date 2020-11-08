@@ -10,6 +10,7 @@ public class Cliente {
 	public String getDireccion() {
 		return direccion;
 	}
+	
 	public Cliente(String iD, String nombre, String apellidos, int telefono, String direccion) {
 		super();
 		ID = iD;

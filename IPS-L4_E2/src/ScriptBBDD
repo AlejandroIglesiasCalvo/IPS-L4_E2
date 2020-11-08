@@ -1,16 +1,15 @@
-Drop table Transporte;
 Drop table Encargo;
 Drop table Carrito;
 Drop table Venta_Producto;
-Drop table Encargo;
 
 Drop table Producto;
+Drop table Producto_Almacen;
 Drop table Venta;
 Drop table Presupuesto;
 
 Drop table Pedido;
 Drop table CLiente;
-Drop table Repartidor;
+Drop table Empleado;
 
 create table Cliente(
 DNI varchar (9) not null,
@@ -20,26 +19,41 @@ Telefono varchar (9) not null,
 direccion varchar(100)not null,
 constraint PK_Cliente primary key (DNI) 
 );
-create table Repartidor(
-ID_Repartidor varchar (9) not null,
+create table Empleado(
+ID_Empleado varchar (9) not null,
 Nombre varchar (40) not null,
 Telefono varchar (9) not null,
 Entrada varchar (8),
 Salida varchar (8),
-constraint PK_Repartidor primary key (ID_Repartidor) 
+Ocupacion varchar (20),
+constraint PK_Repartidor primary key (ID_Empleado),
+constraint CK_Repartidor_Empleado check (Ocupacion in('REPARTIDOR','VENTAS','ALMACEN'))
 );
 create table Pedido(
 ID_Pedido varchar (9) not null,
 Estado varchar (20) not null,
 constraint PK_Pedido primary key (ID_Pedido) 
 );
+
+
+create table Producto_Almacen(
+ID_Producto varchar (9) not null,
+Nombre varchar (20) not null,
+Tipo varchar (9) not null,
+Precio varchar (9) not null,
+Stock varchar (9) not null,
+constraint PK_Producto_Almacen primary key (ID_Producto)
+);
+
 create table Producto(
 ID_Producto varchar (9) not null,
 Nombre varchar (20) not null,
 Tipo varchar (9) not null,
 Precio varchar (9) not null,
-constraint PK_Producto primary key (ID_Producto) 
+constraint PK_Producto primary key (ID_Producto),
+constraint FK_Producto_ProductoAlmacen foreign key(ID_Producto) references Producto_Almacen(ID_Producto) 
 );
+
 
 create table Presupuesto(
 ID_Presupuesto varchar (9) not null,
@@ -64,7 +78,7 @@ ID_Producto varchar (9) not null,
 ID_Pedido varchar (9) not null,
 Unidades varchar (9) not null,
 constraint PK_Encargo primary key (ID_Producto,ID_Pedido),
-constraint FK_Encargo_Producto foreign key (ID_Producto) references Producto(ID_Producto),
+constraint FK_Encargo_Producto foreign key (ID_Producto) references Producto_Almacen(ID_Producto),
 constraint FK_Encargo_Pedido foreign key (ID_Pedido) references Pedido(ID_Pedido)
 );
 
@@ -90,27 +104,28 @@ constraint FK_Venta_Producto_Producto foreign key (ID_Producto) references Produ
 create table Transporte(
 ID_transporte varchar (9) not null,
 ID_Venta varchar (9) not null,
-ID_producto varchar (9) not null,
+ID_Producto varchar (9) not null,
 Hora varchar (9) not null,
 Fecha Date,
 ID_repartidor varchar (9) not null,
 Estado varchar(20) not null,
 constraint PK_ID_trasporte primary key (ID_transporte,ID_Venta,ID_Producto),
-constraint FK_Repartidor foreign key (ID_repartidor) references Repartidor(ID_repartidor),
+constraint FK_Repartidor foreign key (ID_repartidor) references Repartidor(ID_Empleado),
+constraint FK_Venta foreign key (ID_Venta, ID_Producto) references Venta_Producto(ID_Venta, ID_Producto),
 constraint CK_Transporte_Estado check (Estado in('PENDIENTE','FINALIZADO','RETRASADO','EN ENTREGA'))
 );
 
 insert into Cliente (DNI, Nombre, Apellidos, Telefono, direccion) values ('123456','Antonio','Rodriguez Díaz','2345667', 'Calle Fernando Moran');
-insert into Cliente (DNI, Nombre, Apellidos, Telefono) values ('123345','Irene','Bello Díaz','732659', 'Calle La Pantomima');
-insert into Cliente (DNI, Nombre, Apellidos, Telefono) values ('324585','Miguel','García Calvo','3264758', 'Avenue Q');
-insert into Cliente (DNI, Nombre, Apellidos, Telefono) values ('236235','Roman','Lopez Menendez','23453425', 'Baker Street');
-insert into Cliente (DNI, Nombre, Apellidos, Telefono) values ('738478','Laura','Fernandez Arias','14593453','Gran Via');
+insert into Cliente (DNI, Nombre, Apellidos, Telefono, direccion) values ('123345','Irene','Bello Díaz','732659', 'Calle La Pantomima');
+insert into Cliente (DNI, Nombre, Apellidos, Telefono, direccion) values ('324585','Miguel','García Calvo','3264758', 'Avenue Q');
+insert into Cliente (DNI, Nombre, Apellidos, Telefono, direccion) values ('236235','Roman','Lopez Menendez','23453425', 'Baker Street');
+insert into Cliente (DNI, Nombre, Apellidos, Telefono, direccion) values ('738478','Laura','Fernandez Arias','14593453','Gran Via');
 
-insert into Repartidor values ('1', 'Pepe', '293845', '12.00', '15.00');
-insert into Repartidor values ('2', 'Toni', '1345643', '12.00', '15.00');
-insert into Repartidor values ('3', 'Maria', '342564', '12.00', '15.00');
-insert into Repartidor values ('4', 'Juan', '2495624', '12.00', '15.00');
-insert into Repartidor values ('5', 'Pablo', '2348762', '12.00', '15.00');
+insert into Empleado values ('1', 'Pepe', '293845', '12.00', '15.00', 'VENTAS');
+insert into Empleado values ('2', 'Toni', '1345643', '12.00', '15.00', 'ALMACEN');
+insert into Empleado values ('3', 'Maria', '342564', '12.00', '15.00', 'REPARTIDOR');
+insert into Empleado values ('4', 'Juan', '2495624', '12.00', '15.00', 'REPARTIDOR');
+insert into Empleado values ('5', 'Pablo', '2348762', '12.00', '15.00', 'REPARTIDOR');
 
 insert into Pedido values ('1', 'Estado');
 insert into Pedido values ('2', 'Estado');
@@ -118,11 +133,19 @@ insert into Pedido values ('3', 'Estado');
 insert into Pedido values ('4', 'Estado');
 insert into Pedido values ('5', 'Estado');
 
+
+insert into Producto_Almacen values ('1', 'Silla1', 'Reclin', '8', '10');
+insert into Producto_Almacen values ('2', 'Silla1', 'Cocina', '18', '2');
+insert into Producto_Almacen values ('3', 'Silla1', 'Oficina', '28', '0');
+insert into Producto_Almacen values ('4', 'Silla1', 'Oficina', '28.5', '6');
+insert into Producto_Almacen values ('5', 'Silla1', 'Oficina', '38', '4');
+
 insert into Producto values ('1', 'Silla1', 'Reclin', '10');
 insert into Producto values ('2', 'Silla1', 'Cocina', '20');
 insert into Producto values ('3', 'Silla1', 'Oficina', '30');
 insert into Producto values ('4', 'Silla1', 'Oficina', '30.5');
 insert into Producto values ('5', 'Silla1', 'Oficina', '40');
+
 
 insert into Presupuesto values ('1', '123456', to_date('12-02-2009', 'dd-mm-yyyy'), '30');
 insert into Presupuesto values ('2', '123456', to_date('13-02-2009', 'dd-mm-yyyy'), '40');
@@ -142,6 +165,7 @@ insert into Encargo (ID_Producto, ID_Pedido, Unidades) values ('3','3','1');
 insert into Encargo (ID_Producto, ID_Pedido, Unidades) values ('4','4','1');
 insert into Encargo (ID_Producto, ID_Pedido, Unidades) values ('5','5','1');
 
+
 insert into Venta values ('1', '1', to_date('12-02-2021', 'dd-mm-yyyy'), '30', '0');
 insert into Venta values ('2', '2', to_date('12-02-2020', 'dd-mm-yyyy'), '40', '0');
 insert into Venta values ('3', '3', to_date('12-02-2009', 'dd-mm-yyyy'), '30.5', '0');
@@ -153,6 +177,7 @@ insert into Venta_Producto (ID_Producto, ID_Venta, Unidades) values ('5','2','1'
 insert into Venta_Producto (ID_Producto, ID_Venta, Unidades) values ('4','3','1');
 insert into Venta_Producto (ID_Producto, ID_Venta, Unidades) values ('1','4','1');
 insert into Venta_Producto (ID_Producto, ID_Venta, Unidades) values ('5','5','1');
+
 
 insert into Transporte (ID_Transporte, ID_Venta, ID_Producto, Hora, Fecha, ID_Repartidor, Estado) values ('1','1','3','12.00',to_date('12-02-2009', 'dd-mm-yyyy'),'1','RETRASADO');
 insert into Transporte (ID_Transporte, ID_Venta, ID_Producto, Hora, Fecha, ID_Repartidor, Estado) values ('2','2','5','10.00',to_date('12-02-2021', 'dd-mm-yyyy'),'3','PENDIENTE');
