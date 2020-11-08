@@ -2,25 +2,22 @@ package ui.Ventas;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import logic.VentasController;
-import logic.dto.ProductoCarrito;
 import logic.dto.Venta;
-
-import java.awt.GridLayout;
-import java.util.List;
-
-import javax.swing.JLabel;
-import javax.swing.JList;
-
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JScrollPane;
 
 public class ListarVentas extends JFrame {
 
@@ -34,27 +31,12 @@ public class ListarVentas extends JFrame {
 	private JList<String> listVentas;
 	private List<Venta> Ventas;
 	private VentasController vc;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ListarVentas frame = new ListarVentas();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private LocalDateTime inicio, fin;
 
 	/**
 	 * Create the frame.
 	 */
-	public ListarVentas() {
+	public ListarVentas(LocalDateTime inicio, LocalDateTime fin) {
 		vc = new VentasController();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 671, 492);
@@ -64,7 +46,8 @@ public class ListarVentas extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.add(getLblTitulo(), BorderLayout.NORTH);
 		contentPane.add(getScrollVentas(), BorderLayout.CENTER);
-
+		this.inicio = inicio;
+		this.fin = fin;
 	}
 
 	private JLabel getLblTitulo() {
@@ -93,6 +76,12 @@ public class ListarVentas extends JFrame {
 
 	private List<Venta> getListaProductoCarritosTienda() {
 		Ventas = vc.getTodasLasVentas();
+		List<Venta> filtrado = new ArrayList<>();
+		for (Venta v : Ventas) {
+			if (v.getFecha().isBefore(inicio) || v.getFecha().isAfter(fin)) {
+				Ventas.remove(v);
+			}
+		}
 		return Ventas;
 
 	}
