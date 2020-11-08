@@ -16,6 +16,7 @@ import logic.dto.Cliente;
 import logic.dto.Presupuesto;
 import logic.dto.Producto;
 import logic.dto.ProductoCarrito;
+import logic.dto.Producto_Almacen;
 
 public class GestionCreaPresupuesto {
 
@@ -57,7 +58,7 @@ public class GestionCreaPresupuesto {
 	}
 
 	private List<Producto> toProductoList(ResultSet rs) throws SQLException {
-		List<Producto> res = new ArrayList();
+		List<Producto> res = new ArrayList<>();
 		while (rs.next()) {
 			res.add(toProductoDto(rs));
 		}
@@ -200,7 +201,7 @@ public class GestionCreaPresupuesto {
 			pst = con.prepareStatement(SQL);
 			pst.setString(1, id);
 			// no hay cliente, por eso meto una string cualquiera
-			pst.setString(2, "11");
+			pst.setString(2, null);
 			long millis = System.currentTimeMillis();
 			pst.setDate(3, new java.sql.Date(millis));
 			pst.setString(4, Double.toString(total));
@@ -220,7 +221,7 @@ public class GestionCreaPresupuesto {
 		try {
 			pst = con.prepareStatement(SQL);
 			pst.setString(1, id);
-			pst.setString(2, Long.toString(c.getID()));
+			pst.setString(2, c.getID());
 			long millis = System.currentTimeMillis();
 			pst.setDate(3, new java.sql.Date(millis));
 			pst.setString(4, Double.toString(total));
@@ -239,7 +240,7 @@ public class GestionCreaPresupuesto {
 
 		ArrayList<Presupuesto> sol = new ArrayList<Presupuesto>();
 		Presupuesto p;
-		int dni;
+		String dni;
 		String id_Pres;
 		LocalDate date;
 		LocalDateTime fecha;
@@ -255,7 +256,7 @@ public class GestionCreaPresupuesto {
 			ResultSet rs = pst.getResultSet();
 			while (rs.next()) {
 				id_Pres = rs.getString(1);
-				dni = Integer.valueOf(rs.getString(2));
+				dni = rs.getString(2);
 				date = LocalDate.parse(rs.getString(3));
 				fecha = LocalDateTime.of(date, LocalTime.now());
 
@@ -307,6 +308,41 @@ public class GestionCreaPresupuesto {
 			throw new RuntimeException(e);
 		}
 		return l;
+	}
+
+	public List<Producto_Almacen> getProductosAlmacen() {
+		List<Producto_Almacen> productos;
+		String SQL = Conf.get("SQL_SELECCIONAR_PRODUCTOS_ALMACEN");
+		try {
+			ResultSet rs;
+			pst = con.prepareStatement(SQL);
+
+			rs = pst.executeQuery();
+
+			productos = toProducto_AlmacenList(rs);
+
+			rs.close();
+			pst.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return productos;
+	}
+
+	private List<Producto_Almacen> toProducto_AlmacenList(ResultSet rs) throws SQLException {
+		List<Producto_Almacen> res = new ArrayList<>();
+		while (rs.next()) {
+			res.add(toProducto_AlmacenDto(rs));
+		}
+		return res;
+	}
+
+	private Producto_Almacen toProducto_AlmacenDto(ResultSet rs) throws SQLException {
+		Producto_Almacen dto = new Producto_Almacen(rs.getString(1), rs.getString(2), rs.getString(3),
+				Double.parseDouble(rs.getString(4)), Integer.parseInt(rs.getString(5)));
+		return dto;
 	}
 
 }

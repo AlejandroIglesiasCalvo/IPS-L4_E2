@@ -171,7 +171,7 @@ public class CrearClientesView extends JDialog {
 	
 	private void crearNuevoCliente() {
 		
-		int dni = Integer.valueOf(getTxtDNI().getText());
+		String dni = getTxtDNI().getText();
 	
 		String nombre = getTxtNombre().getText();
 		String apellidos = getTxtApellidos().getText();

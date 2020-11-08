@@ -64,4 +64,29 @@ public class GestionRepartidores {
 				Double.valueOf(rs.getString(4)), Double.valueOf(rs.getString(5)));
 		return dto;
 	}
+
+	public Repartidor getRepartidor(String id) {
+		Repartidor res = null;
+		String SQL = Conf.get("SQL_GET_REPARTIDOR_CON_STRING");
+		try {
+			ResultSet rs;
+			pst = con.prepareStatement(SQL);
+			pst.setString(1, id);
+
+			rs = pst.executeQuery();
+			
+			while(rs.next()) {
+				res = toRepartidorDto(rs);
+			}
+			
+
+			if(rs!=null) rs.close();
+			pst.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return res;
+	}
+
 }
