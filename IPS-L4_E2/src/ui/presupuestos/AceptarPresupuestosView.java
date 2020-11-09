@@ -154,7 +154,7 @@ public class AceptarPresupuestosView extends JDialog {
 	}
 	private JButton getBtnCrearPresupuesto() {
 		if (btnCrearPresupuesto == null) {
-			btnCrearPresupuesto = new JButton("Crear Presupuesto");
+			btnCrearPresupuesto = new JButton("Crear Venta");
 			btnCrearPresupuesto.setEnabled(false);
 			btnCrearPresupuesto.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
