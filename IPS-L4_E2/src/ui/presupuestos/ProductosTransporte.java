@@ -78,6 +78,7 @@ public class ProductosTransporte extends JFrame {
 		ec = new EntregaController(presupuesto, v);// Trampas mientras no este el resto
 	}
 
+
 	private JLabel getLbltitulo() {
 		if (lbltitulo == null) {
 			lbltitulo = new JLabel("Preparando el envio");
