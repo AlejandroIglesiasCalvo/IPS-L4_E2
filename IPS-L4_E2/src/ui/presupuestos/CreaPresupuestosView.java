@@ -34,6 +34,7 @@ import logic.dto.ProductoCarrito;
 import logic.dto.Repartidor;
 import ui.Ventas.ListarVentas;
 import ui.Ventas.RangoMostrarVentas;
+import ui.empleados.añadirempleado;
 
 @SuppressWarnings("serial")
 public class CreaPresupuestosView extends JDialog {
@@ -92,6 +93,7 @@ public class CreaPresupuestosView extends JDialog {
 	private JLabel lblNewLabel_2;
 	private JButton btnAsignarCliente;
 	private JLabel lblUnidades;
+	private JButton btnAgragarEmpleado;
 
 	/**
 	 * Create the application.
@@ -163,6 +165,7 @@ public class CreaPresupuestosView extends JDialog {
 			pnButtons = new JPanel();
 			pnButtons.setBackground(Color.WHITE);
 			pnButtons.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+			pnButtons.add(getBtnAgragarEmpleado());
 			pnButtons.add(getBtnAsignarCliente());
 			pnButtons.add(getBtnAlex());
 			pnButtons.add(getTxtPrecioTotal());
@@ -550,5 +553,18 @@ public class CreaPresupuestosView extends JDialog {
 			lblUnidades.setHorizontalAlignment(SwingConstants.CENTER);
 		}
 		return lblUnidades;
+	}
+	private JButton getBtnAgragarEmpleado() {
+		if (btnAgragarEmpleado == null) {
+			btnAgragarEmpleado = new JButton("CrearEmpleado");
+			btnAgragarEmpleado.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					añadirempleado añadirEmpleado = new añadirempleado();
+					añadirEmpleado.setVisible(true);
+					añadirEmpleado.setLocationRelativeTo(null);
+				}
+			});
+		}
+		return btnAgragarEmpleado;
 	}
 }
