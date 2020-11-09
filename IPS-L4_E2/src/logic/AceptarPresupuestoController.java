@@ -9,6 +9,7 @@ import dataBase.DataBase;
 import logic.dto.Cliente;
 import logic.dto.Pedido;
 import logic.dto.Presupuesto;
+import logic.dto.Venta;
 import logic.dto.ProductoCarrito;
 import logic.dto.ProductoPedido;
 import logic.dto.Producto_Almacen;
@@ -53,9 +54,9 @@ public class AceptarPresupuestoController {
 				.collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append).toString();
 		return id;
 	}
-
-	public void crearVenta(Presupuesto p) {
-		db.getGestionVentas().insertarVenta(generateId(), p);
+	
+	public Venta crearVenta(Presupuesto p) {
+		return db.getGestionVentas().insertarVenta(generateId(),p);
 	}
 
 	public boolean checkStockInAlmacen(Presupuesto p) {

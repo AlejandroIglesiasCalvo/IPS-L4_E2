@@ -1,25 +1,35 @@
 package ui.presupuestos.modelos;
 
 import java.text.NumberFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import dataBase.GestionCliente;
+import logic.AceptarPresupuestoController;
 import logic.dto.Cliente;
+import logic.dto.Presupuesto;
 
-public class ClientesTablaModel extends AbstractTableModel {
+
+public class PresupuestosTablaModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = -5675393178142862583L;
 
 
-	private String[] columnNames = { "DNI","Nombre", "Apellido", "Direccion", "Telefono"};
+	private String[] columnNames = { "ID Presupuesto","Cliente", "Fecha"};
+	protected List<Presupuesto> presupustos;
 	protected List<Cliente> clientes;
-	protected Class<?>[] types = new Class[] { String.class, String.class, String.class, String.class, String.class};
+	protected Class<?>[] types = new Class[] { String.class, String.class, LocalDateTime.class};
+	
+	private AceptarPresupuestoController g = new AceptarPresupuestoController();
 
-	public ClientesTablaModel() {
+	public PresupuestosTablaModel() {
 		
-		clientes = new LinkedList<Cliente>();
+		presupustos = new LinkedList<>();
+		clientes = new LinkedList<>();
 	}
 
 	@Override
@@ -39,25 +49,22 @@ public class ClientesTablaModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return clientes.size();
+		return presupustos.size();
 	}
 
 	@Override
 	public Object getValueAt(int row, int col) {
-		Cliente c = clientes.get(row);
+		Presupuesto p = presupustos.get(row);
+		Cliente c  = g.getClienteById(p.getDNI_Cliente());
 		NumberFormat f = NumberFormat.getInstance();
 		f.setMaximumFractionDigits(2);
 		switch(col) {
 		case 0:
-			return c.getID();
+			return p.getID_Presupuesto();
 		case 1:
-			return c.getNombre();
+			return c.getNombre() + " " + c.getApellidos();
 		case 2:
-			return c.getApellidos();
-		case 3:
-			return c.getDireccion();
-		case 4:
-			return c.getTelefono();
+			return p.getFecha();
 		default:
 			return null;
 		}
@@ -68,19 +75,20 @@ public class ClientesTablaModel extends AbstractTableModel {
 		return types[columnIndex];
 	}
 
-	public Cliente getValueAtRow(int row) {
-		Cliente c = clientes.get(row);
-		return c;
+	public Presupuesto getValueAtRow(int row) {
+		Presupuesto p = presupustos.get(row);
+		return p;
 	}
 
 	public void clearRows() {
-		clientes.clear();
+		presupustos.clear();
 		fireTableDataChanged();
 	}
 
-	public void addRow(Cliente c) {
+	public void addRow(Presupuesto p, Cliente c) {
+		presupustos.add(p);
 		clientes.add(c);
-		fireTableRowsInserted(clientes.size() - 1, clientes.size() - 1);
+		fireTableRowsInserted(presupustos.size() - 1, presupustos.size() - 1);
 	}
 	
 	@Override
