@@ -10,8 +10,8 @@ import java.util.List;
 
 import confg.Conf;
 import logic.gestionFechas;
-import logic.dto.Producto;
 import logic.dto.Repartidor;
+import logic.dto.TrabajadorDto;
 
 public class GestionRepartidores {
 	private static Connection con;
@@ -88,5 +88,30 @@ public class GestionRepartidores {
 		}
 		return res;
 	}
+	public void añadirTrabajador(TrabajadorDto t) {
+		String SQL = Conf.get("SQL_CREAR_TRABAJADOR");
+		try {
+			pst = con.prepareStatement(SQL);
+			
 
+			pst.setString(1, t.getId_empleado());
+			pst.setString(2, t.getNombre());
+			pst.setString(3, t.getApellidos());
+			pst.setString(4, t.getTelefono());
+			pst.setString(5, t.getEntrada());
+			pst.setString(6, t.getSalida());
+			pst.setString(7, t.getOcupacion());
+			pst.setString(8, t.getDni());
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				con.close();
+				db.closeConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

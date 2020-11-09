@@ -23,10 +23,12 @@ constraint PK_Cliente primary key (DNI)
 create table Empleado(
 ID_Empleado varchar (9) not null,
 Nombre varchar (40) not null,
+Apellidos varchar (40) not null,
 Telefono varchar (9) not null,
 Entrada varchar (8),
 Salida varchar (8),
 Ocupacion varchar (20),
+Dni varchar(9),
 constraint PK_Repartidor primary key (ID_Empleado),
 constraint CK_Repartidor_Empleado check (Ocupacion in('REPARTIDOR','VENTAS','ALMACEN'))
 );
@@ -122,11 +124,11 @@ insert into Cliente (DNI, Nombre, Apellidos, Telefono, direccion) values ('32458
 insert into Cliente (DNI, Nombre, Apellidos, Telefono, direccion) values ('236235','Roman','Lopez Menendez','23453425', 'Baker Street');
 insert into Cliente (DNI, Nombre, Apellidos, Telefono, direccion) values ('738478','Laura','Fernandez Arias','14593453','Gran Via');
 
-insert into Empleado values ('1', 'Pepe', '293845', '12.00', '15.00', 'VENTAS');
-insert into Empleado values ('2', 'Toni', '1345643', '12.00', '15.00', 'ALMACEN');
-insert into Empleado values ('3', 'Maria', '342564', '12.00', '15.00', 'REPARTIDOR');
-insert into Empleado values ('4', 'Juan', '2495624', '12.00', '15.00', 'REPARTIDOR');
-insert into Empleado values ('5', 'Pablo', '2348762', '12.00', '15.00', 'REPARTIDOR');
+insert into Empleado values ('1', 'Pepe', 'Pepe','293845', '12.00', '15.00', 'VENTAS','12345678A');
+insert into Empleado values ('2', 'Toni', 'Pepe','1345643', '12.00', '15.00', 'ALMACEN','12345678B');
+insert into Empleado values ('3', 'Maria','Pepe', '342564', '12.00', '15.00', 'REPARTIDOR','12345678C');
+insert into Empleado values ('4', 'Juan', 'Pepe','2495624', '12.00', '15.00', 'REPARTIDOR','12345678D');
+insert into Empleado values ('5', 'Pablo','Pepe', '2348762', '12.00', '15.00', 'REPARTIDOR','12345678E');
 
 insert into Pedido values ('1', 'Estado');
 insert into Pedido values ('2', 'Estado');

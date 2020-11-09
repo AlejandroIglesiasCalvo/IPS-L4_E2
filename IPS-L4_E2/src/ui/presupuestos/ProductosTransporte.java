@@ -58,25 +58,10 @@ public class ProductosTransporte extends JFrame {
 	private List<ProductoCarrito> LLevar = new ArrayList<>();
 	private List<ProductoCarrito> Montar = new ArrayList<>();
 
-	/**
-	 * Create the frame.
-	 */
-	public ProductosTransporte(Presupuesto presupuesto) {
-		this.presupuesto = presupuesto;
-		r = new Repartidores();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 789, 673);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
-		contentPane.add(getLbltitulo(), BorderLayout.NORTH);
-		contentPane.add(getPnlSur(), BorderLayout.SOUTH);
-		contentPane.add(getPnlCentro(), BorderLayout.CENTER);
-
-		ec = new EntregaController(presupuesto);// Trampas mientras no este el resto
-	}
 	
+	/**
+	 * @wbp.parser.constructor
+	 */
 	public ProductosTransporte(Presupuesto presupuesto, Venta v) {
 		this.presupuesto = presupuesto;
 		r = new Repartidores();
