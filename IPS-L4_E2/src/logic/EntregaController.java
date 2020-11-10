@@ -28,6 +28,7 @@ public class EntregaController {
 		}
 		this.setPresupuesto(presupuesto);
 		this.venta = venta;
+		fecha = new gestionFechas(2020, 11, 22, 17, 00);
 		this.trasnporte = new Transporte(598, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor, montar);
 		
 		this.venta.setTransporte(trasnporte);

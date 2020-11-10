@@ -196,7 +196,6 @@ public class ProductosTransporte extends JFrame {
 			btnLLevar.setToolTipText("(SOLO UN USO)");
 			btnLLevar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-
 					try {
 						if ((listTienda.getSelectedIndex()) > -1) {
 							List<String> llevar = listTienda.getSelectedValuesList();
