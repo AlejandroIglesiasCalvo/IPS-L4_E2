@@ -28,8 +28,8 @@ public class EntregaController {
 		}
 		this.setPresupuesto(presupuesto);
 		this.venta = venta;
-		this.trasnporte = new Transporte(598, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor, montar);
-		
+		//this.trasnporte = new Transporte(598, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor, montar);
+		fecha = new gestionFechas(LocalDateTime.now());
 		this.venta.setTransporte(trasnporte);
 		
 

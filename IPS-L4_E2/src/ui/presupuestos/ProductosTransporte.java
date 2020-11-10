@@ -58,7 +58,6 @@ public class ProductosTransporte extends JFrame {
 	private List<ProductoCarrito> LLevar = new ArrayList<>();
 	private List<ProductoCarrito> Montar = new ArrayList<>();
 
-	
 	/**
 	 * @wbp.parser.constructor
 	 */
@@ -77,7 +76,6 @@ public class ProductosTransporte extends JFrame {
 
 		ec = new EntregaController(presupuesto, v);// Trampas mientras no este el resto
 	}
-
 
 	private JLabel getLbltitulo() {
 		if (lbltitulo == null) {
@@ -199,15 +197,13 @@ public class ProductosTransporte extends JFrame {
 
 					try {
 						if ((listTienda.getSelectedIndex()) > -1) {
-							List<String> llevar = listTienda.getSelectedValuesList();
+							int[] llevar = listTienda.getSelectedIndices();
 							List<ProductoCarrito> tmp = new ArrayList<>();
-							for (int x = 0; x < llevar.size(); x++) {
-								for (ProductoCarrito p : Tienda) {
-									if (llevar.get(x).equals(p.getNombre())) {
-										LLevar.add(p);
-										tmp.add(p);
-									}
-								}
+							for (int x = 0; x < llevar.length; x++) {
+
+								LLevar.add(Tienda.get(x));
+								tmp.add(Tienda.get(x));
+
 							}
 							for (ProductoCarrito p : tmp) {
 								Tienda.remove(p);
@@ -335,15 +331,13 @@ public class ProductosTransporte extends JFrame {
 
 					try {
 						if ((listRepartir.getSelectedIndex()) > -1) {
-							List<String> montar = listRepartir.getSelectedValuesList();
+							int[] montar = listRepartir.getSelectedIndices();
 							List<ProductoCarrito> tmp = new ArrayList<>();
-							for (int x = 0; x < montar.size(); x++) {
-								for (ProductoCarrito p : LLevar) {
-									if (montar.get(x).equals(p.getNombre())) {
-										Montar.add(p);
-										tmp.add(p);
-									}
-								}
+							for (int x = 0; x < montar.length; x++) {
+
+								Montar.add(LLevar.get(x));
+								tmp.add(LLevar.get(x));
+
 							}
 							for (ProductoCarrito p : tmp) {
 								LLevar.remove(p);
