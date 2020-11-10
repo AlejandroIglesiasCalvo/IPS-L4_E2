@@ -212,6 +212,10 @@ public class CreaPresupuestosView extends JDialog {
 		pnPreProductos.setVisible(true);
 		this.presController = new CreaPresupuestoController();
 		this.getTextTotal().setText("0,0");
+		pnCatProductos.removeAll();
+		addCatalogo();
+		pnCatProductos.setVisible(false);
+		pnCatProductos.setVisible(true);
 	}
 
 	private JButton getBtnCancelar() {
