@@ -412,7 +412,7 @@ public class CreaPresupuestosView extends JDialog {
 					} else {
 						maxMin = "menor";
 					}
-					if (tipo.equals("Sin definir") || (precio <= 0 && maxMin.equals("menor"))) {
+					if (precio <= 0 && maxMin.equals("menor")) {
 						JOptionPane.showMessageDialog(null, "Las opciones de filtrar son incorrectas");
 					}
 					List<Producto> filtrada = presController.filtra(precio, tipo, maxMin);

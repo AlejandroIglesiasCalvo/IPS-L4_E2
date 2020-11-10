@@ -7,15 +7,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
-import javax.management.RuntimeErrorException;
 import java.util.ArrayList;
 import java.util.List;
 
 import confg.Conf;
 import logic.gestionFechas;
 import logic.dto.Presupuesto;
-import logic.dto.Producto;
+import logic.dto.ProductoCarrito;
 import logic.dto.Transporte;
 import logic.dto.Venta;
 
@@ -71,7 +69,7 @@ public class GestionVentas {
 	/*
 	 * Hay que cambiar en este metodo el numero de productos que se le asigna a la venta
 	 */
-	private void insertarProductoVenta(Producto p, String idVenta) {
+	private void insertarProductoVenta(ProductoCarrito p, String idVenta) {
 		String SQL = Conf.get("SQL_INSERTAR_VENTA_PRODUCTO");
 		PreparedStatement ps;
 		try {
@@ -79,7 +77,7 @@ public class GestionVentas {
 			
 			ps.setString(1, p.getID());
 			ps.setString(2, idVenta);
-			ps.setString(3, "1");
+			ps.setString(3, p.getUnidades() + "");
 			
 			ps.executeUpdate();
 			
