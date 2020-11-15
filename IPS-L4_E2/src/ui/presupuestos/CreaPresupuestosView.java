@@ -73,7 +73,6 @@ public class CreaPresupuestosView extends JDialog {
 	private CreaPresupuestoController presController = new CreaPresupuestoController();
 	private CreaPresupuestosView window;
 	private AsignarClientePresupuestoView aCP;
-	private JButton btnAlex;
 	private JPanel pnFiltrar;
 	private JComboBox<String> cbxTipos;
 	private JSpinner spnPrecio;
@@ -93,7 +92,6 @@ public class CreaPresupuestosView extends JDialog {
 	private JLabel lblNewLabel_2;
 	private JButton btnAsignarCliente;
 	private JLabel lblUnidades;
-	private JButton btnAgragarEmpleado;
 
 	/**
 	 * Create the application.
@@ -165,9 +163,7 @@ public class CreaPresupuestosView extends JDialog {
 			pnButtons = new JPanel();
 			pnButtons.setBackground(Color.WHITE);
 			pnButtons.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
-			pnButtons.add(getBtnAgragarEmpleado());
 			pnButtons.add(getBtnAsignarCliente());
-			pnButtons.add(getBtnAlex());
 			pnButtons.add(getTxtPrecioTotal());
 			pnButtons.add(getTextTotal());
 			pnButtons.add(getBtnAceptar());
@@ -327,20 +323,6 @@ public class CreaPresupuestosView extends JDialog {
 
 	public JButton getBtnCreate() {
 		return btnAceptar;
-	}
-
-	private JButton getBtnAlex() {
-		if (btnAlex == null) {
-			btnAlex = new JButton("ListarVentas");
-			btnAlex.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					RangoMostrarVentas rangoVentas = new RangoMostrarVentas();
-					rangoVentas.setVisible(true);
-					rangoVentas.setLocationRelativeTo(null);
-				}
-			});
-		}
-		return btnAlex;
 	}
 
 	private JPanel getPnFiltrar() {
@@ -557,18 +539,5 @@ public class CreaPresupuestosView extends JDialog {
 			lblUnidades.setHorizontalAlignment(SwingConstants.CENTER);
 		}
 		return lblUnidades;
-	}
-	private JButton getBtnAgragarEmpleado() {
-		if (btnAgragarEmpleado == null) {
-			btnAgragarEmpleado = new JButton("CrearEmpleado");
-			btnAgragarEmpleado.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					añadirempleado añadirEmpleado = new añadirempleado();
-					añadirEmpleado.setVisible(true);
-					añadirEmpleado.setLocationRelativeTo(null);
-				}
-			});
-		}
-		return btnAgragarEmpleado;
 	}
 }
