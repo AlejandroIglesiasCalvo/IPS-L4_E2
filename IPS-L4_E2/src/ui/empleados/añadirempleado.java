@@ -46,6 +46,8 @@ public class añadirempleado extends JFrame {
 	private JSpinner spnEntrada;
 	private JSpinner spnSalida;
 	TrabajadorController tc;
+	private JSpinner spnEntradaMinutos;
+	private JSpinner spnSalidaMinutos;
 
 	/**
 	 * Create the frame.
@@ -229,8 +231,10 @@ public class añadirempleado extends JFrame {
 			pnlHorario.setBounds(10, 206, 651, 76);
 			pnlHorario.add(getLblEntrada());
 			pnlHorario.add(getSpnEntrada());
+			pnlHorario.add(getSpnEntradaMinutos());
 			pnlHorario.add(getLblSalida());
 			pnlHorario.add(getSpnSalida());
+			pnlHorario.add(getSpnSalidaMinutos());
 		}
 		return pnlHorario;
 	}
@@ -289,11 +293,29 @@ public class añadirempleado extends JFrame {
 			puesto = "ALMACEN";
 		}
 		if (tc.addTrabajador(txtNombre.getText(), txtApellidos.getText(), txtTlf.getText(),
-				spnEntrada.getValue().toString(), spnSalida.getValue().toString(), puesto, txtDni.getText())) {
+				spnEntrada.getValue().toString() + "." + spnEntradaMinutos.getValue().toString(),
+				spnSalida.getValue().toString() + "." + spnSalidaMinutos.getValue().toString(), puesto,
+				txtDni.getText())) {
 			JOptionPane.showMessageDialog(this, "Listo");
 			cerrar();
 		} else {
 			JOptionPane.showMessageDialog(this, "Error");
 		}
+	}
+
+	private JSpinner getSpnEntradaMinutos() {
+		if (spnEntradaMinutos == null) {
+			spnEntradaMinutos = new JSpinner();
+			spnEntradaMinutos.setModel(new SpinnerNumberModel(0, 0, 59, 1));
+		}
+		return spnEntradaMinutos;
+	}
+
+	private JSpinner getSpnSalidaMinutos() {
+		if (spnSalidaMinutos == null) {
+			spnSalidaMinutos = new JSpinner();
+			spnSalidaMinutos.setModel(new SpinnerNumberModel(0, 0, 59, 1));
+		}
+		return spnSalidaMinutos;
 	}
 }
