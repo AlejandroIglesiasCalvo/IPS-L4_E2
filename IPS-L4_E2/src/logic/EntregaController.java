@@ -96,8 +96,8 @@ public class EntregaController {
 		} else {
 			return false;
 		}
-
 	}
+	
 	
 	public boolean ComprobarRepartidor() {
 		if(horarioDeTrabajo(fecha.getHoraEnDouble())) {
