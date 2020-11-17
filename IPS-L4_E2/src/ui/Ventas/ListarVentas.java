@@ -10,16 +10,14 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import logic.VentasController;
 import logic.dto.Venta;
-import ui.Ventas.Modelos.TablaVentas;
-import ui.Ventas.Modelos.TablaVentasModel;
 
 public class ListarVentas extends JFrame {
 
@@ -29,16 +27,16 @@ public class ListarVentas extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JScrollPane scrollVentas;
+	private JList<String> listVentas;
 	private List<Venta> Ventas;
 	private VentasController vc;
 	private LocalDateTime inicio, fin;
-	private JPanel panel;
+	private JPanel pnlNorte;
 	private JLabel lblTitulo;
-	private JPanel pnlTipos;
+	private JPanel pnlLabels;
 	private JLabel lblId;
 	private JLabel lblFecha;
-	private JLabel lblPrecio;
-	private TablaVentas tablaVentas;
+	private JLabel lblTotal;
 
 	/**
 	 * Create the frame.
@@ -54,15 +52,14 @@ public class ListarVentas extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.add(getScrollVentas(), BorderLayout.CENTER);
-		contentPane.add(getTablaVentas(), BorderLayout.SOUTH);
-		contentPane.add(getPanel(), BorderLayout.NORTH);
+		contentPane.add(getPnlNorte(), BorderLayout.NORTH);
 
 	}
 
 	private JScrollPane getScrollVentas() {
 		if (scrollVentas == null) {
 			scrollVentas = new JScrollPane();
-			scrollVentas.add(tablaVentas);
+			scrollVentas.setViewportView(getListVentas());
 		}
 		return scrollVentas;
 	}
@@ -70,7 +67,9 @@ public class ListarVentas extends JFrame {
 	private DefaultListModel<String> modelListVentas() {
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		for (Venta or : getListaProductoCarritosTienda())
-			model.addElement("Id: " + or.getID() + "  Fecha: " + or.getFecha() + "  Total: " + or.getTotal() + "€");
+			model.addElement("" + or.getID() + "--------------------------------------------------" + or.getFecha()
+					+ "----------------------------------------------------" + or.getTotal() + "");
+		model.trimToSize();
 		return model;
 	}
 
@@ -86,14 +85,24 @@ public class ListarVentas extends JFrame {
 
 	}
 
-	private JPanel getPanel() {
-		if (panel == null) {
-			panel = new JPanel();
-			panel.setLayout(new BorderLayout(0, 0));
-			panel.add(getLblTitulo_1(), BorderLayout.NORTH);
-			panel.add(getPnlTipos(), BorderLayout.SOUTH);
+	private JList<String> getListVentas() {
+		if (listVentas == null) {
+			listVentas = new JList<String>();
+			listVentas.setValueIsAdjusting(true);
+			listVentas.setBounds(10, 63, 644, 261);
+			listVentas.setModel(modelListVentas());
 		}
-		return panel;
+		return listVentas;
+	}
+
+	private JPanel getPnlNorte() {
+		if (pnlNorte == null) {
+			pnlNorte = new JPanel();
+			pnlNorte.setLayout(new BorderLayout(0, 0));
+			pnlNorte.add(getLblTitulo_1(), BorderLayout.NORTH);
+			pnlNorte.add(getPnlLabels(), BorderLayout.SOUTH);
+		}
+		return pnlNorte;
 	}
 
 	private JLabel getLblTitulo_1() {
@@ -105,15 +114,15 @@ public class ListarVentas extends JFrame {
 		return lblTitulo;
 	}
 
-	private JPanel getPnlTipos() {
-		if (pnlTipos == null) {
-			pnlTipos = new JPanel();
-			pnlTipos.setLayout(new GridLayout(0, 3, 0, 0));
-			pnlTipos.add(getLblId());
-			pnlTipos.add(getLblFecha());
-			pnlTipos.add(getLblPrecio());
+	private JPanel getPnlLabels() {
+		if (pnlLabels == null) {
+			pnlLabels = new JPanel();
+			pnlLabels.setLayout(new GridLayout(0, 3, 0, 0));
+			pnlLabels.add(getLblId());
+			pnlLabels.add(getLblFecha());
+			pnlLabels.add(getLblTotal());
 		}
-		return pnlTipos;
+		return pnlLabels;
 	}
 
 	private JLabel getLblId() {
@@ -125,34 +134,15 @@ public class ListarVentas extends JFrame {
 
 	private JLabel getLblFecha() {
 		if (lblFecha == null) {
-			lblFecha = new JLabel("Fecha");
+			lblFecha = new JLabel("Fecha de la venta");
 		}
 		return lblFecha;
 	}
 
-	private JLabel getLblPrecio() {
-		if (lblPrecio == null) {
-			lblPrecio = new JLabel("Precio total");
+	private JLabel getLblTotal() {
+		if (lblTotal == null) {
+			lblTotal = new JLabel("Total de la venta (€)");
 		}
-		return lblPrecio;
+		return lblTotal;
 	}
-
-	private JTable getTablaVentas() {
-		if (tablaVentas == null) {
-			tablaVentas = new TablaVentas();
-		}
-		return tablaVentas;
-	}
-
-	public void fillPresupuestosModel() {
-		TablaVentasModel m = (TablaVentasModel) this.tablaVentas.getModel();
-
-		List<Venta> lista = getListaProductoCarritosTienda();
-
-		for (int i = 0; i < lista.size(); i++) {
-			m.addRow(lista.get(i));
-		}
-
-	}
-
 }
