@@ -2,13 +2,11 @@ package ui.presupuestos.modelos;
 
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import dataBase.GestionCliente;
 import logic.AceptarPresupuestoController;
 import logic.dto.Cliente;
 import logic.dto.Presupuesto;
