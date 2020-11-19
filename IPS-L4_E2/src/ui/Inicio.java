@@ -15,6 +15,7 @@ import ui.Ventas.RangoMostrarVentas;
 import ui.empleados.añadirempleado;
 import ui.presupuestos.CreaPresupuestosView;
 import ui.presupuestos.VisualizadorEntregasView;
+import ui.proveedores.CreaPedidosView;
 
 public class Inicio extends JFrame {
 
@@ -30,6 +31,7 @@ public class Inicio extends JFrame {
 	private JButton btnListarVentas;
 	private JButton btnPresupuesto;
 	private JButton btnVisEntrega;
+	private JButton btnProveedor;
 
 	/**
 	 * Launch the application.
@@ -63,6 +65,7 @@ public class Inicio extends JFrame {
 		contentPane.add(getBtnListarVentas());
 		contentPane.add(getBtnPresupuesto());
 		contentPane.add(getBtnVisEntrega());
+		contentPane.add(getBtnProveedor());
 	}
 
 	private JButton getBtnCrearEmpleado() {
@@ -117,5 +120,18 @@ public class Inicio extends JFrame {
 			});
 		}
 		return btnVisEntrega;
+	}
+	private JButton getBtnProveedor() {
+		if (btnProveedor == null) {
+			btnProveedor = new JButton("Crear pedido proveedor");
+			btnProveedor.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					CreaPedidosView viPedidos = new CreaPedidosView();
+					viPedidos.setVisible(true);
+					viPedidos.setLocationRelativeTo(null);
+				}
+			});
+		}
+		return btnProveedor;
 	}
 }

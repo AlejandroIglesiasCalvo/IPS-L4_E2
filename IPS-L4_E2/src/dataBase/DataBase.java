@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DataBase {
 	private static Connection con;
-	private static String URL = "jdbc:hsqldb:hsql://localhost:9001";
+	private static String URL = "jdbc:hsqldb:hsql://localhost:5555";
 	private static String USER = "sa";
 	private static String PASS = "";
 	private GestionCreaPresupuesto gestionCreaPresupuesto;
@@ -15,6 +15,7 @@ public class DataBase {
 	private GestionCliente gestionCliente;
 	private GestionVentas gestionVentas;
 	private GestionAlmacen gestionAlmacen;
+	private GestionPedido gestionPedido;
 
 	// Crea conexion a base de datos
 	private void setConnection() throws SQLException, ClassNotFoundException {
@@ -34,6 +35,7 @@ public class DataBase {
 		gestionCliente = new GestionCliente(con, this);
 		gestionVentas = new GestionVentas(con, this);
 		gestionAlmacen = new GestionAlmacen(con,this);
+		gestionPedido = new GestionPedido(con,this);
 	}
 
 	public GestionCreaPresupuesto getGestionCreaPresupuesto() {
@@ -58,5 +60,9 @@ public class DataBase {
 
 	public GestionAlmacen getGestionAlmacen() {
 		return gestionAlmacen;
+	}
+
+	public GestionPedido getGestionCreaPedido() {
+		return gestionPedido;
 	}
 }

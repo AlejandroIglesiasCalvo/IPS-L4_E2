@@ -37,36 +37,21 @@ import logic.dto.ProductoCarrito;
 import logic.dto.Transporte;
 
 @SuppressWarnings("serial")
-public class VisualizadorEntregasView extends JDialog {
+public class VisualizadorEntregasView extends JFrame {
 
-	private JFrame frmEntregas;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VisualizadorEntregasView window = new VisualizadorEntregasView();
-					window.frmEntregas.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JPanel frmEntregas;
 
 	private CreaPresupuestoController presController = new CreaPresupuestoController();
-	private JScrollPane spEntregas;
-	private JPanel pnEntregas;
+	private VisualizadorEntregasController veController = new VisualizadorEntregasController();
+	private JPanel panel;
 	private JPanel pnInfo;
 	private JLabel lblEntregas;
 	private JPanel pnInfoTabla;
 	private JLabel lblTransportista;
 	private JLabel lblEntrega;
 	private JLabel lblEstado;
-	private VisualizadorEntregasController veController = new VisualizadorEntregasController();
+	private JScrollPane spEntregas;
+	private JPanel pnEntregas;
 
 	/**
 	 * Create the application.
@@ -79,14 +64,14 @@ public class VisualizadorEntregasView extends JDialog {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmEntregas = new JFrame();
-		frmEntregas.setTitle("Entregas");
+		frmEntregas = new JPanel();
+		setContentPane(frmEntregas);
 		frmEntregas.setName("Entregas");
-		frmEntregas.getContentPane().setBackground(Color.WHITE);
-		frmEntregas.getContentPane().add(getSpEntregas(), BorderLayout.CENTER);
-		frmEntregas.getContentPane().add(getPnInfo(), BorderLayout.NORTH);
-		frmEntregas.setBounds(100, 100, 722, 440);
-		frmEntregas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmEntregas.setBackground(Color.WHITE);
+		frmEntregas.setLayout(new BorderLayout(0, 0));
+		frmEntregas.add(getPanel());
+		setBounds(100, 100, 722, 440);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		addEntregas();
 	}
 
@@ -97,78 +82,8 @@ public class VisualizadorEntregasView extends JDialog {
 		}
 	}
 
-	public JFrame getFrame() {
+	public JPanel getFrame() {
 		return frmEntregas;
-	}
-
-
-
-	private JScrollPane getSpEntregas() {
-		if (spEntregas == null) {
-			spEntregas = new JScrollPane();
-			spEntregas.setViewportView(getPnEntregas());
-		}
-		return spEntregas;
-	}
-	private JPanel getPnEntregas() {
-		if (pnEntregas == null) {
-			pnEntregas = new JPanel();
-			pnEntregas.setBackground(Color.WHITE);
-			pnEntregas.setLayout(new GridLayout(0, 1, 3, 3));
-		}
-		return pnEntregas;
-	}
-	private JPanel getPnInfo() {
-		if (pnInfo == null) {
-			pnInfo = new JPanel();
-			pnInfo.setBackground(Color.WHITE);
-			pnInfo.setLayout(new GridLayout(2, 0, 3, 3));
-			pnInfo.add(getLblEntregas());
-			pnInfo.add(getPnInfoTabla());
-		}
-		return pnInfo;
-	}
-	private JLabel getLblEntregas() {
-		if (lblEntregas == null) {
-			lblEntregas = new JLabel("Entregas");
-			lblEntregas.setFont(new Font("Tahoma", Font.BOLD, 22));
-		}
-		return lblEntregas;
-	}
-	private JPanel getPnInfoTabla() {
-		if (pnInfoTabla == null) {
-			pnInfoTabla = new JPanel();
-			pnInfoTabla.setBackground(Color.WHITE);
-			pnInfoTabla.setLayout(new GridLayout(0, 4, 3, 3));
-			pnInfoTabla.add(getLblTransportista());
-			pnInfoTabla.add(getLblEntrega());
-			pnInfoTabla.add(getLblEstado());
-		}
-		return pnInfoTabla;
-	}
-	private JLabel getLblTransportista() {
-		if (lblTransportista == null) {
-			lblTransportista = new JLabel("Transportista");
-			lblTransportista.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			lblTransportista.setHorizontalAlignment(SwingConstants.CENTER);
-		}
-		return lblTransportista;
-	}
-	private JLabel getLblEntrega() {
-		if (lblEntrega == null) {
-			lblEntrega = new JLabel("Entrega");
-			lblEntrega.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			lblEntrega.setHorizontalAlignment(SwingConstants.CENTER);
-		}
-		return lblEntrega;
-	}
-	private JLabel getLblEstado() {
-		if (lblEstado == null) {
-			lblEstado = new JLabel("Estado");
-			lblEstado.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			lblEstado.setHorizontalAlignment(SwingConstants.CENTER);
-		}
-		return lblEstado;
 	}
 
 	public void refresh() {
@@ -179,5 +94,81 @@ public class VisualizadorEntregasView extends JDialog {
 		pnEntregas.setVisible(false);
 		pnEntregas.setVisible(true);
 		
+	}
+	private JPanel getPanel() {
+		if (panel == null) {
+			panel = new JPanel();
+			panel.setLayout(new BorderLayout(0, 0));
+			panel.add(getPnInfo_1(), BorderLayout.NORTH);
+			panel.add(getSpEntregas_1(), BorderLayout.CENTER);
+		}
+		return panel;
+	}
+	private JPanel getPnInfo_1() {
+		if (pnInfo == null) {
+			pnInfo = new JPanel();
+			pnInfo.setBackground(Color.WHITE);
+			pnInfo.setLayout(new GridLayout(2, 0, 3, 3));
+			pnInfo.add(getLblEntregas_1());
+			pnInfo.add(getPnInfoTabla_1());
+		}
+		return pnInfo;
+	}
+	private JLabel getLblEntregas_1() {
+		if (lblEntregas == null) {
+			lblEntregas = new JLabel("Entregas");
+			lblEntregas.setFont(new Font("Tahoma", Font.BOLD, 22));
+		}
+		return lblEntregas;
+	}
+	private JPanel getPnInfoTabla_1() {
+		if (pnInfoTabla == null) {
+			pnInfoTabla = new JPanel();
+			pnInfoTabla.setBackground(Color.WHITE);
+			pnInfoTabla.setLayout(new GridLayout(0, 4, 3, 3));
+			pnInfoTabla.add(getLblTransportista_1());
+			pnInfoTabla.add(getLblEntrega_1());
+			pnInfoTabla.add(getLblEstado_1());
+		}
+		return pnInfoTabla;
+	}
+	private JLabel getLblTransportista_1() {
+		if (lblTransportista == null) {
+			lblTransportista = new JLabel("Transportista");
+			lblTransportista.setHorizontalAlignment(SwingConstants.CENTER);
+			lblTransportista.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		}
+		return lblTransportista;
+	}
+	private JLabel getLblEntrega_1() {
+		if (lblEntrega == null) {
+			lblEntrega = new JLabel("Entrega");
+			lblEntrega.setHorizontalAlignment(SwingConstants.CENTER);
+			lblEntrega.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		}
+		return lblEntrega;
+	}
+	private JLabel getLblEstado_1() {
+		if (lblEstado == null) {
+			lblEstado = new JLabel("Estado");
+			lblEstado.setHorizontalAlignment(SwingConstants.CENTER);
+			lblEstado.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		}
+		return lblEstado;
+	}
+	private JScrollPane getSpEntregas_1() {
+		if (spEntregas == null) {
+			spEntregas = new JScrollPane();
+			spEntregas.setRowHeaderView(getPnEntregas());
+		}
+		return spEntregas;
+	}
+	private JPanel getPnEntregas() {
+		if (pnEntregas == null) {
+			pnEntregas = new JPanel();
+			pnEntregas.setBackground(Color.WHITE);
+			pnEntregas.setLayout(new GridLayout(0, 1, 0, 0));
+		}
+		return pnEntregas;
 	}
 }
