@@ -100,7 +100,16 @@ public class AceptarPresupuestoController {
 	}
 
 	private void crearPedidoDto(String id, List<ProductoPedido> pedidos) {
-		this.pedido = new Pedido(id, "SOLICITADO", pedidos);		
+		Double total = calcularTotal(pedidos);
+		this.pedido = new Pedido(id, "SOLICITADO", pedidos, total);		
+	}
+
+	private Double calcularTotal(List<ProductoPedido> pedidos) {
+		double total = 0.0;
+		for(ProductoPedido p : pedidos) {
+			total += p.getPrecio();
+		}
+		return total;
 	}
 
 }
