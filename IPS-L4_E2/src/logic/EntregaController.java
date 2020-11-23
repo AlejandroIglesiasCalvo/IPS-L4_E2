@@ -28,10 +28,10 @@ public class EntregaController {
 		}
 		this.setPresupuesto(presupuesto);
 		this.venta = venta;
-		//this.trasnporte = new Transporte(598, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor, montar);
+		// this.trasnporte = new Transporte(598, fecha.getFecha(),
+		// fecha.getHoraEnDouble(), repartidor, montar);
 		fecha = new gestionFechas(LocalDateTime.now());
 		this.venta.setTransporte(trasnporte);
-		
 
 	}
 
@@ -46,14 +46,13 @@ public class EntregaController {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-		fecha = new gestionFechas(2020, 11, 22, 17, 00);
-		trasnporte = new Transporte(598, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor, montar);
-		venta = new Venta( "25", fecha.getFecha(), 52.00, trasnporte);
+		fecha = new gestionFechas(LocalDateTime.now());
 		this.setPresupuesto(presupuesto);
 
 	}
-	
-	public EntregaController() {}
+
+	public EntregaController() {
+	}
 
 	/**
 	 * Mira si la fecha no es domingo y esta en horario de 8 a 22
@@ -73,7 +72,7 @@ public class EntregaController {
 
 	public boolean asignar_reparto(LocalDateTime fecha_propuesta) {
 		if (es_fecha_valida(fecha_propuesta)) {
-			//TODO Completar en casa
+			// TODO Completar en casa
 			return true;
 		}
 		return false;
@@ -97,12 +96,11 @@ public class EntregaController {
 			return false;
 		}
 	}
-	
-	
+
 	public boolean ComprobarRepartidor() {
-		if(horarioDeTrabajo(fecha.getHoraEnDouble())) {
+		if (horarioDeTrabajo(fecha.getHoraEnDouble())) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
@@ -123,7 +121,7 @@ public class EntregaController {
 		return randomNum;
 	}
 
-	public Presupuesto getPresupuesto(){
+	public Presupuesto getPresupuesto() {
 		return presupuesto;
 	}
 
