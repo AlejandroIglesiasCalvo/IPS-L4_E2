@@ -18,6 +18,10 @@ import javax.swing.border.EmptyBorder;
 
 import logic.VentasController;
 import logic.dto.Venta;
+import javax.swing.ListSelectionModel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ListarVentas extends JFrame {
 
@@ -37,6 +41,7 @@ public class ListarVentas extends JFrame {
 	private JLabel lblId;
 	private JLabel lblFecha;
 	private JLabel lblTotal;
+	private JButton btnDetalles;
 
 	/**
 	 * Create the frame.
@@ -88,6 +93,7 @@ public class ListarVentas extends JFrame {
 	private JList<String> getListVentas() {
 		if (listVentas == null) {
 			listVentas = new JList<String>();
+			listVentas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			listVentas.setValueIsAdjusting(true);
 			listVentas.setBounds(10, 63, 644, 261);
 			listVentas.setModel(modelListVentas());
@@ -100,6 +106,7 @@ public class ListarVentas extends JFrame {
 			pnlNorte = new JPanel();
 			pnlNorte.setLayout(new BorderLayout(0, 0));
 			pnlNorte.add(getLblTitulo_1(), BorderLayout.NORTH);
+			pnlNorte.add(getBtnDetalles(), BorderLayout.WEST);
 			pnlNorte.add(getPnlLabels(), BorderLayout.SOUTH);
 		}
 		return pnlNorte;
@@ -144,5 +151,20 @@ public class ListarVentas extends JFrame {
 			lblTotal = new JLabel("Total de la venta (€)");
 		}
 		return lblTotal;
+	}
+
+	private JButton getBtnDetalles() {
+		if (btnDetalles == null) {
+			btnDetalles = new JButton("Detalles de la Venta");
+			btnDetalles.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					DetallesVenta dv = new DetallesVenta(Ventas.get(listVentas.getSelectedIndex()));
+					dv.setVisible(true);
+					dv.setLocationRelativeTo(null);
+				}
+			});
+		}
+		return btnDetalles;
 	}
 }
