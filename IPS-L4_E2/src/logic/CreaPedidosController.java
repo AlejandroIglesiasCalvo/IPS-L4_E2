@@ -108,14 +108,14 @@ public class CreaPedidosController {
 	}
 
 	private void añadirPedidoABase() {
-		db.getGestionCreaPedido().creaPedido(this.id);
+		db.getGestionCreaPedido().creaPedido(this.id,total);
 		for(ProductoPedido p : productosEnPedido) {
 			db.getGestionCreaPedido().crearEntradaPedido(p, this.id);
 		}
 	}
 
 	private void crearPedidoDto() {
-		pedido = new Pedido(this.id,"PENDIENTE",productosEnPedido);		
+		pedido = new Pedido(this.id,"PENDIENTE",productosEnPedido,total);		
 	}
 
 	public String updateTotalAddProduct(Producto_Almacen p) {

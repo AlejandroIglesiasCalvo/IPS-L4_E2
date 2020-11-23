@@ -47,13 +47,14 @@ public class GestionPedido {
 		return result;
 	}
 
-	public void creaPedido(String id) {
+	public void creaPedido(String id, Double total) {
 		String SQL = Conf.get("SQL_CREAR_PEDIDO");
 
 		try {
 			pst = con.prepareStatement(SQL);
 			pst.setString(1, id);
 			pst.setString(2, "PENDIENTE");
+			pst.setString(3, total+"");
 
 			pst.executeUpdate();
 
