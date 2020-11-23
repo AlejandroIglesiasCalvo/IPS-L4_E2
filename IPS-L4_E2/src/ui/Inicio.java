@@ -13,6 +13,9 @@ import javax.swing.border.EmptyBorder;
 import logic.StoreInicio;
 import ui.Ventas.RangoMostrarVentas;
 import ui.empleados.añadirempleado;
+import ui.presupuestos.CreaPresupuestosView;
+import ui.presupuestos.VisualizadorEntregasView;
+import ui.proveedores.CreaPedidosView;
 
 public class Inicio extends JFrame {
 
@@ -26,6 +29,9 @@ public class Inicio extends JFrame {
 	private JPanel contentPane;
 	private JButton btnCrearEmpleado;
 	private JButton btnListarVentas;
+	private JButton btnPresupuesto;
+	private JButton btnVisEntrega;
+	private JButton btnProveedor;
 
 	/**
 	 * Launch the application.
@@ -57,6 +63,9 @@ public class Inicio extends JFrame {
 		contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		contentPane.add(getBtnCrearEmpleado());
 		contentPane.add(getBtnListarVentas());
+		contentPane.add(getBtnPresupuesto());
+		contentPane.add(getBtnVisEntrega());
+		contentPane.add(getBtnProveedor());
 	}
 
 	private JButton getBtnCrearEmpleado() {
@@ -85,5 +94,44 @@ public class Inicio extends JFrame {
 			});
 		}
 		return btnListarVentas;
+	}
+	private JButton getBtnPresupuesto() {
+		if (btnPresupuesto == null) {
+			btnPresupuesto = new JButton("Crear presupuesto");
+			btnPresupuesto.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					CreaPresupuestosView presupuesto = new CreaPresupuestosView();
+					presupuesto.setVisible(true);
+					presupuesto.setLocationRelativeTo(null);
+				}
+			});
+		}
+		return btnPresupuesto;
+	}
+	private JButton getBtnVisEntrega() {
+		if (btnVisEntrega == null) {
+			btnVisEntrega = new JButton("Estado entregas");
+			btnVisEntrega.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					VisualizadorEntregasView viEntregas = new VisualizadorEntregasView();
+					viEntregas.setVisible(true);
+					viEntregas.setLocationRelativeTo(null);
+				}
+			});
+		}
+		return btnVisEntrega;
+	}
+	private JButton getBtnProveedor() {
+		if (btnProveedor == null) {
+			btnProveedor = new JButton("Crear pedido proveedor");
+			btnProveedor.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					CreaPedidosView viPedidos = new CreaPedidosView();
+					viPedidos.setVisible(true);
+					viPedidos.setLocationRelativeTo(null);
+				}
+			});
+		}
+		return btnProveedor;
 	}
 }
