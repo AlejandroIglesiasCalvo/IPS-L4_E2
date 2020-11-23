@@ -22,6 +22,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
+import logic.AceptarPresupuestoController;
 import logic.EntregaController;
 import logic.Repartidores;
 import logic.dto.Presupuesto;
@@ -57,6 +58,7 @@ public class ProductosTransporte extends JFrame {
 	private List<ProductoCarrito> Tienda;
 	private List<ProductoCarrito> LLevar = new ArrayList<>();
 	private List<ProductoCarrito> Montar = new ArrayList<>();
+	private AceptarPresupuestoController apc;
 
 	/**
 	 * @wbp.parser.constructor
@@ -73,7 +75,7 @@ public class ProductosTransporte extends JFrame {
 		contentPane.add(getLbltitulo(), BorderLayout.NORTH);
 		contentPane.add(getPnlSur(), BorderLayout.SOUTH);
 		contentPane.add(getPnlCentro(), BorderLayout.CENTER);
-
+		apc = new AceptarPresupuestoController();
 		ec = new EntregaController(presupuesto, v);// Trampas mientras no este el resto
 	}
 
@@ -98,16 +100,21 @@ public class ProductosTransporte extends JFrame {
 			btnAceptar = new JButton("Continuar");
 			btnAceptar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					try {
-						if ((listRepartidores.getSelectedIndex()) > -1) {
-							EntregasUI entregas = new EntregasUI(ec.getPresupuesto(),
-									r.getRepartidor(listRepartidores.getSelectedIndex()), LLevar.size());
-							entregas.setVisible(true);
-							entregas.setLocationRelativeTo(null);
+
+					if ((listRepartidores.getSelectedIndex()) > -1 && !btnLLevar.isEnabled()) {
+						EntregasUI entregas = new EntregasUI(ec.getPresupuesto(),
+								r.getRepartidor(listRepartidores.getSelectedIndex()), LLevar.size());
+						entregas.setVisible(true);
+						entregas.setLocationRelativeTo(null);
+						close();
+					} else {
+						if (!btnLLevar.isEnabled()) {
+							JOptionPane.showMessageDialog(null, "Seleccione un repartidor");
+						} else {
+							apc.crearVenta(presupuesto);
 							close();
 						}
-					} catch (NullPointerException ef) {
-						JOptionPane.showMessageDialog(null, "Seleccione un Repartidor");
+
 					}
 
 				}
