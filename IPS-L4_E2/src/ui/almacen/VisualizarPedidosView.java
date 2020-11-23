@@ -67,7 +67,7 @@ public class VisualizarPedidosView extends JDialog {
 	
 	private void fillTabla() {
 		PedidosTablaModel m = (PedidosTablaModel) tabla.getModel();
-		for(Pedido p : controller.getListaPedidos()) {
+		for(PedidoFecha p : controller.getListaPedidos()) {
 			m.addRow(p);
 		}
 		validate();

@@ -86,7 +86,7 @@ public class VisualizarInventarioView extends JDialog {
 		model.clearRows();
 		List<Producto_Almacen> p = controller.getStock();
 		
-		if(filter != null && !filter.equals("") ) {
+		if(filter != null && !filter.equals("---") ) {
 			ArrayList<Producto_Almacen> re = new ArrayList<>();
 			Stream<Producto_Almacen> s = p.stream().filter(ch -> ch.getTipo().equals(filter));
 			s.forEach(var -> re.add(var));
@@ -107,7 +107,7 @@ public class VisualizarInventarioView extends JDialog {
 	private JComboBox getComboBox() {
 		if (comboBox == null) {
 			comboBox = new JComboBox();
-			comboBox.setModel(new DefaultComboBoxModel(new String[] {"","Cocina", "Oficina"}));
+			comboBox.setModel(new DefaultComboBoxModel(new String[] {"---","Cocina", "Oficina"}));
 			comboBox.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					fillModel((String)comboBox.getSelectedItem());

@@ -7,7 +7,7 @@ public class PedidoFecha extends Pedido{
 	//private String ID;
 	//private String Estado;
 	//estos dos rellenarlos como tupla, 1 producto, x unidades
-	private List<ProductoPedido> Productos;
+	//private List<ProductoPedido> Productos;
 	private LocalDateTime date;
 
 	public PedidoFecha(Pedido p, LocalDateTime date) {
@@ -15,13 +15,13 @@ public class PedidoFecha extends Pedido{
 		this.date = date;
 	}
 
-	public List<ProductoPedido> getProductos() {
+	/*public List<ProductoPedido> getProductos() {
 		return Productos;
-	}
+	}*/
 
-	public void setProductos(List<ProductoPedido> productos) {
+	/*public void setProductos(List<ProductoPedido> productos) {
 		Productos = productos;
-	}
+	}*/
 
 	public LocalDateTime getDate() {
 		return date;

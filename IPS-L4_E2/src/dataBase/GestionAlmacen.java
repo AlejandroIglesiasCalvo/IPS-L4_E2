@@ -116,21 +116,26 @@ public class GestionAlmacen {
 			pst = con.prepareStatement(sql);
 			ResultSet rs = pst.executeQuery();
 			
-			ArrayList<ProductoPedido> pr = new ArrayList<>();
+			ArrayList<ProductoPedido> pr;
 			
 			String id;
 			String state;
 			
 			LocalDateTime date;
+			Pedido pedido;
 			while(rs.next()) {
 				id = rs.getString(1);
+				
+				pr =  getProductosPedido(id);
+				
 				state = rs.getString(2);
 				Date d = rs.getDate(3);
 				date = Instant.ofEpochMilli(d.getTime())
 						.atZone(ZoneId.systemDefault())
 						.toLocalDateTime();
-				System.out.println(date);
-				p.add(new PedidoFecha(new Pedido(id, state, pr), date));
+				//System.out.println(date);
+				pedido = new Pedido(id, state, pr);
+				p.add(new PedidoFecha(pedido, date));
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -139,18 +144,89 @@ public class GestionAlmacen {
 		return p;
 	}
 	
-	public void updateStatePedido(String state, String id) {
+	private ArrayList<ProductoPedido> getProductosPedido(String id){
+		ArrayList<ProductoPedido> sol = new ArrayList<>();
+		String sql = Conf.get("SQL_GET_PRODUCTOR_PEDIDO");//lista de productos
+		try {
+			pst = con.prepareStatement(sql);
+			pst.setString(1, id);
+			ResultSet rs = pst.executeQuery();
+			
+			String iD;
+			String nombre;
+			String tipo;
+			double precio;
+			int unidades;
+			Producto_Almacen pa;
+			
+			while(rs.next()) {
+				
+				iD = rs.getString(1);
+				nombre = rs.getString(2);
+				tipo = rs.getString(3);
+				precio = rs.getDouble(4);
+				unidades = rs.getInt(5);
+				pa = new Producto_Almacen(iD, nombre, tipo, precio, 0);
+				
+				sol.add(new ProductoPedido(pa, unidades));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return sol;
+	}
+	
+	public void updateStatePedido(String state, PedidoFecha pedido) {
 		String sql = Conf.get("SQL_SET_UPDATE_STATE");
 		try {
 			pst = con.prepareStatement(sql);
 			pst.setString(1, state);
-			pst.setString(2, id);
+			pst.setString(2, pedido.getID());
 			pst.executeUpdate();
+			
+			updateStock(pedido);
 			
 			
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
+	
+	private void updateStock(PedidoFecha idPedido) {
+					
+		int units;
+		Producto_Almacen pa;
+		try {
+			
+		List<ProductoPedido> pp = idPedido.getProductos();
+		for(ProductoPedido p : idPedido.getProductos()) {
+			units = getUnidadesProducto(p);
+			pa = new Producto_Almacen(p.getID(), p.getNombre(), p.getTipo(), p.getPrecio(), units);
+			updateProducto(pa, units + p.getUnidades());
+		}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private int getUnidadesProducto(ProductoPedido p) {
+		int sol=0;
+		String sql = Conf.get("SQL_GET_UNIDADES_PERODUCTO_AMACEN");
+		try {
+			pst = con.prepareStatement(sql);
+			pst.setString(1, p.getID());
+			
+			ResultSet rs = pst.executeQuery();
+			if(rs.next()) {
+				sol = rs.getInt(1);
+			}
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return sol;
+	}
+	
+	
 
 }

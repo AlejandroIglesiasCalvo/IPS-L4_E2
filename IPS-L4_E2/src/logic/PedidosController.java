@@ -35,7 +35,7 @@ public class PedidosController {
 		return list;
 	}
 	public void updatePedidoState(String state, int row) {
-		db.getGestionAlmacen().updateStatePedido(state, list.get(row).getID());
+		db.getGestionAlmacen().updateStatePedido(state, list.get(row));
 	}
 
 }

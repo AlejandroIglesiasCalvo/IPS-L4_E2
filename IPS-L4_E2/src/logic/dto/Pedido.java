@@ -9,7 +9,7 @@ public class Pedido {
 	private List<ProductoPedido> Productos;
 
 	public Pedido(String iD, String estado, List<ProductoPedido> productos) {
-		super();
+		//super();
 		ID = iD;
 		Estado = estado;
 		Productos = productos;

@@ -102,8 +102,9 @@ public class PedidosTablaModel extends AbstractTableModel {
 		fireTableDataChanged();
 	}
 
-	public void addRow(Pedido c) {
-		pedidos.add(new PedidoFecha(c, LocalDateTime.now()));
+	public void addRow(PedidoFecha c) {
+		pedidos.add(c);
+		
 		fireTableRowsInserted(pedidos.size() - 1, pedidos.size() - 1);
 	}
 	
