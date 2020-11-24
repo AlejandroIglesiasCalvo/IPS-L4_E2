@@ -157,6 +157,7 @@ public class VisualizadorEntregasView extends JFrame {
 	private JPanel getPanel_1() {
 		if (pnEntregas == null) {
 			pnEntregas = new JPanel();
+			pnEntregas.setBackground(Color.WHITE);
 			pnEntregas.setLayout(new GridLayout(0, 1, 3, 3));
 		}
 		return pnEntregas;
