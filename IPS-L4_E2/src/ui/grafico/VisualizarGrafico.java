@@ -6,11 +6,15 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import logic.VisualizarGraficoController;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
 import javax.swing.JComboBox;
 import java.awt.Font;
+import javax.swing.DefaultComboBoxModel;
 
 public class VisualizarGrafico extends JFrame {
 
@@ -18,7 +22,8 @@ public class VisualizarGrafico extends JFrame {
 	private JPanel pnSeleccionGrafico;
 	private JPanel pnGrafico;
 	private JLabel lblMes;
-	private JComboBox comboBox;
+	private JComboBox<String> comboBox;
+	private VisualizarGraficoController controller = new VisualizarGraficoController();
 
 	/**
 	 * Launch the application.
@@ -75,9 +80,10 @@ public class VisualizarGrafico extends JFrame {
 		}
 		return lblMes;
 	}
-	private JComboBox getComboBox() {
+	private JComboBox<String> getComboBox() {
 		if (comboBox == null) {
-			comboBox = new JComboBox();
+			comboBox = new JComboBox<String>();
+			comboBox.setModel(new DefaultComboBoxModel<String>(controller.getComboBox()));
 			comboBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			comboBox.setBackground(Color.WHITE);
 		}

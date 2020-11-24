@@ -1,6 +1,7 @@
 package logic;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -115,7 +116,7 @@ public class CreaPedidosController {
 	}
 
 	private void crearPedidoDto() {
-		pedido = new Pedido(this.id,"PENDIENTE",productosEnPedido,total);		
+		pedido = new Pedido(this.id,"PENDIENTE",productosEnPedido,total, LocalDateTime.now());		
 	}
 
 	public String updateTotalAddProduct(Producto_Almacen p) {
