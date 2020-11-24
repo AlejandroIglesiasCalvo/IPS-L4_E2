@@ -43,7 +43,6 @@ public class VisualizadorEntregasView extends JFrame {
 
 	private CreaPresupuestoController presController = new CreaPresupuestoController();
 	private VisualizadorEntregasController veController = new VisualizadorEntregasController();
-	private JPanel panel;
 	private JPanel pnInfo;
 	private JLabel lblEntregas;
 	private JPanel pnInfoTabla;
@@ -69,8 +68,9 @@ public class VisualizadorEntregasView extends JFrame {
 		frmEntregas.setName("Entregas");
 		frmEntregas.setBackground(Color.WHITE);
 		frmEntregas.setLayout(new BorderLayout(0, 0));
-		frmEntregas.add(getPanel());
-		setBounds(100, 100, 722, 440);
+		frmEntregas.add(getPnInfo(), BorderLayout.NORTH);
+		frmEntregas.add(getSpEntregas(), BorderLayout.CENTER);
+		setBounds(100, 100, 665, 517);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		addEntregas();
 	}
@@ -95,44 +95,35 @@ public class VisualizadorEntregasView extends JFrame {
 		pnEntregas.setVisible(true);
 		
 	}
-	private JPanel getPanel() {
-		if (panel == null) {
-			panel = new JPanel();
-			panel.setLayout(new BorderLayout(0, 0));
-			panel.add(getPnInfo_1(), BorderLayout.NORTH);
-			panel.add(getSpEntregas_1(), BorderLayout.CENTER);
-		}
-		return panel;
-	}
-	private JPanel getPnInfo_1() {
+	private JPanel getPnInfo() {
 		if (pnInfo == null) {
 			pnInfo = new JPanel();
 			pnInfo.setBackground(Color.WHITE);
 			pnInfo.setLayout(new GridLayout(2, 0, 3, 3));
-			pnInfo.add(getLblEntregas_1());
-			pnInfo.add(getPnInfoTabla_1());
+			pnInfo.add(getLblEntregas());
+			pnInfo.add(getPnInfoTabla());
 		}
 		return pnInfo;
 	}
-	private JLabel getLblEntregas_1() {
+	private JLabel getLblEntregas() {
 		if (lblEntregas == null) {
 			lblEntregas = new JLabel("Entregas");
 			lblEntregas.setFont(new Font("Tahoma", Font.BOLD, 22));
 		}
 		return lblEntregas;
 	}
-	private JPanel getPnInfoTabla_1() {
+	private JPanel getPnInfoTabla() {
 		if (pnInfoTabla == null) {
 			pnInfoTabla = new JPanel();
 			pnInfoTabla.setBackground(Color.WHITE);
 			pnInfoTabla.setLayout(new GridLayout(0, 4, 3, 3));
-			pnInfoTabla.add(getLblTransportista_1());
-			pnInfoTabla.add(getLblEntrega_1());
-			pnInfoTabla.add(getLblEstado_1());
+			pnInfoTabla.add(getLblTransportista());
+			pnInfoTabla.add(getLblEntrega());
+			pnInfoTabla.add(getLblEstado());
 		}
 		return pnInfoTabla;
 	}
-	private JLabel getLblTransportista_1() {
+	private JLabel getLblTransportista() {
 		if (lblTransportista == null) {
 			lblTransportista = new JLabel("Transportista");
 			lblTransportista.setHorizontalAlignment(SwingConstants.CENTER);
@@ -140,7 +131,7 @@ public class VisualizadorEntregasView extends JFrame {
 		}
 		return lblTransportista;
 	}
-	private JLabel getLblEntrega_1() {
+	private JLabel getLblEntrega() {
 		if (lblEntrega == null) {
 			lblEntrega = new JLabel("Entrega");
 			lblEntrega.setHorizontalAlignment(SwingConstants.CENTER);
@@ -148,7 +139,7 @@ public class VisualizadorEntregasView extends JFrame {
 		}
 		return lblEntrega;
 	}
-	private JLabel getLblEstado_1() {
+	private JLabel getLblEstado() {
 		if (lblEstado == null) {
 			lblEstado = new JLabel("Estado");
 			lblEstado.setHorizontalAlignment(SwingConstants.CENTER);
@@ -156,18 +147,17 @@ public class VisualizadorEntregasView extends JFrame {
 		}
 		return lblEstado;
 	}
-	private JScrollPane getSpEntregas_1() {
+	private JScrollPane getSpEntregas() {
 		if (spEntregas == null) {
 			spEntregas = new JScrollPane();
-			spEntregas.setRowHeaderView(getPnEntregas());
+			spEntregas.setViewportView(getPanel_1());
 		}
 		return spEntregas;
 	}
-	private JPanel getPnEntregas() {
+	private JPanel getPanel_1() {
 		if (pnEntregas == null) {
 			pnEntregas = new JPanel();
-			pnEntregas.setBackground(Color.WHITE);
-			pnEntregas.setLayout(new GridLayout(0, 1, 0, 0));
+			pnEntregas.setLayout(new GridLayout(0, 1, 3, 3));
 		}
 		return pnEntregas;
 	}
