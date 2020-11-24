@@ -34,6 +34,7 @@ public class VisualizarGraficoController {
 	}
 
 	private void cargarComboBox() {
+		comboBox.add("Sin definir");
 		for(Pedido p: pedidos) {
 			String mes = p.getFecha().getYear() + "-" + meses[p.getFecha().getMonthValue()-1];
 			if(!comboBox.contains(mes)) {
