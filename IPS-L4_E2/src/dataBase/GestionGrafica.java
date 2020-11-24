@@ -91,7 +91,7 @@ public class GestionGrafica {
 	}
 
 	private Venta toVentaDto(ResultSet rs) throws NumberFormatException, SQLException {
-		Venta dto = new Venta(rs.getString(1),rs.getTimestamp(3).toLocalDateTime(),Double.parseDouble(rs.getString(4)));
+		Venta dto = new Venta(rs.getString(1),rs.getTimestamp(3).toLocalDateTime(),Double.parseDouble(rs.getString(4)),Double.parseDouble(rs.getString(5)));
 		return dto;
 	}
 
