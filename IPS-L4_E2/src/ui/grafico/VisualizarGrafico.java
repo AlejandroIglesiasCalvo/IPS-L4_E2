@@ -15,6 +15,8 @@ import java.awt.GridLayout;
 import javax.swing.JComboBox;
 import java.awt.Font;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VisualizarGrafico extends JFrame {
 
@@ -83,10 +85,20 @@ public class VisualizarGrafico extends JFrame {
 	private JComboBox<String> getComboBox() {
 		if (comboBox == null) {
 			comboBox = new JComboBox<String>();
+			comboBox.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String selected = (String) comboBox.getSelectedItem();
+					mostarGrafico(selected);
+				}
+			});
 			comboBox.setModel(new DefaultComboBoxModel<String>(controller.getComboBox()));
 			comboBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			comboBox.setBackground(Color.WHITE);
 		}
 		return comboBox;
+	}
+
+	protected void mostarGrafico(String selected) {
+		JFreeChart
 	}
 }
