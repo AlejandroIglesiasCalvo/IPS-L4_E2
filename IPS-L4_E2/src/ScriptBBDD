@@ -99,6 +99,8 @@ create table Venta_Producto(
 ID_Producto varchar (9) not null,
 ID_Venta varchar (9) not null,
 Unidades varchar (9) not null,
+Transoprtados varchar (9),
+Montados varchar (9),
 constraint PK_Venta_Producto primary key (ID_Producto,ID_Venta),
 constraint FK_Venta_Producto_Venta foreign key (ID_Venta) references Venta(ID_Venta),
 constraint FK_Venta_Producto_Producto foreign key (ID_Producto) references Producto(ID_Producto)

@@ -114,7 +114,7 @@ public class ListarVentas extends JFrame {
 
 	private JLabel getLblTitulo_1() {
 		if (lblTitulo == null) {
-			lblTitulo = new JLabel("Hisotrial de ventas");
+			lblTitulo = new JLabel("Historial de ventas");
 			lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 			lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		}
