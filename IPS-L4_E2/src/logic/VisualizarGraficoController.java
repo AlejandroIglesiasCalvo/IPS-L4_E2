@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jfree.data.category.CategoryDataset;
+
 import dataBase.DataBase;
 import logic.dto.Pedido;
 import logic.dto.Venta;
@@ -52,6 +54,11 @@ public class VisualizarGraficoController {
 	public String[] getComboBox(){
 		return comboBox.toArray(tipos);
 		
+	}
+
+	public CategoryDataset createDataset(String selected) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
