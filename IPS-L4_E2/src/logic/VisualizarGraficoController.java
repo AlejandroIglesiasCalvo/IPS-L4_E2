@@ -1,6 +1,7 @@
 package logic;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class VisualizarGraficoController {
 	
 	private List<Pedido> pedidos;
 	private List<Venta> ventas;
+	private List<LocalDateTime> fechas;
 	
 	private String[] tipos = new String[comboBox.size()];
 	
@@ -31,20 +33,15 @@ public class VisualizarGraficoController {
 		}
 		pedidos = db.getGestionGrafica().getPedidos();
 		ventas = db.getGestionGrafica().getVentas();
+		fechas = db.getGestionGrafica().getFechas();
 		
 		cargarComboBox();
 	}
 
 	private void cargarComboBox() {
 		comboBox.add("Sin definir");
-		for(Pedido p: pedidos) {
-			String mes = p.getFecha().getYear() + "-" + meses[p.getFecha().getMonthValue()-1];
-			if(!comboBox.contains(mes)) {
-				comboBox.add(mes);
-			}
-		}
-		for(Venta v: ventas) {
-			String mes = v.getFecha().getYear() + "-" + meses[v.getFecha().getMonthValue()-1];
+		for(LocalDateTime p: fechas) {
+			String mes = p.getYear() + "-" + meses[p.getMonthValue()-1];
 			if(!comboBox.contains(mes)) {
 				comboBox.add(mes);
 			}

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,5 +93,34 @@ public class GestionGrafica {
 	private Venta toVentaDto(ResultSet rs) throws NumberFormatException, SQLException {
 		Venta dto = new Venta(rs.getString(1),rs.getTimestamp(3).toLocalDateTime(),Double.parseDouble(rs.getString(4)));
 		return dto;
+	}
+
+	public List<LocalDateTime> getFechas() {
+		List<LocalDateTime> fechas;
+		String SQL = Conf.get("SQL_SELECCIONAR_FECHAS");
+		try {
+			ResultSet rs;
+			pst = con.prepareStatement(SQL);
+
+			rs = pst.executeQuery();
+
+			fechas = toFechasList(rs);
+
+			rs.close();
+			pst.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return fechas;
+	}
+
+	private List<LocalDateTime> toFechasList(ResultSet rs) throws SQLException {
+		List<LocalDateTime> res = new ArrayList<>();
+		while(rs.next()) {
+			res.add(rs.getTimestamp(1).toLocalDateTime());
+		}
+		return res;
 	}
 }
