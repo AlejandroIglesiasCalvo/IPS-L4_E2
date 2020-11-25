@@ -118,11 +118,11 @@ public class VisualizarGrafico extends JFrame {
 			pnGrafico.setVisible(true);
 		} else {
 			String chartTitle = "";
-			JFreeChart barchar = ChartFactory.createBarChart(chartTitle, "", "Cantidad", createDataset(selected),
+			JFreeChart barchart = ChartFactory.createBarChart(chartTitle, "", "Cantidad", createDataset(selected),
 					PlotOrientation.VERTICAL, true, true, false);
-			CategoryPlot p = barchar.getCategoryPlot();
+			CategoryPlot p = barchart.getCategoryPlot();
 			p.setRangeGridlinePaint(Color.black);
-			ChartPanel panel = new ChartPanel(barchar);
+			ChartPanel panel = new ChartPanel(barchart);
 			pnGrafico.removeAll();
 			pnGrafico.add(panel, BorderLayout.CENTER);
 			pnGrafico.setVisible(false);
