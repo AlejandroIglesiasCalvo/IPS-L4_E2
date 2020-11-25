@@ -22,6 +22,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
+import logic.AceptarPresupuestoController;
 import logic.EntregaController;
 import logic.Repartidores;
 import logic.dto.Presupuesto;
@@ -57,26 +58,11 @@ public class ProductosTransporte extends JFrame {
 	private List<ProductoCarrito> Tienda;
 	private List<ProductoCarrito> LLevar = new ArrayList<>();
 	private List<ProductoCarrito> Montar = new ArrayList<>();
+	private AceptarPresupuestoController apc;
 
 	/**
-	 * Create the frame.
+	 * @wbp.parser.constructor
 	 */
-	public ProductosTransporte(Presupuesto presupuesto) {
-		this.presupuesto = presupuesto;
-		r = new Repartidores();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 789, 673);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
-		contentPane.add(getLbltitulo(), BorderLayout.NORTH);
-		contentPane.add(getPnlSur(), BorderLayout.SOUTH);
-		contentPane.add(getPnlCentro(), BorderLayout.CENTER);
-
-		ec = new EntregaController(presupuesto);// Trampas mientras no este el resto
-	}
-	
 	public ProductosTransporte(Presupuesto presupuesto, Venta v) {
 		this.presupuesto = presupuesto;
 		r = new Repartidores();
@@ -89,7 +75,7 @@ public class ProductosTransporte extends JFrame {
 		contentPane.add(getLbltitulo(), BorderLayout.NORTH);
 		contentPane.add(getPnlSur(), BorderLayout.SOUTH);
 		contentPane.add(getPnlCentro(), BorderLayout.CENTER);
-
+		apc = new AceptarPresupuestoController();
 		ec = new EntregaController(presupuesto, v);// Trampas mientras no este el resto
 	}
 
@@ -114,16 +100,21 @@ public class ProductosTransporte extends JFrame {
 			btnAceptar = new JButton("Continuar");
 			btnAceptar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					try {
-						if ((listRepartidores.getSelectedIndex()) > -1) {
-							EntregasUI entregas = new EntregasUI(ec.getPresupuesto(),
-									r.getRepartidor(listRepartidores.getSelectedIndex()), LLevar.size());
-							entregas.setVisible(true);
-							entregas.setLocationRelativeTo(null);
+
+					if ((listRepartidores.getSelectedIndex()) > -1 && !btnLLevar.isEnabled()) {
+						EntregasUI entregas = new EntregasUI(ec.getPresupuesto(),
+								r.getRepartidor(listRepartidores.getSelectedIndex()), LLevar.size());
+						entregas.setVisible(true);
+						entregas.setLocationRelativeTo(null);
+						close();
+					} else {
+						if (!btnLLevar.isEnabled()) {
+							JOptionPane.showMessageDialog(null, "Seleccione un repartidor");
+						} else {
+							apc.crearVenta(presupuesto);
 							close();
 						}
-					} catch (NullPointerException ef) {
-						JOptionPane.showMessageDialog(null, "Seleccione un Repartidor");
+
 					}
 
 				}
@@ -213,15 +204,13 @@ public class ProductosTransporte extends JFrame {
 
 					try {
 						if ((listTienda.getSelectedIndex()) > -1) {
-							List<String> llevar = listTienda.getSelectedValuesList();
+							int[] llevar = listTienda.getSelectedIndices();
 							List<ProductoCarrito> tmp = new ArrayList<>();
-							for (int x = 0; x < llevar.size(); x++) {
-								for (ProductoCarrito p : Tienda) {
-									if (llevar.get(x).equals(p.getNombre())) {
-										LLevar.add(p);
-										tmp.add(p);
-									}
-								}
+							for (int x = 0; x < llevar.length; x++) {
+
+								LLevar.add(Tienda.get(x));
+								tmp.add(Tienda.get(x));
+
 							}
 							for (ProductoCarrito p : tmp) {
 								Tienda.remove(p);
@@ -349,15 +338,13 @@ public class ProductosTransporte extends JFrame {
 
 					try {
 						if ((listRepartir.getSelectedIndex()) > -1) {
-							List<String> montar = listRepartir.getSelectedValuesList();
+							int[] montar = listRepartir.getSelectedIndices();
 							List<ProductoCarrito> tmp = new ArrayList<>();
-							for (int x = 0; x < montar.size(); x++) {
-								for (ProductoCarrito p : LLevar) {
-									if (montar.get(x).equals(p.getNombre())) {
-										Montar.add(p);
-										tmp.add(p);
-									}
-								}
+							for (int x = 0; x < montar.length; x++) {
+
+								Montar.add(LLevar.get(x));
+								tmp.add(LLevar.get(x));
+
 							}
 							for (ProductoCarrito p : tmp) {
 								LLevar.remove(p);

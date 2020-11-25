@@ -13,15 +13,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 
 import logic.EntregaController;
 import logic.VisualizadorEntregasController;
+import logic.gestionFechas;
 import logic.dto.Presupuesto;
 import logic.dto.Repartidor;
 import logic.dto.Transporte;
-
-import javax.swing.SpinnerNumberModel;
 
 public class EntregasUI extends JDialog {
 
@@ -45,8 +45,7 @@ public class EntregasUI extends JDialog {
 	private JSpinner spnaño;
 	private JSpinner spnHoras;
 	private JSpinner spnMinutos;
-	
-	
+
 	private Transporte transporte = null;
 	private VisualizadorEntregasController veController;
 	private EntregaPanel entregaPanel;
@@ -71,7 +70,7 @@ public class EntregasUI extends JDialog {
 		ec.setRepartidor(repartidor);
 		ec.setMontar(alli);
 	}
-	
+
 	/**
 	 * @wbp.parser.constructor
 	 */
@@ -203,7 +202,6 @@ public class EntregasUI extends JDialog {
 
 		}
 
-
 		return spnaño;
 
 	}
@@ -225,17 +223,22 @@ public class EntregasUI extends JDialog {
 	}
 
 	protected void aceptarEntrega() {
+		gestionFechas fecha = new gestionFechas((Integer) spnaño.getValue(), (Integer) spnMes.getValue(),
 
+				(Integer) spnDia.getValue(), (Integer) spnHoras.getValue(), (Integer) spnMinutos.getValue());
 		Boolean valida = ec.comprobarFechaYHora((Integer) spnaño.getValue(), (Integer) spnMes.getValue(),
 
 				(Integer) spnDia.getValue(), (Integer) spnHoras.getValue(), (Integer) spnMinutos.getValue());
 		if (valida) {
 			if (transporte == null && ec.Asignacion()) {
 				JOptionPane.showMessageDialog(this, "Done");
-			} else if(transporte != null && ec.ComprobarRepartidor()) {
+			} else if (transporte != null && ec.ComprobarRepartidor()) {
 				veController.setNuevaFechaEntrega(transporte, (Integer) spnaño.getValue(), (Integer) spnMes.getValue(),
 						(Integer) spnDia.getValue(), (Integer) spnHoras.getValue(), (Integer) spnMinutos.getValue());
 				entregaPanel.refresh();
+			} else if (!fecha.no_es_domingo()) {
+				JOptionPane.showMessageDialog(this, "Es domingo");
+
 			} else {
 				JOptionPane.showMessageDialog(this, "El repartidor no trabaja en ese horario, su horario es de:"
 						+ ec.getRepartidor().getEntrada() + " a " + ec.getRepartidor().getSalida());

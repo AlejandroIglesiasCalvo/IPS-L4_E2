@@ -164,6 +164,7 @@ public class RangoMostrarVentas extends JFrame {
 	private JSpinner getAñoInicio() {
 		if (añoInicio == null) {
 			añoInicio = new JSpinner();
+			añoInicio.setModel(new SpinnerNumberModel(new Integer(2009), new Integer(2009), null, new Integer(1)));
 		}
 		return añoInicio;
 	}
@@ -187,6 +188,7 @@ public class RangoMostrarVentas extends JFrame {
 	private JSpinner getAñoFin() {
 		if (añoFin == null) {
 			añoFin = new JSpinner();
+			añoFin.setModel(new SpinnerNumberModel(new Integer(2020), new Integer(2009), null, new Integer(1)));
 		}
 		return añoFin;
 	}

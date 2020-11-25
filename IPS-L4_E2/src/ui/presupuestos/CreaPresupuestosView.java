@@ -34,11 +34,12 @@ import logic.dto.ProductoCarrito;
 import logic.dto.Repartidor;
 import ui.Ventas.ListarVentas;
 import ui.Ventas.RangoMostrarVentas;
+import ui.empleados.añadirempleado;
 
 @SuppressWarnings("serial")
-public class CreaPresupuestosView extends JDialog {
+public class CreaPresupuestosView extends JFrame {
 
-	private JFrame frmPresupuesto;
+	private JPanel frmPresupuesto;
 	private JPanel pnListas;
 	private JScrollPane spCatalogo;
 	private JScrollPane spPresupuesto;
@@ -53,26 +54,9 @@ public class CreaPresupuestosView extends JDialog {
 	private JLabel lblCatalogo;
 	private JLabel lblProductosPresupuesto;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CreaPresupuestosView window = new CreaPresupuestosView();
-					window.frmPresupuesto.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	private CreaPresupuestoController presController = new CreaPresupuestoController();
 	private CreaPresupuestosView window;
 	private AsignarClientePresupuestoView aCP;
-	private JButton btnAlex;
 	private JPanel pnFiltrar;
 	private JComboBox<String> cbxTipos;
 	private JSpinner spnPrecio;
@@ -105,15 +89,17 @@ public class CreaPresupuestosView extends JDialog {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmPresupuesto = new JFrame();
-		frmPresupuesto.setTitle("Presupuesto");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 958, 720);
+		frmPresupuesto = new JPanel();
+		setContentPane(frmPresupuesto);
+		frmPresupuesto.setName("Presupuesto");
 		frmPresupuesto.setName("Presupuesto\r\n");
-		frmPresupuesto.getContentPane().setBackground(Color.WHITE);
-		frmPresupuesto.getContentPane().add(getPnListas(), BorderLayout.CENTER);
-		frmPresupuesto.getContentPane().add(getPnButtons(), BorderLayout.SOUTH);
-		frmPresupuesto.getContentPane().add(getPnInfo(), BorderLayout.NORTH);
-		frmPresupuesto.setBounds(100, 100, 958, 720);
-		frmPresupuesto.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmPresupuesto.setBackground(Color.WHITE);
+		frmPresupuesto.setLayout(new BorderLayout(0, 0));
+		frmPresupuesto.add(getPnListas(), BorderLayout.CENTER);
+		frmPresupuesto.add(getPnButtons(), BorderLayout.SOUTH);
+		frmPresupuesto.add(getPnInfo(), BorderLayout.NORTH);		
 		// a�ade a la lista catalogo todos los productos
 		addCatalogo();
 		cbxTipos.setSelectedIndex(0);
@@ -164,7 +150,6 @@ public class CreaPresupuestosView extends JDialog {
 			pnButtons.setBackground(Color.WHITE);
 			pnButtons.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 			pnButtons.add(getBtnAsignarCliente());
-			pnButtons.add(getBtnAlex());
 			pnButtons.add(getTxtPrecioTotal());
 			pnButtons.add(getTextTotal());
 			pnButtons.add(getBtnAceptar());
@@ -209,6 +194,10 @@ public class CreaPresupuestosView extends JDialog {
 		pnPreProductos.setVisible(true);
 		this.presController = new CreaPresupuestoController();
 		this.getTextTotal().setText("0,0");
+		pnCatProductos.removeAll();
+		addCatalogo();
+		pnCatProductos.setVisible(false);
+		pnCatProductos.setVisible(true);
 	}
 
 	private JButton getBtnCancelar() {
@@ -306,7 +295,7 @@ public class CreaPresupuestosView extends JDialog {
 		return lblProductosPresupuesto;
 	}
 
-	public JFrame getFrame() {
+	public JPanel getFrame() {
 		return frmPresupuesto;
 	}
 
@@ -320,20 +309,6 @@ public class CreaPresupuestosView extends JDialog {
 
 	public JButton getBtnCreate() {
 		return btnAceptar;
-	}
-
-	private JButton getBtnAlex() {
-		if (btnAlex == null) {
-			btnAlex = new JButton("ListarVentas");
-			btnAlex.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					RangoMostrarVentas rangoVentas = new RangoMostrarVentas();
-					rangoVentas.setVisible(true);
-					rangoVentas.setLocationRelativeTo(null);
-				}
-			});
-		}
-		return btnAlex;
 	}
 
 	private JPanel getPnFiltrar() {
@@ -409,7 +384,7 @@ public class CreaPresupuestosView extends JDialog {
 					} else {
 						maxMin = "menor";
 					}
-					if (tipo.equals("Sin definir") || (precio <= 0 && maxMin.equals("menor"))) {
+					if (precio <= 0 && maxMin.equals("menor")) {
 						JOptionPane.showMessageDialog(null, "Las opciones de filtrar son incorrectas");
 					}
 					List<Producto> filtrada = presController.filtra(precio, tipo, maxMin);
