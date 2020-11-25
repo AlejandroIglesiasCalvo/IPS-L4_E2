@@ -13,6 +13,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -121,6 +122,7 @@ public class VisualizarGrafico extends JFrame {
 			JFreeChart barchart = ChartFactory.createBarChart(chartTitle, "", "Cantidad", createDataset(selected),
 					PlotOrientation.VERTICAL, true, true, false);
 			CategoryPlot p = barchart.getCategoryPlot();
+			p.setRenderer( new CustomVerticalBarChartRenderer());
 			p.setRangeGridlinePaint(Color.black);
 			ChartPanel panel = new ChartPanel(barchart);
 			pnGrafico.removeAll();
@@ -132,5 +134,21 @@ public class VisualizarGrafico extends JFrame {
 
 	private CategoryDataset createDataset(String selected) {
 		return controller.createDataset(selected);
+	}
+	
+	public class CustomVerticalBarChartRenderer extends BarRenderer
+	{
+		
+		public java.awt.Paint getItemPaint(int row,int column)
+		{
+			Color color;	
+			
+			if(column == 0) color = new Color(0,128,0);	
+			else if(column == 1) color = new Color(255,0,0);
+			else if(column == 2) color = new Color(0, 0, 128);
+			else color = new Color(0,0,0);
+			
+			return color;
+		}
 	}
 }
