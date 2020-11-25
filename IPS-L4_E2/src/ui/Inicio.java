@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 import logic.StoreInicio;
 import ui.Ventas.RangoMostrarVentas;
 import ui.empleados.añadirempleado;
+import ui.grafico.VisualizarGrafico;
 import ui.presupuestos.CreaPresupuestosView;
 import ui.presupuestos.VisualizadorEntregasView;
 import ui.proveedores.CreaPedidosView;
@@ -32,6 +33,7 @@ public class Inicio extends JFrame {
 	private JButton btnPresupuesto;
 	private JButton btnVisEntrega;
 	private JButton btnProveedor;
+	private JButton btnGrafico;
 
 	/**
 	 * Launch the application.
@@ -66,6 +68,7 @@ public class Inicio extends JFrame {
 		contentPane.add(getBtnPresupuesto());
 		contentPane.add(getBtnVisEntrega());
 		contentPane.add(getBtnProveedor());
+		contentPane.add(getBtnGrafico());
 	}
 
 	private JButton getBtnCrearEmpleado() {
@@ -133,5 +136,18 @@ public class Inicio extends JFrame {
 			});
 		}
 		return btnProveedor;
+	}
+	private JButton getBtnGrafico() {
+		if (btnGrafico == null) {
+			btnGrafico = new JButton("Mostrar gráfico");
+			btnGrafico.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					VisualizarGrafico viGraficos = new VisualizarGrafico();
+					viGraficos.setVisible(true);
+					viGraficos.setLocationRelativeTo(null);
+				}
+			});
+		}
+		return btnGrafico;
 	}
 }
