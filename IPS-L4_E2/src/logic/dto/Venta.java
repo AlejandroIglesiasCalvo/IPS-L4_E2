@@ -9,11 +9,22 @@ public class Venta {
 
 	private Transporte Transporte;
 	
+	private double montados;
+	
 	public Venta(String iD, LocalDateTime fecha, double total) {
 		super();
 		ID = iD;
 		Fecha = fecha;
 		Total = total;
+		
+	}
+	
+	public Venta(String iD, LocalDateTime fecha, double total, double montados) {
+		super();
+		ID = iD;
+		Fecha = fecha;
+		Total = total;
+		this.montados = montados;
 		
 	}
 
@@ -57,6 +68,14 @@ public class Venta {
 
 	public void setTransporte(Transporte transporte) {
 		Transporte = transporte;
+	}
+
+	public double getMontados() {
+		return montados;
+	}
+
+	public void setMontados(double montados) {
+		this.montados = montados;
 	}
 
 }

@@ -1,6 +1,7 @@
 package logic;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -103,7 +104,16 @@ public class AceptarPresupuestoController {
 	}
 
 	private void crearPedidoDto(String id, List<ProductoPedido> pedidos) {
-		this.pedido = new Pedido(id, "SOLICITADO", pedidos);		
+		Double total = calcularTotal(pedidos);
+		this.pedido = new Pedido(id, "SOLICITADO", pedidos, total, LocalDateTime.now());		
+	}
+
+	private Double calcularTotal(List<ProductoPedido> pedidos) {
+		double total = 0.0;
+		for(ProductoPedido p : pedidos) {
+			total += p.getPrecio();
+		}
+		return total;
 	}
 
 }

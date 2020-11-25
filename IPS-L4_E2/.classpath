@@ -19,5 +19,7 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="src/lib/hsqldb.jar"/>
 	<classpathentry kind="lib" path="hsqldb-2.5.1/hsqldb/lib/hsqldb.jar"/>
+	<classpathentry kind="lib" path="jfreechart-1.0.1/lib/jcommon-1.0.0.jar"/>
+	<classpathentry kind="lib" path="jfreechart-1.0.1/lib/jfreechart-1.0.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
