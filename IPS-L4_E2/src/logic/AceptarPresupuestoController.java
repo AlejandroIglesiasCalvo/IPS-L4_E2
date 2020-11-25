@@ -38,7 +38,10 @@ public class AceptarPresupuestoController {
 
 		return db.getGestionCreaPresupuesto().getPresupuestosValidos();
 	}
+	public String getFechaPresupuesto(Venta v) {
 
+		return db.getGestionCreaPresupuesto().getPresupuestosDeVentaID(v.getID());
+	}
 	private String generateId() {
 		// van todas seguidas por eso el nombre de las variables
 		int leftLimit = 48; // numero 0

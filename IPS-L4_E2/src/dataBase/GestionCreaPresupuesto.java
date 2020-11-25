@@ -345,4 +345,25 @@ public class GestionCreaPresupuesto {
 		return dto;
 	}
 
+	public String getPresupuestosDeVentaID(String id) {
+		String resultado;
+		String SQL = Conf.get("SQL_SELECCIONAR_PRESUPUESTO_DE_VENTA");
+		try {
+			ResultSet rs;
+			pst = con.prepareStatement(SQL);
+
+			rs = pst.executeQuery();
+
+			resultado = rs.getString(0);
+
+			rs.close();
+			pst.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return resultado;
+	}
+
 }
