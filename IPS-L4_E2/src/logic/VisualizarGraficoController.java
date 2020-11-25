@@ -64,11 +64,11 @@ public class VisualizarGraficoController {
 		final String balance = "BALANCE";
 		final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-		dataset.addValue(ing, selected, ingresos);
+		dataset.addValue(ing, null, ingresos);
 
-		dataset.addValue(gas, selected, gastos);
+		dataset.addValue(gas, null, gastos);
 
-		dataset.addValue(bal, selected, balance);
+		dataset.addValue(bal, null, balance);
 
 		return dataset;
 	}

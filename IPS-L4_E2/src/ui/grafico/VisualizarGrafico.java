@@ -119,7 +119,7 @@ public class VisualizarGrafico extends JFrame {
 			pnGrafico.setVisible(true);
 		} else {
 			String chartTitle = "";
-			JFreeChart barchart = ChartFactory.createBarChart(chartTitle, "", "Cantidad", createDataset(selected),
+			JFreeChart barchart = ChartFactory.createBarChart(chartTitle, selected, "Cantidad", createDataset(selected),
 					PlotOrientation.VERTICAL, true, true, false);
 			CategoryPlot p = barchart.getCategoryPlot();
 			p.setRenderer( new CustomVerticalBarChartRenderer());
