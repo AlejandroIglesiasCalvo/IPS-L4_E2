@@ -163,7 +163,6 @@ public class DetallesVenta extends JFrame {
 	private JTextField getTxtTotal() {
 		if (txtTotal == null) {
 			txtTotal = new JTextField();
-			txtTotal.setEnabled(false);
 			txtTotal.setEditable(false);
 			txtTotal.setColumns(10);
 		}
