@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DataBase {
 	private static Connection con;
-	private static String URL = "jdbc:hsqldb:hsql://localhost:5555";
+	private static String URL = "jdbc:hsqldb:hsql://localhost:9001";
 	private static String USER = "sa";
 	private static String PASS = "";
 	private GestionCreaPresupuesto gestionCreaPresupuesto;

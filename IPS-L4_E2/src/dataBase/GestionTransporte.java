@@ -11,9 +11,6 @@ import java.util.List;
 
 import confg.Conf;
 import logic.gestionFechas;
-import logic.dto.Producto;
-import logic.dto.ProductoCarrito;
-import logic.dto.Producto_Almacen;
 import logic.dto.Repartidor;
 import logic.dto.Transporte;
 import logic.dto.Venta;
@@ -158,9 +155,10 @@ public class GestionTransporte {
 			ps = con.prepareStatement(SQL);
 
 			ps.setString(1, p.getID());
-			ps.setString(2, p.getId_venta());
+			ps.setString(2, String.valueOf(p.getId_venta()));
 			ps.setString(3, p.getUnidades() + "");
-
+			ps.setInt(4, p.getTransportado());
+			ps.setInt(5, p.getMontado());
 			ps.executeUpdate();
 
 			ps.close();

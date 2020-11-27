@@ -66,8 +66,13 @@ public class DetallesVenta extends JFrame {
 		txtFecha.setText(v.getFecha().toString());
 		txtTotal.setText(String.valueOf(v.getTotal()));
 		ec = new EntregaController();
-		t = ec.getTransporteDeventa(v);
-		txtFechaTransporte.setText(t.getFecha().toString());
+		try {
+			t = ec.getTransporteDeventa(v);
+			txtFechaTransporte.setText(t.getFecha().toString());
+		} catch (NullPointerException e) {
+			txtFechaTransporte.setText("Sin transporte");
+		}
+
 		apc = new AceptarPresupuestoController();
 		p = apc.getFechaPresupuesto(v);
 		txtFechaPresupuesto.setText(p);

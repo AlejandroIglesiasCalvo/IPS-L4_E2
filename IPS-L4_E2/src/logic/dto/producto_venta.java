@@ -58,7 +58,7 @@ public class producto_venta {
 		return montado;
 	}
 
-	public Object getID() {
+	public String getID() {
 		return p.getID();
 	}
 
