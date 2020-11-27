@@ -30,6 +30,7 @@ import logic.dto.Producto;
 import logic.dto.ProductoCarrito;
 import logic.dto.Repartidor;
 import logic.dto.Venta;
+import logic.dto.producto_venta;
 
 @SuppressWarnings("serial")
 public class ProductosTransporte extends JFrame {
@@ -60,6 +61,7 @@ public class ProductosTransporte extends JFrame {
 	private List<ProductoCarrito> LLevar = new ArrayList<>();
 	private List<ProductoCarrito> Montar = new ArrayList<>();
 	private AceptarPresupuestoController apc;
+	private List<producto_venta> aGuardar = new ArrayList<>();
 
 	/**
 	 * @wbp.parser.constructor
@@ -125,10 +127,20 @@ public class ProductosTransporte extends JFrame {
 	}
 
 	private void guardarLlevadosYMOntados() {
-		List<ProductoCarrito> productos= presupuesto.getProductos();
-		for(Producto p: productos) {
-			
+		List<ProductoCarrito> productos = presupuesto.getProductos();
+		for (Producto p : productos) {
+			int ll = 0, m = 0;
+			if (LLevar.contains(p)) {
+				ll = 1;
+			}
+			if (Montar.contains(p)) {
+				m = 1;
+			}
+			if (ll == 1 || m == 1) {
+				aGuardar.add(new producto_venta(p, ll, m));
+			}
 		}
+		ec.guardarTransportadosYMOntados(aGuardar);
 
 	}
 
