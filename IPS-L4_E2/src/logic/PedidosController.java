@@ -11,7 +11,7 @@ import logic.dto.Producto_Almacen;
 
 public class PedidosController {
 	DataBase db;
-	private ArrayList<PedidoFecha> list;
+	private ArrayList<Pedido> list;
 	
 	public PedidosController() {		
 		super();
@@ -30,7 +30,7 @@ public class PedidosController {
 		System.out.println("hola");
 	}
 
-	public ArrayList<PedidoFecha> getListaPedidos() {
+	public ArrayList<Pedido> getListaPedidos() {
 		list = db.getGestionAlmacen().getPedidos();
 		return list;
 	}

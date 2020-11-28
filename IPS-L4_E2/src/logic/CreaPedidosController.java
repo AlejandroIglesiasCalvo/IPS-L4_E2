@@ -33,6 +33,10 @@ public class CreaPedidosController {
 	private Set<String> tipos = new HashSet<>();
 	private String[] tiposComboBox = new String[tipos.size()];
 	
+	private ArrayList<ArrayList<Object>> productosDescuento = new ArrayList<>();
+	
+
+
 	public CreaPedidosController() {
 		productosEnPedido = new ArrayList<>();
 		try {
@@ -121,17 +125,61 @@ public class CreaPedidosController {
 
 	public String updateTotalAddProduct(Producto_Almacen p) {
 		boolean updated = false;
+		double precio = 0;
 		for (int i = 0; i < productosEnPedido.size(); i++) {
 			if (productosEnPedido.get(i).getID().equals(p.getID())) {
 				updated = true;
 				productosEnPedido.get(i).setUnidades(productosEnPedido.get(i).getUnidades() + 1);
+				
+				//aplicamos descuento
+				/*if(productosEnPedido.get(i).getUnidades() > 50) {
+					total+=p.getPrecio();
+					double ogPrize = productosEnPedido.get(i).getUnidades()*p.getPrecio();
+					double aux = p.getPrecio()*productosEnPedido.get(i).getUnidades() - (p.getPrecio()*productosEnPedido.get(i).getUnidades()*0.1);
+					total-= aux;
+					total = ogPrize - (ogPrize*0.2);
+				}else if(productosEnPedido.get(i).getUnidades() > 20) {
+					total+=p.getPrecio();
+					double ogPrize = productosEnPedido.get(i).getUnidades()*p.getPrecio();
+					double aux = p.getPrecio()*productosEnPedido.get(i).getUnidades() - (p.getPrecio()*productosEnPedido.get(i).getUnidades()*0.05);
+					total = aux - (aux*0.1);
+				}else if(productosEnPedido.get(i).getUnidades() > 10) {
+					//total+=p.getPrecio();
+					total-= ( productosEnPedido.get(i).getUnidades()*p.getPrecio());
+					double ogPrize = productosEnPedido.get(i).getUnidades()*p.getPrecio();
+					double aux = (productosEnPedido.get(i).getUnidades() - 1) ;
+					total = ogPrize - (ogPrize*0.05);
+				}else {
+					total+= p.getPrecio();
+				}*/
 			}
 		}
 		if (!updated) {
 			productosEnPedido.add(new ProductoPedido(p,1));
+			//total += p.getPrecio();
 		}
-		total += p.getPrecio();
+		//total += p.getPrecio();
+		updateTotal();
 		return Double.toString(total);
+	}
+	
+	private void updateTotal() {
+		total = 0;
+		for(ProductoPedido p : productosEnPedido) {
+			double priceProducts = 0;
+			if(p.getUnidades() > 50) {
+				priceProducts = (p.getPrecio()*p.getUnidades())-(p.getPrecio()*p.getUnidades()*0.2);
+				total += priceProducts;
+			}else if(p.getUnidades() > 20) {
+				priceProducts = (p.getPrecio()*p.getUnidades())-(p.getPrecio()*p.getUnidades()*0.1);
+				total += priceProducts;
+			}else if(p.getUnidades() > 10) {
+				priceProducts = (p.getPrecio()*p.getUnidades())-(p.getPrecio()*p.getUnidades()*0.05);
+				total += priceProducts;
+			}else {
+				total += p.getPrecio()*p.getUnidades();
+			}
+		}
 	}
 
 	public List<ProductoPedido> getProductoesEnPedido() {
@@ -142,13 +190,19 @@ public class CreaPedidosController {
 		for (int i = 0; i < productosEnPedido.size(); i++) {
 			if (productosEnPedido.get(i).getID().equals(p.getID())) {
 				if (productosEnPedido.get(i).getUnidades() - 1 > 0) {
-					productosEnPedido.get(i).setUnidades(productosEnPedido.get(i).getUnidades() - 1);
+					
+					productosEnPedido.get(i).setUnidades(productosEnPedido.get(i).getUnidades() - 1);	
 				} else {
 					productosEnPedido.remove(i);
+					//total -= p.getPrecio();
 				}
 			}
 		}
-		total -= p.getPrecio();
+		
+		
+		
+		//total -= p.getPrecio();
+		updateTotal();
 		return Double.toString(total);
 	}
 
@@ -163,6 +217,17 @@ public class CreaPedidosController {
 			}
 		}
 		return false;
+	}
+	
+	public ArrayList<ArrayList<Object>> getPedidosDescuento() {
+		return productosDescuento;
+	}
+
+	public void addPedidosDescuento(ProductoPedido p, double ogPrice) {
+		ArrayList<Object> struct = new ArrayList<>();
+		struct.add(p);
+		struct.add(ogPrice);
+		this.productosDescuento.add(struct);
 	}
 
 }

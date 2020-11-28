@@ -112,8 +112,8 @@ public class GestionAlmacen {
 		}
 	}
 	
-	public ArrayList<PedidoFecha> getPedidos() {
-		ArrayList<PedidoFecha> p = new ArrayList<PedidoFecha>();
+	public ArrayList<Pedido> getPedidos() {
+		ArrayList<Pedido> p = new ArrayList<Pedido>();
 		String sql = Conf.get("SQL_GET_PEDIDOS");
 		try {
 			pst = con.prepareStatement(sql);
@@ -125,6 +125,9 @@ public class GestionAlmacen {
 			String state;
 			
 			LocalDateTime date;
+			
+			double total;
+			
 			Pedido pedido;
 			while(rs.next()) {
 				id = rs.getString(1);
@@ -136,9 +139,10 @@ public class GestionAlmacen {
 				date = Instant.ofEpochMilli(d.getTime())
 						.atZone(ZoneId.systemDefault())
 						.toLocalDateTime();
+				total = rs.getDouble(4);
 				//System.out.println(date);
-				pedido = new Pedido(id, state, pr);
-				p.add(new PedidoFecha(pedido, date));
+				pedido = new Pedido(id, state, pr, total, date);
+				p.add(pedido);
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -179,7 +183,7 @@ public class GestionAlmacen {
 		return sol;
 	}
 	
-	public void updateStatePedido(String state, PedidoFecha pedido) {
+	public void updateStatePedido(String state, Pedido pedido) {
 		String sql = Conf.get("SQL_SET_UPDATE_STATE");
 		try {
 			pst = con.prepareStatement(sql);
@@ -192,10 +196,11 @@ public class GestionAlmacen {
 			
 		}catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 	
-	private void updateStock(PedidoFecha idPedido) {
+	private void updateStock(Pedido idPedido) {
 					
 		int units;
 		Producto_Almacen pa;

@@ -28,13 +28,13 @@ public class PedidosTablaModel extends AbstractTableModel {
 
 
 	private String[] columnNames = { "ID Presupuesto","Fecha", "Estado"};
-	protected List<PedidoFecha> pedidos;
+	protected List<Pedido> pedidos;
 	protected Class<?>[] types = new Class[] { String.class, String.class, String.class};
 	protected VisualizarPedidosView view;
 
 	public PedidosTablaModel(VisualizarPedidosView view) {
 		
-		pedidos = new LinkedList<PedidoFecha>();
+		pedidos = new LinkedList<Pedido>();
 		this.view = view;
 		
 	}
@@ -64,14 +64,14 @@ public class PedidosTablaModel extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int row, int col) {
-		PedidoFecha c = pedidos.get(row);
+		Pedido c = pedidos.get(row);
 		NumberFormat f = NumberFormat.getInstance();
 		f.setMaximumFractionDigits(2);
 		switch(col) {
 		case 0:
 			return c.getID();
 		case 1:
-			return c.getDate().toString();// c.getDate();
+			return c.getFecha().toString();// c.getDate();
 		case 2:
 			//System.out.println("aqui");
 			return c.getEstado();
@@ -91,7 +91,7 @@ public class PedidosTablaModel extends AbstractTableModel {
 	}
 	
 	public boolean getState(int row) {
-		PedidoFecha p = pedidos.get(row);
+		Pedido p = pedidos.get(row);
 		
 		
 		return (p.getEstado().equals("solicitado"));
@@ -102,7 +102,7 @@ public class PedidosTablaModel extends AbstractTableModel {
 		fireTableDataChanged();
 	}
 
-	public void addRow(PedidoFecha c) {
+	public void addRow(Pedido c) {
 		pedidos.add(c);
 		
 		fireTableRowsInserted(pedidos.size() - 1, pedidos.size() - 1);
@@ -115,7 +115,7 @@ public class PedidosTablaModel extends AbstractTableModel {
 		if (colIndex < 0 || colIndex >= getColumnCount())
 			throw new IllegalArgumentException("column out of bounds");
 		
-		PedidoFecha p = pedidos.get(rowIndex);
+		Pedido p = pedidos.get(rowIndex);
 		switch (colIndex) {
 		case 2: {
 			p.setEstado((String)aValue);

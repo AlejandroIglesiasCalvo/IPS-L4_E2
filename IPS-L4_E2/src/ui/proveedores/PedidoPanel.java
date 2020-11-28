@@ -51,6 +51,35 @@ public class PedidoPanel extends JPanel {
 		add(getLblPrecio());
 		getLblPrecio().setText(p.getPrecio()*p.getUnidades()+"");
 		getLblUds().setText(p.getUnidades()+"");
+		
+		double ogPrice = p.getPrecio()*p.getUnidades();
+		double price = 0;
+		if(p.getUnidades() > 50 ) {
+			price = ogPrice-(ogPrice*0.2);
+			System.out.println("descuento del 20 precio: " + price);
+			getLblPrecio().setForeground(Color.GREEN);
+			//p.setPrecio(price);
+			pedController.addPedidosDescuento(p, ogPrice);
+			
+		}else if (p.getUnidades() > 20 ) {
+			price = ogPrice-(ogPrice*0.1);
+			System.out.println("descuento del 10 precio: " + price);
+			getLblPrecio().setForeground(Color.GREEN);
+			//p.setPrecio(price);
+			pedController.addPedidosDescuento(p, ogPrice);
+		}else if(p.getUnidades() > 10){
+			price = ogPrice-(ogPrice*0.05);
+			System.out.println("descuento del 5 precio: " + price);
+			getLblPrecio().setForeground(Color.GREEN);
+			//p.setPrecio(price);
+			pedController.addPedidosDescuento(p, ogPrice);
+		}
+		
+		System.out.println("Producto: " + p.getID() +" og: " + ogPrice + " p: " + price);
+		
+		getLblPrecio().setText(p.getPrecio()+"");
+		getLblUds().setText(p.getUnidades()+"");
+		
 		getLblProducto().setText(p.getNombre());
 	}
 
