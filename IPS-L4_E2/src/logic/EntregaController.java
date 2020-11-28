@@ -2,6 +2,7 @@ package logic;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import dataBase.DataBase;
@@ -95,6 +96,11 @@ public class EntregaController {
 		} else {
 			return false;
 		}
+	}
+
+	public Transporte getTransporteDeventa(Venta v) {
+		Transporte transporte = db.getGestionTransporte().getTransporteForVentaID(v.getID());
+		return transporte;
 	}
 
 	public boolean ComprobarRepartidor() {

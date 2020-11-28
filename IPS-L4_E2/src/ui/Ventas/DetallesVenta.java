@@ -1,20 +1,23 @@
 package ui.Ventas;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import logic.AceptarPresupuestoController;
+import logic.EntregaController;
+import logic.dto.Presupuesto;
+import logic.dto.Transporte;
 import logic.dto.Venta;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.GridLayout;
-import javax.swing.JTextField;
 
 public class DetallesVenta extends JFrame {
 
@@ -33,6 +36,11 @@ public class DetallesVenta extends JFrame {
 	private JTextField txtFechaTransporte;
 	private JLabel lblPresupuesto;
 	private JTextField txtFechaPresupuesto;
+	private JButton btnDetalles;
+	private EntregaController ec;
+	private Transporte t;
+	private AceptarPresupuestoController apc;
+	private String p;
 
 	/**
 	 * Create the frame.
@@ -50,6 +58,19 @@ public class DetallesVenta extends JFrame {
 		contentPane.add(getBtnCerrar(), BorderLayout.SOUTH);
 		contentPane.add(getPnlDetalles(), BorderLayout.CENTER);
 		this.v = venta;
+		llenarCosas();
+	}
+
+	private void llenarCosas() {
+		txtId.setText(v.getID());
+		txtFecha.setText(v.getFecha().toString());
+		txtTotal.setText(String.valueOf(v.getTotal()));
+		ec = new EntregaController();
+		t = ec.getTransporteDeventa(v);
+		txtFechaTransporte.setText(t.getFecha().toString());
+		apc = new AceptarPresupuestoController();
+		p = apc.getFechaPresupuesto(v);
+		txtFechaPresupuesto.setText(p);
 	}
 
 	private void cerrar() {
@@ -75,6 +96,7 @@ public class DetallesVenta extends JFrame {
 		}
 		return btnCerrar;
 	}
+
 	private JPanel getPnlDetalles() {
 		if (pnlDetalles == null) {
 			pnlDetalles = new JPanel();
@@ -89,15 +111,18 @@ public class DetallesVenta extends JFrame {
 			pnlDetalles.add(getTxtFechaTransporte());
 			pnlDetalles.add(getLblPresupuesto());
 			pnlDetalles.add(getTxtFechaPresupuesto());
+			pnlDetalles.add(getBtnDetalles());
 		}
 		return pnlDetalles;
 	}
+
 	private JLabel getLblId() {
 		if (lblId == null) {
 			lblId = new JLabel("Id:");
 		}
 		return lblId;
 	}
+
 	private JTextField getTxtId() {
 		if (txtId == null) {
 			txtId = new JTextField();
@@ -106,12 +131,14 @@ public class DetallesVenta extends JFrame {
 		}
 		return txtId;
 	}
+
 	private JLabel getLblFecha() {
 		if (lblFecha == null) {
 			lblFecha = new JLabel("Fecha:");
 		}
 		return lblFecha;
 	}
+
 	private JTextField getTxtFecha() {
 		if (txtFecha == null) {
 			txtFecha = new JTextField();
@@ -120,12 +147,14 @@ public class DetallesVenta extends JFrame {
 		}
 		return txtFecha;
 	}
+
 	private JLabel getLblTotal() {
 		if (lblTotal == null) {
 			lblTotal = new JLabel("Total:");
 		}
 		return lblTotal;
 	}
+
 	private JTextField getTxtTotal() {
 		if (txtTotal == null) {
 			txtTotal = new JTextField();
@@ -135,12 +164,14 @@ public class DetallesVenta extends JFrame {
 		}
 		return txtTotal;
 	}
+
 	private JLabel getLblTransporte() {
 		if (lblTransporte == null) {
 			lblTransporte = new JLabel("fecha del transporte:");
 		}
 		return lblTransporte;
 	}
+
 	private JTextField getTxtFechaTransporte() {
 		if (txtFechaTransporte == null) {
 			txtFechaTransporte = new JTextField();
@@ -149,12 +180,14 @@ public class DetallesVenta extends JFrame {
 		}
 		return txtFechaTransporte;
 	}
+
 	private JLabel getLblPresupuesto() {
 		if (lblPresupuesto == null) {
 			lblPresupuesto = new JLabel("Fecha de creacion del presupuesto:");
 		}
 		return lblPresupuesto;
 	}
+
 	private JTextField getTxtFechaPresupuesto() {
 		if (txtFechaPresupuesto == null) {
 			txtFechaPresupuesto = new JTextField();
@@ -162,5 +195,19 @@ public class DetallesVenta extends JFrame {
 			txtFechaPresupuesto.setColumns(10);
 		}
 		return txtFechaPresupuesto;
+	}
+
+	private JButton getBtnDetalles() {
+		if (btnDetalles == null) {
+			btnDetalles = new JButton("Detalles de los productos");
+			btnDetalles.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					DetallesVentaProductos dv = new DetallesVentaProductos(v);
+					dv.setVisible(true);
+					dv.setLocationRelativeTo(null);
+				}
+			});
+		}
+		return btnDetalles;
 	}
 }

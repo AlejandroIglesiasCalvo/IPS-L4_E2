@@ -35,7 +35,7 @@ public class GestionTransporte {
 			pst = con.prepareStatement(SQL);
 			int id_transporte = (int) t.getID();
 			String id_venta = v.getID();
-			String id_repartidor =  r.getID();
+			String id_repartidor = r.getID();
 			Date fecha = gf.convertir_A_SQL(t.getFecha());
 			String hora = String.valueOf(t.getHora());
 
@@ -88,12 +88,13 @@ public class GestionTransporte {
 	}
 
 	private Transporte toTransporteDto(ResultSet rs) throws SQLException {
-		Transporte trans = new Transporte(rs.getLong("ID_TRANSPORTE"), rs.getTimestamp("FECHA").toLocalDateTime() , rs.getDouble("HORA"), getRepartidor(rs.getString("ID_REPARTIDOR")), rs.getString("ESTADO"));
+		Transporte trans = new Transporte(rs.getLong("ID_TRANSPORTE"), rs.getTimestamp("FECHA").toLocalDateTime(),
+				rs.getDouble("HORA"), getRepartidor(rs.getString("ID_REPARTIDOR")), rs.getString("ESTADO"));
 		return trans;
 	}
 
 	private Repartidor getRepartidor(String id) {
-		return new GestionRepartidores(con,db).getRepartidor(id);
+		return new GestionRepartidores(con, db).getRepartidor(id);
 	}
 
 	public void updateEstado(Transporte transporte) {
@@ -101,10 +102,10 @@ public class GestionTransporte {
 		try {
 			pst = con.prepareStatement(SQL);
 			pst.setString(1, transporte.getEstado());
-			pst.setString(2, transporte.getID()+"");
-			
+			pst.setString(2, transporte.getID() + "");
+
 			pst.executeUpdate();
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -116,11 +117,32 @@ public class GestionTransporte {
 			pst.setString(1, transporte.getEstado());
 			pst.setDate(2, java.sql.Date.valueOf(transporte.getFecha().toLocalDate()));
 			pst.setString(3, transporte.getHora() + "");
-			pst.setString(4, transporte.getID()+"");
-			
+			pst.setString(4, transporte.getID() + "");
+
 			pst.executeUpdate();
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-	}	
+	}
+
+	public Transporte getTransporteForVentaID(String id) {
+		Transporte t = null;
+		String SQL = Conf.get("SQL_SELECCIONAR_TRANSPORTE_DE_VENTA");
+		try {
+			ResultSet rs;
+			pst = con.prepareStatement(SQL);
+
+			rs = pst.executeQuery();
+
+			t = toTransporteDto(rs);
+
+			rs.close();
+			pst.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return t;
+	}
 }

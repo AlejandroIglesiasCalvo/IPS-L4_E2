@@ -81,6 +81,9 @@ public class GestionAlmacen {
 			pst = con.prepareStatement(SQL);
 			pst.setString(1, pedido.getID());
 			pst.setString(2, pedido.getEstado());
+			pst.setString(3, pedido.getTotal()+"");
+			long millis = System.currentTimeMillis();
+			pst.setDate(4, new java.sql.Date(millis));
 
 			pst.executeUpdate();
 

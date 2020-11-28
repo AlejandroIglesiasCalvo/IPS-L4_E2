@@ -20,6 +20,8 @@ public class DataBase {
 
 	private GestionPedido gestionPedido;
 
+	private GestionGrafica gestionGrafica;
+
 
 	// Crea conexion a base de datos
 	private void setConnection() throws SQLException, ClassNotFoundException {
@@ -43,6 +45,8 @@ public class DataBase {
 		gestionInventario = new GestionInventario(con, this);
 
 		gestionPedido = new GestionPedido(con,this);
+
+		gestionGrafica = new GestionGrafica(con,this);
 
 	}
 
@@ -79,6 +83,11 @@ public class DataBase {
 
 	public GestionPedido getGestionCreaPedido() {
 		return gestionPedido;
+	}
+
+
+	public GestionGrafica getGestionGrafica() {
+		return gestionGrafica;
 	}
 
 }

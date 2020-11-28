@@ -26,6 +26,7 @@ import logic.AceptarPresupuestoController;
 import logic.EntregaController;
 import logic.Repartidores;
 import logic.dto.Presupuesto;
+import logic.dto.Producto;
 import logic.dto.ProductoCarrito;
 import logic.dto.Repartidor;
 import logic.dto.Venta;
@@ -102,6 +103,7 @@ public class ProductosTransporte extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 
 					if ((listRepartidores.getSelectedIndex()) > -1 && !btnLLevar.isEnabled()) {
+						guardarLlevadosYMOntados();
 						EntregasUI entregas = new EntregasUI(ec.getPresupuesto(),
 								r.getRepartidor(listRepartidores.getSelectedIndex()), LLevar.size());
 						entregas.setVisible(true);
@@ -114,14 +116,20 @@ public class ProductosTransporte extends JFrame {
 							apc.crearVenta(presupuesto);
 							close();
 						}
-
 					}
-
 				}
 
 			});
 		}
 		return btnAceptar;
+	}
+
+	private void guardarLlevadosYMOntados() {
+		List<ProductoCarrito> productos= presupuesto.getProductos();
+		for(Producto p: productos) {
+			
+		}
+
 	}
 
 	private void close() {

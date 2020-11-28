@@ -44,7 +44,7 @@ public class EntregaPanel extends JPanel {
 	public EntregaPanel(Transporte t, JPanel pnEntregas, VisualizadorEntregasView visualizadorEntregasView,
 			VisualizadorEntregasController veController) {
 		setBackground(Color.WHITE);
-		setLayout(new GridLayout(0, 4, 0, 0));
+		setLayout(new GridLayout(0, 4, 3, 3));
 		add(getLblNameTrasportista());
 		add(getLblEntrega());
 		add(getLblEstado());
