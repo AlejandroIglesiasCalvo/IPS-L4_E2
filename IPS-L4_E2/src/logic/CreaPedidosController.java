@@ -120,7 +120,7 @@ public class CreaPedidosController {
 	}
 
 	private void crearPedidoDto() {
-		pedido = new Pedido(this.id,"PENDIENTE",productosEnPedido,total, LocalDateTime.now());		
+		pedido = new Pedido(this.id,"solicitado",productosEnPedido,total, LocalDateTime.now());		
 	}
 
 	public String updateTotalAddProduct(Producto_Almacen p) {
@@ -131,27 +131,6 @@ public class CreaPedidosController {
 				updated = true;
 				productosEnPedido.get(i).setUnidades(productosEnPedido.get(i).getUnidades() + 1);
 				
-				//aplicamos descuento
-				/*if(productosEnPedido.get(i).getUnidades() > 50) {
-					total+=p.getPrecio();
-					double ogPrize = productosEnPedido.get(i).getUnidades()*p.getPrecio();
-					double aux = p.getPrecio()*productosEnPedido.get(i).getUnidades() - (p.getPrecio()*productosEnPedido.get(i).getUnidades()*0.1);
-					total-= aux;
-					total = ogPrize - (ogPrize*0.2);
-				}else if(productosEnPedido.get(i).getUnidades() > 20) {
-					total+=p.getPrecio();
-					double ogPrize = productosEnPedido.get(i).getUnidades()*p.getPrecio();
-					double aux = p.getPrecio()*productosEnPedido.get(i).getUnidades() - (p.getPrecio()*productosEnPedido.get(i).getUnidades()*0.05);
-					total = aux - (aux*0.1);
-				}else if(productosEnPedido.get(i).getUnidades() > 10) {
-					//total+=p.getPrecio();
-					total-= ( productosEnPedido.get(i).getUnidades()*p.getPrecio());
-					double ogPrize = productosEnPedido.get(i).getUnidades()*p.getPrecio();
-					double aux = (productosEnPedido.get(i).getUnidades() - 1) ;
-					total = ogPrize - (ogPrize*0.05);
-				}else {
-					total+= p.getPrecio();
-				}*/
 			}
 		}
 		if (!updated) {

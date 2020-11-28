@@ -53,7 +53,7 @@ public class GestionPedido {
 		try {
 			pst = con.prepareStatement(SQL);
 			pst.setString(1, id);
-			pst.setString(2, "PENDIENTE");
+			pst.setString(2, "solicitado");
 			pst.setString(3, total+"");
 			long millis = System.currentTimeMillis();
 			pst.setDate(4, new java.sql.Date(millis));

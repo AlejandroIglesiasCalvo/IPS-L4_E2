@@ -108,6 +108,7 @@ public class ComboEditor extends AbstractCellEditor implements TableCellEditor {
 					 * 
 					 */
 					((PedidosTablaModel) t.getModel()).getView().getController().updatePedidoState(s, row);
+					
 					stopCellEditing();
 					
 				}

@@ -12,6 +12,8 @@ import javax.swing.border.EmptyBorder;
 
 import logic.StoreInicio;
 import ui.Ventas.RangoMostrarVentas;
+import ui.almacen.VisualizarInventarioView;
+import ui.almacen.VisualizarPedidosView;
 import ui.empleados.añadirempleado;
 import ui.grafico.VisualizarGrafico;
 import ui.presupuestos.CreaPresupuestosView;
@@ -34,6 +36,8 @@ public class Inicio extends JFrame {
 	private JButton btnVisEntrega;
 	private JButton btnProveedor;
 	private JButton btnGrafico;
+	private JButton btnVisualizarInventario;
+	private JButton btnVisualizarPedidos;
 
 	/**
 	 * Launch the application.
@@ -69,6 +73,8 @@ public class Inicio extends JFrame {
 		contentPane.add(getBtnVisEntrega());
 		contentPane.add(getBtnProveedor());
 		contentPane.add(getBtnGrafico());
+		contentPane.add(getBtnVisualizarInventario());
+		contentPane.add(getBtnVisualizarPedidos());
 	}
 
 	private JButton getBtnCrearEmpleado() {
@@ -149,5 +155,31 @@ public class Inicio extends JFrame {
 			});
 		}
 		return btnGrafico;
+	}
+	private JButton getBtnVisualizarInventario() {
+		if (btnVisualizarInventario == null) {
+			btnVisualizarInventario = new JButton("Visualizar Inventario");
+			btnVisualizarInventario.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					VisualizarInventarioView v = new VisualizarInventarioView();
+					v.setVisible(true);
+					v.setLocationRelativeTo(null);
+				}
+			});
+		}
+		return btnVisualizarInventario;
+	}
+	private JButton getBtnVisualizarPedidos() {
+		if (btnVisualizarPedidos == null) {
+			btnVisualizarPedidos = new JButton("Visualizar Estado de Pedidos");
+			btnVisualizarPedidos.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					VisualizarPedidosView v = new VisualizarPedidosView();
+					v.setVisible(true);
+					v.setLocationRelativeTo(null);
+				}
+			});
+		}
+		return btnVisualizarPedidos;
 	}
 }
