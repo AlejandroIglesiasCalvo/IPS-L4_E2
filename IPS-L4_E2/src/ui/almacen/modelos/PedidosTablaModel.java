@@ -79,16 +79,17 @@ public class PedidosTablaModel extends AbstractTableModel {
 			return null;
 		}
 	}
+	
+	public Pedido getValueAtRow(int row) {
+		return pedidos.get(row);
+	}
 
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
 		return types[columnIndex];
 	}
 
-	public Object getValueAtRow(int row) {
-		//PedidoFecha c = productos.get(row);
-		return null;
-	}
+
 	
 	public boolean getState(int row) {
 		Pedido p = pedidos.get(row);
