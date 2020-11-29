@@ -57,10 +57,10 @@ public class Email {
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
 			// Set Subject: header field
-			message.setSubject("¡Informe de retraso!");
+			message.setSubject("¡Paquete enviado!");
 
 			// Now set the actual message
-			message.setText("Esto es una pruba");
+			message.setText("Su pedido esta en camino");
 
 			System.out.println("sending...");
 			// Send message
