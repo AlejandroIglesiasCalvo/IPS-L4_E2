@@ -48,6 +48,7 @@ public class VisualizadorEntregasController {
 		if(transporte.getEstado().equals("PENDIENTE")) {
 			transporte.setEstado("EN ENTREGA");
 			db.getGestionTransporte().updateEstado(transporte);
+			Email.Enviar();
 		}else {
 			transporte.setEstado("FINALIZADO");
 			db.getGestionTransporte().updateEstado(transporte);
