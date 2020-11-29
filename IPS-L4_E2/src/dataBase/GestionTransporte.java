@@ -11,10 +11,10 @@ import java.util.List;
 
 import confg.Conf;
 import logic.gestionFechas;
-import logic.dto.Producto;
 import logic.dto.Repartidor;
 import logic.dto.Transporte;
 import logic.dto.Venta;
+import logic.dto.producto_venta;
 
 public class GestionTransporte {
 	private static Connection con;
@@ -144,5 +144,65 @@ public class GestionTransporte {
 		}
 
 		return t;
+	}
+
+	public void guardarTyM(producto_venta p) {
+		// TODO SQL_INSERTAR_VENTA_PRODUCTO_T_M
+
+		String SQL = Conf.get("SQL_INSERTAR_VENTA_PRODUCTO_T_M");
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement(SQL);
+
+			ps.setString(1, p.getID());
+			ps.setString(2, String.valueOf(p.getId_venta()));
+			ps.setString(3, p.getUnidades() + "");
+			ps.setInt(4, p.getTransportado());
+			ps.setInt(5, p.getMontado());
+			ps.executeUpdate();
+
+			ps.close();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+	}
+
+	public List<producto_venta> getProducto_venta() {
+		List<producto_venta> resultado = new ArrayList<>();
+
+		String SQL = Conf.get("SQL_SELECT_VENTA_PRODUCTO");
+
+		try {
+			ResultSet rs;
+			pst = con.prepareStatement(SQL);
+
+			rs = pst.executeQuery();
+
+			resultado = toProducto_Venta_List(rs);
+
+			rs.close();
+			pst.close();
+
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return resultado;
+	}
+
+	private List<producto_venta> toProducto_Venta_List(ResultSet rs) throws SQLException {
+		List<producto_venta> res = new ArrayList<>();
+		while (rs.next()) {
+			res.add(toProducto_VentaDto(rs));
+		}
+		return res;
+	}
+
+	private producto_venta toProducto_VentaDto(ResultSet rs) throws SQLException {
+
+		producto_venta dto = new producto_venta(rs.getString(1), Integer.parseInt(rs.getString(2)),
+				Integer.parseInt(rs.getString(3)), Integer.parseInt(rs.getString(4)),
+				Integer.parseInt(rs.getString(5)));
+		return dto;
 	}
 }

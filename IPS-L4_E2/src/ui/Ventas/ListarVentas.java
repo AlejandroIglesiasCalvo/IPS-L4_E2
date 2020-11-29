@@ -42,6 +42,7 @@ public class ListarVentas extends JFrame {
 	private JLabel lblFecha;
 	private JLabel lblTotal;
 	private JButton btnDetalles;
+	List<Venta> filtrado = new ArrayList<>();
 
 	/**
 	 * Create the frame.
@@ -80,7 +81,6 @@ public class ListarVentas extends JFrame {
 
 	private List<Venta> getListaProductoCarritosTienda() {
 		Ventas = vc.getTodasLasVentas();
-		List<Venta> filtrado = new ArrayList<>();
 		for (Venta v : Ventas) {
 			if (v.getFecha().isAfter(inicio) && v.getFecha().isBefore(fin)) {
 				filtrado.add(v);
@@ -158,8 +158,8 @@ public class ListarVentas extends JFrame {
 			btnDetalles = new JButton("Detalles de la Venta");
 			btnDetalles.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
-					DetallesVenta dv = new DetallesVenta(Ventas.get(listVentas.getSelectedIndex()));
+					Venta ven = filtrado.get(listVentas.getSelectedIndex());
+					DetallesVenta dv = new DetallesVenta(ven);
 					dv.setVisible(true);
 					dv.setLocationRelativeTo(null);
 				}

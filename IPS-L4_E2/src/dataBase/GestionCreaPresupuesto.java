@@ -346,16 +346,17 @@ public class GestionCreaPresupuesto {
 	}
 
 	public String getPresupuestosDeVentaID(String id) {
-		String resultado;
+		String resultado = "";
 		String SQL = Conf.get("SQL_SELECCIONAR_PRESUPUESTO_DE_VENTA");
 		try {
 			ResultSet rs;
 			pst = con.prepareStatement(SQL);
-
+			pst.setString(1, id);
 			rs = pst.executeQuery();
 
-			resultado = rs.getString(0);
-
+			while (rs.next()) {
+				resultado = rs.getString(1);
+			}
 			rs.close();
 			pst.close();
 

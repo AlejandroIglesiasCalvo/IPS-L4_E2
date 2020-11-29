@@ -10,6 +10,7 @@ import logic.dto.Presupuesto;
 import logic.dto.Repartidor;
 import logic.dto.Transporte;
 import logic.dto.Venta;
+import logic.dto.producto_venta;
 
 public class EntregaController {
 	private Presupuesto presupuesto;
@@ -173,5 +174,17 @@ public class EntregaController {
 
 	public void setMontar(int montar) {
 		this.montar = montar;
+	}
+
+	public void guardarTransportadosYMOntados(List<producto_venta> aGuardar) {
+		List<producto_venta> lista = db.getGestionTransporte().getProducto_venta();
+		for (producto_venta p : aGuardar) {
+			for (producto_venta j : lista) {
+				if (p.getID() == j.getID() && p.getId_venta() == j.getId_venta()) {
+					p.setId_venta(j.getId_venta());
+					db.getGestionTransporte().guardarTyM(p);
+				}
+			}
+		}
 	}
 }

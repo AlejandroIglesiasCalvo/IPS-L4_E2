@@ -14,6 +14,10 @@ public class Producto {
 		Precio = precio;
 	}
 
+	public Producto() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getID() {
 		return ID;
 	}
