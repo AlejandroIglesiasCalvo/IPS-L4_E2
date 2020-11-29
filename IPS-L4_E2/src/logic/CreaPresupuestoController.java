@@ -1,6 +1,7 @@
 package logic;
 
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -8,6 +9,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import javax.mail.internet.NewsAddress;
 
 import dataBase.DataBase;
 import logic.dto.Cliente;
@@ -112,6 +115,8 @@ public class CreaPresupuestoController {
 	 */
 	public String updateTotalAddProduct(Producto producto) {
 		boolean updated = false;
+		DecimalFormat df = new DecimalFormat("#.##");
+		
 		for (int i = 0; i < productosEnPresupuesto.size(); i++) {
 			if (productosEnPresupuesto.get(i).getID().equals(producto.getID())) {
 				updated = true;
@@ -122,6 +127,7 @@ public class CreaPresupuestoController {
 			productosEnPresupuesto.add(new ProductoCarrito(producto));
 		}
 		total += producto.getPrecio();
+		total = Double.valueOf(df.format(total));
 		return Double.toString(total);
 	}
 

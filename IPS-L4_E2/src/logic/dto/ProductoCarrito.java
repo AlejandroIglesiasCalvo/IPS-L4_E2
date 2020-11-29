@@ -4,6 +4,11 @@ public class ProductoCarrito extends Producto{
 
 	private int Unidades;
 	
+	public ProductoCarrito(Producto p, int unidades) {
+		super(p.getID(), p.getNombre(), p.getTipo(), p.getPrecio());
+		Unidades = unidades;
+	}
+	
 	public ProductoCarrito(Producto p) {
 		super(p.getID(), p.getNombre(), p.getTipo(), p.getPrecio());
 		Unidades = 1;

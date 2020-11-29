@@ -148,6 +148,7 @@ public class AceptarPresupuestosView extends JDialog {
 					System.out.println(p);
 					checkAndUpdateStock(p);
 					createVenta(p);
+					fillPresupuestosModel();
 				}
 			});
 		}
@@ -223,7 +224,7 @@ public class AceptarPresupuestosView extends JDialog {
 	
 	public void fillPresupuestosModel() {
 		PresupuestosTablaModel m = (PresupuestosTablaModel)this.table.getModel(); 
-		
+		m.clearRows();
 		this.presupuestos = aceptPresController.getPresupuestosValidos();
 		this.clientes = new ArrayList<Cliente>();
 		System.out.println(presupuestos);

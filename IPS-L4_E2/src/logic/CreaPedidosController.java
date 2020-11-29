@@ -1,10 +1,12 @@
 package logic;
 
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -159,6 +161,9 @@ public class CreaPedidosController {
 				total += p.getPrecio()*p.getUnidades();
 			}
 		}
+		DecimalFormat df =(DecimalFormat) DecimalFormat.getInstance(new Locale("en"));
+		df.applyPattern("#.##");
+		total = Double.valueOf(df.format(total));
 	}
 
 	public List<ProductoPedido> getProductoesEnPedido() {

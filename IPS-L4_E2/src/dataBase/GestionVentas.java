@@ -81,7 +81,8 @@ public class GestionVentas {
 			ps.setString(1, p.getID());
 			ps.setString(2, idVenta);
 			ps.setString(3, p.getUnidades()+"");
-			
+			ps.setString(4, "0");
+			ps.setString(5, "0");
 			ps.executeUpdate();
 			
 			ps.close();

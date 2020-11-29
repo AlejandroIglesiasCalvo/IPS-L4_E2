@@ -15,7 +15,7 @@ public class InventarioTablaModel extends AbstractTableModel {
 	private static final long serialVersionUID = -5675393178142862583L;
 
 
-	private String[] columnNames = { "ID Producto","Nombre", "Tipo", "Precio", "Unidades"};
+	private String[] columnNames = { "ID Producto","Nombre", "Tipo", "Precio/Unidad", "Unidades"};
 	protected List<Producto_Almacen> productos;
 	protected Class<?>[] types = new Class[] { String.class, String.class, String.class, Double.class, Integer.class};
 

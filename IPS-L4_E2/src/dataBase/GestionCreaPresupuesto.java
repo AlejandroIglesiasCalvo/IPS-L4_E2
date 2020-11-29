@@ -288,6 +288,7 @@ public class GestionCreaPresupuesto {
 		String nombre;
 		String tipo;
 		double precio;
+		int unidades;
 
 		try {
 			pst = con.prepareStatement(SQL);
@@ -299,8 +300,9 @@ public class GestionCreaPresupuesto {
 				nombre = rs.getString(2);
 				tipo = rs.getString(3);
 				precio = Double.valueOf(rs.getString(4));
+				unidades = Integer.valueOf(rs.getString(5));
 
-				l.add(new ProductoCarrito(new Producto(id, nombre, tipo, precio)));
+				l.add(new ProductoCarrito(new Producto(id, nombre, tipo, precio), unidades));
 			}
 			rs.close();
 			pst.close();

@@ -135,24 +135,24 @@ insert into Empleado values ('3', 'Maria','Pepe', '342564', '12.00', '15.00', 'R
 insert into Empleado values ('4', 'Juan', 'Pepe','2495624', '12.00', '15.00', 'REPARTIDOR','12345678D');
 insert into Empleado values ('5', 'Pablo','Pepe', '2348762', '12.00', '15.00', 'REPARTIDOR','12345678E');
 
-insert into Pedido values ('1', 'Estado', '20', to_date('12-02-2009', 'dd-mm-yyyy'));
-insert into Pedido values ('2', 'Estado', '30', to_date('15-02-2009', 'dd-mm-yyyy'));
-insert into Pedido values ('3', 'Estado', '40', to_date('20-02-2009', 'dd-mm-yyyy'));
-insert into Pedido values ('4', 'Estado', '5', to_date('12-03-2009', 'dd-mm-yyyy'));
-insert into Pedido values ('5', 'Estado', '63', to_date('12-04-2009', 'dd-mm-yyyy'));
+insert into Pedido values ('1', 'solicitado', '20', to_date('12-02-2009', 'dd-mm-yyyy'));
+insert into Pedido values ('2', 'recibido', '30', to_date('15-02-2009', 'dd-mm-yyyy'));
+insert into Pedido values ('3', 'solicitado', '40', to_date('20-02-2009', 'dd-mm-yyyy'));
+insert into Pedido values ('4', 'recibido', '5', to_date('12-03-2009', 'dd-mm-yyyy'));
+insert into Pedido values ('5', 'solicitado', '63', to_date('12-04-2009', 'dd-mm-yyyy'));
 
 
-insert into Producto_Almacen values ('1', 'Silla1', 'Reclin', '8', '10');
-insert into Producto_Almacen values ('2', 'Silla1', 'Cocina', '18', '2');
-insert into Producto_Almacen values ('3', 'Silla1', 'Oficina', '28', '0');
-insert into Producto_Almacen values ('4', 'Silla1', 'Oficina', '28.5', '6');
-insert into Producto_Almacen values ('5', 'Silla1', 'Oficina', '38', '4');
+insert into Producto_Almacen values ('1', 'Silla Turca', 'Reclin', '8', '10');
+insert into Producto_Almacen values ('2', 'Taburete', 'Cocina', '18', '2');
+insert into Producto_Almacen values ('3', 'Escritorio', 'Oficina', '28', '0');
+insert into Producto_Almacen values ('4', 'Lampara', 'Oficina', '28.5', '6');
+insert into Producto_Almacen values ('5', 'Estanteria', 'Oficina', '38', '4');
 
-insert into Producto values ('1', 'Silla1', 'Reclin', '10');
-insert into Producto values ('2', 'Silla1', 'Cocina', '20');
-insert into Producto values ('3', 'Silla1', 'Oficina', '30');
-insert into Producto values ('4', 'Silla1', 'Oficina', '30.5');
-insert into Producto values ('5', 'Silla1', 'Oficina', '40');
+insert into Producto values ('1', 'Silla Turca', 'Reclin', '10');
+insert into Producto values ('2', 'Taburete', 'Cocina', '20');
+insert into Producto values ('3', 'Escritorio', 'Oficina', '30');
+insert into Producto values ('4', 'Lampara', 'Oficina', '30.5');
+insert into Producto values ('5', 'Estanteria', 'Oficina', '40');
 
 
 insert into Presupuesto values ('1', '123456', to_date('12-02-2009', 'dd-mm-yyyy'), '30');
@@ -180,11 +180,11 @@ insert into Venta values ('3', '3', to_date('12-02-2009', 'dd-mm-yyyy'), '30.5',
 insert into Venta values ('4', '4', to_date('12-02-2009', 'dd-mm-yyyy'), '10', '0');
 insert into Venta values ('5', '5', to_date('12-02-2009', 'dd-mm-yyyy'), '40', '0');
 
-insert into Venta_Producto (ID_Producto, ID_Venta, Unidades) values ('3','1','1');
-insert into Venta_Producto (ID_Producto, ID_Venta, Unidades) values ('5','2','1');
-insert into Venta_Producto (ID_Producto, ID_Venta, Unidades) values ('4','3','1');
-insert into Venta_Producto (ID_Producto, ID_Venta, Unidades) values ('1','4','1');
-insert into Venta_Producto (ID_Producto, ID_Venta, Unidades) values ('5','5','1');
+insert into Venta_Producto values ('3','1','1','0','0');
+insert into Venta_Producto values ('5','2','1','0','0');
+insert into Venta_Producto values ('4','3','1','0','0');
+insert into Venta_Producto values ('1','4','1','0','0');
+insert into Venta_Producto values ('5','5','1','0','0');
 
 
 insert into Transporte (ID_Transporte, ID_Venta, ID_Producto, Hora, Fecha, ID_Repartidor, Estado) values ('1','1','3','12.00',to_date('12-02-2009', 'dd-mm-yyyy'),'1','RETRASADO');

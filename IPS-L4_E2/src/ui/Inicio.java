@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import logic.AceptarPresupuestoController;
 import logic.Email;
 import logic.StoreInicio;
 import ui.Ventas.RangoMostrarVentas;
@@ -17,6 +18,7 @@ import ui.almacen.VisualizarInventarioView;
 import ui.almacen.VisualizarPedidosView;
 import ui.empleados.añadirempleado;
 import ui.grafico.VisualizarGrafico;
+import ui.presupuestos.AceptarPresupuestosView;
 import ui.presupuestos.CreaPresupuestosView;
 import ui.presupuestos.VisualizadorEntregasView;
 import ui.proveedores.CreaPedidosView;
@@ -42,6 +44,7 @@ public class Inicio extends JFrame {
 	private JButton btnVisualizarPedidos;
 
 	private JButton PruebEmail;
+	private JButton btnAveptarPresupuesto;
 
 
 	/**
@@ -75,6 +78,7 @@ public class Inicio extends JFrame {
 		contentPane.add(getBtnCrearEmpleado());
 		contentPane.add(getBtnListarVentas());
 		contentPane.add(getBtnPresupuesto());
+		contentPane.add(getBtnAveptarPresupuesto());
 		contentPane.add(getBtnVisEntrega());
 		contentPane.add(getBtnProveedor());
 		contentPane.add(getPruebEmail());
@@ -199,5 +203,18 @@ public class Inicio extends JFrame {
 			});
 		}
 		return PruebEmail;
+	}
+	private JButton getBtnAveptarPresupuesto() {
+		if (btnAveptarPresupuesto == null) {
+			btnAveptarPresupuesto = new JButton("Aceptar Presupuesto");
+			btnAveptarPresupuesto.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					AceptarPresupuestosView a = new AceptarPresupuestosView();
+					a.setVisible(true);
+					a.setLocationRelativeTo(null);
+				}
+			});
+		}
+		return btnAveptarPresupuesto;
 	}
 }
