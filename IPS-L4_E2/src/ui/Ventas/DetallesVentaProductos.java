@@ -96,9 +96,18 @@ public class DetallesVentaProductos extends JFrame {
 
 	private DefaultListModel<String> modelDetallesVenta() {
 		DefaultListModel<String> model = new DefaultListModel<String>();
-		for (producto_venta or : getListaDetallesVenta())
-			model.addElement("" + or.getID() + "--------------------------------------------------Montado:" + or.getMontado()
-					+ "----------------------------------------------------Transportado" + or.getTransportado() + "");
+		String montado = " no ";
+		String transportado = " no ";
+		for (producto_venta or : getListaDetallesVenta()) {
+			if (or.getMontado() == 1) {
+				montado = " Si";
+			}
+			if (or.getTransportado() == 1) {
+				transportado = " Si";
+			}
+			model.addElement("" + or.getID() + "--------------------------------------------------Montado:" + montado
+					+ "----------------------------------------------------Transportado: " + transportado + "");
+		}
 		model.trimToSize();
 		return model;
 	}
