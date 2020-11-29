@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import logic.Email;
 import logic.StoreInicio;
 import ui.Ventas.RangoMostrarVentas;
 import ui.almacen.VisualizarInventarioView;
@@ -36,8 +37,12 @@ public class Inicio extends JFrame {
 	private JButton btnVisEntrega;
 	private JButton btnProveedor;
 	private JButton btnGrafico;
+
 	private JButton btnVisualizarInventario;
 	private JButton btnVisualizarPedidos;
+
+	private JButton PruebEmail;
+
 
 	/**
 	 * Launch the application.
@@ -72,6 +77,7 @@ public class Inicio extends JFrame {
 		contentPane.add(getBtnPresupuesto());
 		contentPane.add(getBtnVisEntrega());
 		contentPane.add(getBtnProveedor());
+		contentPane.add(getPruebEmail());
 		contentPane.add(getBtnGrafico());
 		contentPane.add(getBtnVisualizarInventario());
 		contentPane.add(getBtnVisualizarPedidos());
@@ -156,6 +162,7 @@ public class Inicio extends JFrame {
 		}
 		return btnGrafico;
 	}
+
 	private JButton getBtnVisualizarInventario() {
 		if (btnVisualizarInventario == null) {
 			btnVisualizarInventario = new JButton("Visualizar Inventario");
@@ -181,5 +188,16 @@ public class Inicio extends JFrame {
 			});
 		}
 		return btnVisualizarPedidos;
+	}
+	private JButton getPruebEmail() {
+		if (PruebEmail == null) {
+			PruebEmail = new JButton("Prueba email");
+			PruebEmail.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Email.Enviar();
+				}
+			});
+		}
+		return PruebEmail;
 	}
 }
