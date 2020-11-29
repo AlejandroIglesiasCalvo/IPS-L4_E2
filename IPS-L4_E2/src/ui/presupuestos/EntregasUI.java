@@ -245,6 +245,9 @@ public class EntregasUI extends JDialog {
 			}
 			this.dispose();
 		} else {
+			if (!fecha.no_es_domingo()) {
+				JOptionPane.showMessageDialog(this, "Es domingo");
+			}
 			JOptionPane.showMessageDialog(this, "Fecha no valida");
 		}
 	};
