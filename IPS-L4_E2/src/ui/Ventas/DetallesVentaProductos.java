@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import logic.VentasController;
 import logic.dto.Venta;
 import logic.dto.producto_venta;
 
@@ -32,6 +33,7 @@ public class DetallesVentaProductos extends JFrame {
 	private JButton tctCerrar;
 	private JScrollPane scrollDetalles;
 	private JList listDetalles;
+	private VentasController vc;
 
 	/**
 	 * Create the frame.
@@ -40,6 +42,7 @@ public class DetallesVentaProductos extends JFrame {
 	 */
 	public DetallesVentaProductos(Venta v) {
 		this.v = v;
+		this.vc = new VentasController();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 721, 651);
 		contentPane = new JPanel();
@@ -90,23 +93,18 @@ public class DetallesVentaProductos extends JFrame {
 		}
 		return listDetalles;
 	}
+
 	private DefaultListModel<String> modelDetallesVenta() {
 		DefaultListModel<String> model = new DefaultListModel<String>();
-		for (Venta or : getListaDetallesVenta())
-			model.addElement("" + or.getID() + "--------------------------------------------------" + or.getFecha()
-					+ "----------------------------------------------------" + or.getTotal() + "");
+		for (producto_venta or : getListaDetallesVenta())
+			model.addElement("" + or.getID() + "--------------------------------------------------Montado:" + or.getMontado()
+					+ "----------------------------------------------------Transportado" + or.getTransportado() + "");
 		model.trimToSize();
 		return model;
 	}
 
 	private List<producto_venta> getListaDetallesVenta() {
-		List<producto_venta> filtrado = vc.getTodasLasVentas();
-		List<Venta> filtrado = new ArrayList<>();
-		for (Venta v : Ventas) {
-			if (v.getFecha().isAfter(inicio) && v.getFecha().isBefore(fin)) {
-				filtrado.add(v);
-			}
-		}
+		List<producto_venta> filtrado = vc.getProductosMontadosYTransportados(v.getID());
 		return filtrado;
 
 	}

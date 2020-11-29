@@ -19,11 +19,13 @@ public class producto_venta {
 		Unidades = 1;
 	}
 
-	public producto_venta(String id_producto, String id_venta, int unidades) {
+	public producto_venta(String id_producto, int id_venta, int unidades, int transportados, int montados) {
+		this.p= new Producto();
 		this.p.setID(id_producto);
-		this.id_venta = Integer.parseInt(id_venta);
+		this.id_venta = id_venta;
 		this.Unidades = unidades;
-
+		this.montado = montados;
+		this.transportado = transportados;
 	}
 
 	public int getUnidades() {
