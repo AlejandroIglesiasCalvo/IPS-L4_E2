@@ -6,11 +6,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import javax.mail.internet.NewsAddress;
 
 import dataBase.DataBase;
 import logic.dto.Cliente;
@@ -50,7 +49,7 @@ public class CreaPresupuestoController {
 			e.printStackTrace();
 		}
 		catalogo = db.getGestionCreaPresupuesto().getProductos();
-		
+
 		generateId();
 		addTipos();
 	}
@@ -115,8 +114,7 @@ public class CreaPresupuestoController {
 	 */
 	public String updateTotalAddProduct(Producto producto) {
 		boolean updated = false;
-		DecimalFormat df = new DecimalFormat("#.##");
-		
+
 		for (int i = 0; i < productosEnPresupuesto.size(); i++) {
 			if (productosEnPresupuesto.get(i).getID().equals(producto.getID())) {
 				updated = true;
@@ -127,6 +125,8 @@ public class CreaPresupuestoController {
 			productosEnPresupuesto.add(new ProductoCarrito(producto));
 		}
 		total += producto.getPrecio();
+		DecimalFormat df = (DecimalFormat) DecimalFormat.getInstance(new Locale("en"));
+		df.applyPattern("#.##");
 		total = Double.valueOf(df.format(total));
 		return Double.toString(total);
 	}
@@ -143,19 +143,18 @@ public class CreaPresupuestoController {
 		crearPresupuestoDto();
 		añadirPresupuestoABase();
 	}
-	
 
 	public boolean checkStockInAlmacen() {
 		almacen = db.getGestionCreaPresupuesto().getProductosAlmacen();
-		for(Producto_Almacen pa : almacen) {
-			for(ProductoCarrito pc : productosEnPresupuesto) {
-				if(pa.getID().equals(pc.getID()) && pa.getStock()-pc.getUnidades()<0) {
+		for (Producto_Almacen pa : almacen) {
+			for (ProductoCarrito pc : productosEnPresupuesto) {
+				if (pa.getID().equals(pc.getID()) && pa.getStock() - pc.getUnidades() < 0) {
 					return false;
 				}
 			}
 		}
 		return true;
-		
+
 	}
 
 	/**
@@ -179,10 +178,11 @@ public class CreaPresupuestoController {
 	 * creamos el presupuesto en memoria
 	 */
 	private void crearPresupuestoDto() {
-		if(cliente == null) {
+		if (cliente == null) {
 			presupuesto = new Presupuesto(this.id, null, LocalDateTime.now(), this.total, this.productosEnPresupuesto);
-		}else {
-			presupuesto = new Presupuesto(this.id, cliente.getID(), LocalDateTime.now(), this.total, this.productosEnPresupuesto);
+		} else {
+			presupuesto = new Presupuesto(this.id, cliente.getID(), LocalDateTime.now(), this.total,
+					this.productosEnPresupuesto);
 		}
 	}
 
