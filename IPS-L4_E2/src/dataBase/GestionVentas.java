@@ -151,4 +151,21 @@ public class GestionVentas {
 		}
 		return result;
 	}
+
+	public void updateUnidades(int size, int id) {
+		String SQL = Conf.get("SQL_UPDATE_UNIDADES_MONTADOS_EN_VENTA");
+
+		try {
+			pst = con.prepareStatement(SQL);
+
+			pst.setString(1, String.valueOf(size));
+			pst.setString(2, String.valueOf(id));
+			pst.executeUpdate();
+
+			pst.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

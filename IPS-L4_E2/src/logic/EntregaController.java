@@ -186,5 +186,9 @@ public class EntregaController {
 				}
 			}
 		}
+		/**
+		 * Se actualiza el numero de montados en la venta
+		 */
+		db.getGestionVentas().updateUnidades(aGuardar.size(), lista.get(0).getId_venta());
 	}
 }
