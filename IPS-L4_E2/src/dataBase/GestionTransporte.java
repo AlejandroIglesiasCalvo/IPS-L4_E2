@@ -199,10 +199,16 @@ public class GestionTransporte {
 	}
 
 	private producto_venta toProducto_VentaDto(ResultSet rs) throws SQLException {
-
-		producto_venta dto = new producto_venta(rs.getString(1), Integer.parseInt(rs.getString(2)),
+		producto_venta dto = null;
+		try {
+			
+		
+		dto = new producto_venta(rs.getString(1), Integer.parseInt(rs.getString(2)),
 				Integer.parseInt(rs.getString(3)), Integer.parseInt(rs.getString(4)),
 				Integer.parseInt(rs.getString(5)));
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		return dto;
 	}
 }
