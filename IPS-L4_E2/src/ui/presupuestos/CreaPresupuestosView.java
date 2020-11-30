@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.imageio.event.IIOReadUpdateListener;
+import javax.sound.sampled.spi.FormatConversionProvider;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -76,6 +78,7 @@ public class CreaPresupuestosView extends JFrame {
 	private JLabel lblNewLabel_2;
 	private JButton btnAsignarCliente;
 	private JLabel lblUnidades;
+	private JButton btnCargarPlantilla;
 
 	/**
 	 * Create the application.
@@ -149,6 +152,7 @@ public class CreaPresupuestosView extends JFrame {
 			pnButtons = new JPanel();
 			pnButtons.setBackground(Color.WHITE);
 			pnButtons.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+			pnButtons.add(getBtnCargarPlantilla());
 			pnButtons.add(getBtnAsignarCliente());
 			pnButtons.add(getTxtPrecioTotal());
 			pnButtons.add(getTextTotal());
@@ -192,12 +196,35 @@ public class CreaPresupuestosView extends JFrame {
 		presController.crearPresupuesto();
 		
 		if(presController.getCliente() != null) {
+			presController.crearPresupuesto();
 			JOptionPane.showMessageDialog(this, "Presupuesto creado");
 		}else {
-			String nombre = JOptionPane.showInputDialog("Escriba un nombre para la plantilla creada");
-			presController.crearPlantilla(nombre);
-			JOptionPane.showMessageDialog(this, "Plantilla creada con exito");
+			
+			String result = JOptionPane.showInputDialog("Escriba un nombre para la plantilla creada");
+			int ans = 0;
+			while(result == null || result.equals("")) {
+				if(result == null) {
+					ans = JOptionPane.showConfirmDialog(null, "¿Seguro que quieres cancelar la creacion de la plantilla?");
+					if(ans == JOptionPane.YES_OPTION || ans == JOptionPane.CLOSED_OPTION) {
+						
+						break;
+					}else if(ans == JOptionPane.NO_OPTION || ans == JOptionPane.CANCEL_OPTION ){
+						result = JOptionPane.showInputDialog("Escriba un nombre para la plantilla creada");
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "No puede dejar el campo de nombre vacío");
+					result = JOptionPane.showInputDialog("Escriba un nombre para la plantilla creada");
+				}
+			}
+			
+			
+			if(result != null && !result.equals("")){
+				presController.crearPresupuesto();
+				presController.crearPlantilla(result);
+				JOptionPane.showMessageDialog(this, "Plantilla creada con exito");
+			}
 		}
+		getBtnAceptar().setEnabled(false);
 		pnPreProductos.removeAll();
 		pnPreProductos.setVisible(false);
 		pnPreProductos.setVisible(true);
@@ -534,5 +561,18 @@ public class CreaPresupuestosView extends JFrame {
 			lblUnidades.setHorizontalAlignment(SwingConstants.CENTER);
 		}
 		return lblUnidades;
+	}
+	private JButton getBtnCargarPlantilla() {
+		if (btnCargarPlantilla == null) {
+			btnCargarPlantilla = new JButton("Cargar Plantilla");
+			btnCargarPlantilla.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					VisualizarPlantillasView p = new VisualizarPlantillasView(presController, window);
+					p.setVisible(true);
+					p.setLocationRelativeTo(null);
+				}
+			});
+		}
+		return btnCargarPlantilla;
 	}
 }

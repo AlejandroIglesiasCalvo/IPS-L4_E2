@@ -3,6 +3,9 @@ package dataBase;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
+
+import logic.dto.Plantilla;
 
 public class DataBase {
 	private static Connection con;
@@ -21,6 +24,7 @@ public class DataBase {
 	private GestionPedido gestionPedido;
 
 	private GestionGrafica gestionGrafica;
+	
 
 
 	// Crea conexion a base de datos

@@ -13,6 +13,7 @@ import java.util.List;
 
 import confg.Conf;
 import logic.dto.Cliente;
+import logic.dto.Plantilla;
 import logic.dto.Presupuesto;
 import logic.dto.Producto;
 import logic.dto.ProductoCarrito;
@@ -381,5 +382,48 @@ public class GestionCreaPresupuesto {
 		}
 		
 	}
+
+	public ArrayList<Plantilla> getPlantillas() {
+		String SQL = Conf.get("SQL_GET_PLANTILLAS");
+
+		ArrayList<Plantilla> sol = new ArrayList<>();
+		Presupuesto p;
+		String dni;
+		String id_Pres;
+		LocalDate date;
+		LocalDateTime fecha;
+		double precio;
+		String nombrePlantilla;
+
+		try {
+			pst = con.prepareStatement(SQL);
+			pst.execute();
+
+			System.out.println(LocalDate.now().minusDays(15).toString());
+
+			ResultSet rs = pst.getResultSet();
+			while (rs.next()) {
+				id_Pres = rs.getString(1);
+				dni = rs.getString(2);
+				date = LocalDate.parse(rs.getString(3));
+				fecha = LocalDateTime.of(date, LocalTime.now());
+
+				precio = Double.valueOf(rs.getString(4));
+				
+				nombrePlantilla = rs.getString(5);
+				
+				p = new Presupuesto(id_Pres, dni, fecha, precio, getProductosPresupuesto(id_Pres));
+
+				sol.add(new Plantilla(p, nombrePlantilla));
+			}
+
+			pst.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return sol;
+	}
+
 
 }
