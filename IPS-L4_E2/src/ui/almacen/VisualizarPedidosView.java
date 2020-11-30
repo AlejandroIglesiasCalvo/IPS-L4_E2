@@ -18,6 +18,9 @@ import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 
 public class VisualizarPedidosView extends JDialog {
@@ -66,6 +69,12 @@ public class VisualizarPedidosView extends JDialog {
 	private PedidosTabla getTabla() {
 		if(this.tabla == null) {
 			tabla = new PedidosTabla(this);
+			tabla.addMouseListener(new MouseAdapter() {				
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					getBtnInfoPedido().setEnabled(true);
+				}
+			});
 			fillTabla();
 		}
 		return tabla;
@@ -93,6 +102,7 @@ public class VisualizarPedidosView extends JDialog {
 	private JButton getBtnInfoPedido() {
 		if (btnInfoPedido == null) {
 			btnInfoPedido = new JButton("Informacion del Pedido");
+			btnInfoPedido.setEnabled(false);
 			btnInfoPedido.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int index = getTabla().getSelectedRow();

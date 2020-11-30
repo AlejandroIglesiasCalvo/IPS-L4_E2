@@ -1,33 +1,26 @@
 package ui.presupuestos.modelos;
 
 import java.text.NumberFormat;
-import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import logic.AceptarPresupuestoController;
 import logic.dto.Cliente;
-import logic.dto.Presupuesto;
+import logic.dto.Plantilla;
 
-
-public class PresupuestosTablaModel extends AbstractTableModel {
+public class PlantillasTablaModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = -5675393178142862583L;
 
 
-	private String[] columnNames = { "ID Presupuesto","Cliente", "Fecha"};
-	protected List<Presupuesto> presupustos;
-	protected List<Cliente> clientes;
-	protected Class<?>[] types = new Class[] { String.class, String.class, LocalDateTime.class};
-	
-	private AceptarPresupuestoController g = new AceptarPresupuestoController();
+	private String[] columnNames = { "Nombre", "Precio"};
+	protected List<Plantilla> plantillas;
+	protected Class<?>[] types = new Class[] { String.class, Double.class};
 
-	public PresupuestosTablaModel() {
+	public PlantillasTablaModel() {
 		
-		presupustos = new LinkedList<>();
-		clientes = new LinkedList<>();
+		plantillas = new LinkedList<>();
 	}
 
 	@Override
@@ -47,22 +40,19 @@ public class PresupuestosTablaModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return presupustos.size();
+		return plantillas.size();
 	}
 
 	@Override
 	public Object getValueAt(int row, int col) {
-		Presupuesto p = presupustos.get(row);
-		Cliente c  = g.getClienteById(p.getDNI_Cliente());
+		Plantilla c = plantillas.get(row);
 		NumberFormat f = NumberFormat.getInstance();
 		f.setMaximumFractionDigits(2);
 		switch(col) {
 		case 0:
-			return p.getID_Presupuesto();
+			return c.getNombre();
 		case 1:
-			return c.getNombre() + " " + c.getApellidos();
-		case 2:
-			return p.getFecha().toLocalDate();
+			return c.getPrecio();
 		default:
 			return null;
 		}
@@ -73,20 +63,19 @@ public class PresupuestosTablaModel extends AbstractTableModel {
 		return types[columnIndex];
 	}
 
-	public Presupuesto getValueAtRow(int row) {
-		Presupuesto p = presupustos.get(row);
-		return p;
+	public Plantilla getValueAtRow(int row) {
+		Plantilla c = plantillas.get(row);
+		return c;
 	}
 
 	public void clearRows() {
-		presupustos.clear();
+		plantillas.clear();
 		fireTableDataChanged();
 	}
 
-	public void addRow(Presupuesto p, Cliente c) {
-		presupustos.add(p);
-		clientes.add(c);
-		fireTableRowsInserted(presupustos.size() - 1, presupustos.size() - 1);
+	public void addRow(Plantilla c) {
+		plantillas.add(c);
+		fireTableRowsInserted(plantillas.size() - 1, plantillas.size() - 1);
 	}
 	
 	@Override
