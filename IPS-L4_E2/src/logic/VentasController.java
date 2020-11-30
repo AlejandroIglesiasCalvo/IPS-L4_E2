@@ -42,4 +42,9 @@ public class VentasController {
 		return filtro;
 	}
 
+	public String getNombreProductoPorid(String id) {
+		String result = db.getGestionVentas().getNombreProductoPorID(id);
+		return result;
+	}
+
 }

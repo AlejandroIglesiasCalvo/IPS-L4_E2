@@ -31,12 +31,12 @@ public class GestionVentas {
 		GestionVentas.con = con;
 		this.db = dataBase;
 	}
-	
+
 	public Venta insertarVenta(String idventa, Presupuesto p) {
 		String SQL = Conf.get("SQL_INSERTAR_VENTA");
-		
+
 		Venta v = null;
-		
+
 		PreparedStatement ps;
 		java.sql.Date sqlDate;
 		try {
@@ -44,12 +44,12 @@ public class GestionVentas {
 
 			ps.setString(1, idventa);
 			ps.setString(2, p.getID_Presupuesto());
-			
+
 			LocalDateTime d = LocalDateTime.now();
-			
+
 			sqlDate = java.sql.Date.valueOf(d.toLocalDate());
 			ps.setDate(3, sqlDate);
-			
+
 			v = new Venta(idventa, d, p.getPrecio());
 			ps.setString(4, Double.toString(p.getPrecio()));
 			ps.setString(5, "0");
@@ -62,29 +62,31 @@ public class GestionVentas {
 
 			});
 			ps.close();
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		
+
 		return v;
 	}
+
 	/*
-	 * Hay que cambiar en este metodo el numero de productos que se le asigna a la venta
+	 * Hay que cambiar en este metodo el numero de productos que se le asigna a la
+	 * venta
 	 */
 	private void insertarProductoVenta(ProductoCarrito p, String idVenta) {
 		String SQL = Conf.get("SQL_INSERTAR_VENTA_PRODUCTO");
 		PreparedStatement ps;
 		try {
 			ps = con.prepareStatement(SQL);
-			
+
 			ps.setString(1, p.getID());
 			ps.setString(2, idVenta);
-			ps.setString(3, p.getUnidades()+"");
+			ps.setString(3, p.getUnidades() + "");
 			ps.setString(4, "0");
 			ps.setString(5, "0");
 			ps.executeUpdate();
-			
+
 			ps.close();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -130,5 +132,40 @@ public class GestionVentas {
 		gestionFechas gf = new gestionFechas(a.getYear(), a.getMonthValue(), a.getDayOfMonth(), 00, 00);
 		Venta dto = new Venta(rs.getString(1), gf.getFecha(), Double.valueOf(rs.getString(4)), t);
 		return dto;
+	}
+
+	public String getNombreProductoPorID(String id) {
+		String result = "";
+		String sql = Conf.get("SQL_GET_NOMBRE_POR_ID");
+		try {
+			pst = con.prepareStatement(sql);
+			pst.setString(1, id);
+
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				result = rs.getString(1);
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return result;
+	}
+
+	public void updateUnidades(int size, int id) {
+		String SQL = Conf.get("SQL_UPDATE_UNIDADES_MONTADOS_EN_VENTA");
+
+		try {
+			pst = con.prepareStatement(SQL);
+
+			pst.setString(1, String.valueOf(size));
+			pst.setString(2, String.valueOf(id));
+			pst.executeUpdate();
+
+			pst.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

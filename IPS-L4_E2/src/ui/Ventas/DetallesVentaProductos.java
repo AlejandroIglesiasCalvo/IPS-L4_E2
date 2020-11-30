@@ -34,6 +34,7 @@ public class DetallesVentaProductos extends JFrame {
 	private JScrollPane scrollDetalles;
 	private JList listDetalles;
 	private VentasController vc;
+	List<String> nombre;
 
 	/**
 	 * Create the frame.
@@ -98,6 +99,7 @@ public class DetallesVentaProductos extends JFrame {
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		String montado = " no ";
 		String transportado = " no ";
+		int cont = 0;
 		for (producto_venta or : getListaDetallesVenta()) {
 			if (or.getMontado() == 1) {
 				montado = " Si";
@@ -105,8 +107,10 @@ public class DetallesVentaProductos extends JFrame {
 			if (or.getTransportado() == 1) {
 				transportado = " Si";
 			}
-			model.addElement("" + or.getID() + "--------------------------------------------------Montado:" + montado
+			model.addElement("Id: " + or.getID() + "------------------Nombre: " + nombre.get(cont)
+					+ "--------------------------------Montado:" + montado
 					+ "----------------------------------------------------Transportado: " + transportado + "");
+			cont++;
 		}
 		model.trimToSize();
 		return model;
@@ -114,6 +118,11 @@ public class DetallesVentaProductos extends JFrame {
 
 	private List<producto_venta> getListaDetallesVenta() {
 		List<producto_venta> filtrado = vc.getProductosMontadosYTransportados(v.getID());
+		nombre = new ArrayList<>();
+		for (producto_venta p : filtrado) {
+			nombre.add(vc.getNombreProductoPorid(p.getID()));
+		}
+
 		return filtrado;
 
 	}

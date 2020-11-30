@@ -24,7 +24,6 @@ public class DataBase {
 	private GestionPedido gestionPedido;
 
 	private GestionGrafica gestionGrafica;
-	
 
 
 	// Crea conexion a base de datos
