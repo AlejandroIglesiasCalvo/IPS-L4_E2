@@ -235,8 +235,8 @@ public class ProductosTransporte extends JFrame {
 							List<ProductoCarrito> tmp = new ArrayList<>();
 							for (int x = 0; x < llevar.length; x++) {
 
-								LLevar.add(Tienda.get(x));
-								tmp.add(Tienda.get(x));
+								LLevar.add(Tienda.get(llevar[x]));
+								tmp.add(Tienda.get(llevar[x]));
 
 							}
 							for (ProductoCarrito p : tmp) {
@@ -369,8 +369,8 @@ public class ProductosTransporte extends JFrame {
 							List<ProductoCarrito> tmp = new ArrayList<>();
 							for (int x = 0; x < montar.length; x++) {
 
-								Montar.add(LLevar.get(x));
-								tmp.add(LLevar.get(x));
+								Montar.add(LLevar.get(montar[x]));
+								tmp.add(LLevar.get(montar[x]));
 
 							}
 							for (ProductoCarrito p : tmp) {
