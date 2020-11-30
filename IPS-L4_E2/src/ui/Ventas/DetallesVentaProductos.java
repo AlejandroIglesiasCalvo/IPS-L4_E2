@@ -107,7 +107,7 @@ public class DetallesVentaProductos extends JFrame {
 			if (or.getTransportado() == 1) {
 				transportado = " Si";
 			}
-			model.addElement("" + or.getID() + "------------------" + nombre.get(cont)
+			model.addElement("Id: " + or.getID() + "------------------Nombre: " + nombre.get(cont)
 					+ "--------------------------------Montado:" + montado
 					+ "----------------------------------------------------Transportado: " + transportado + "");
 			cont++;
