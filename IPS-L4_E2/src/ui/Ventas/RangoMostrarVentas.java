@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.YearMonth;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -37,6 +38,8 @@ public class RangoMostrarVentas extends JFrame {
 	private JSpinner añoFin;
 	private JSpinner mesFin;
 	private JSpinner diaFin;
+	private int daysInMonthFin;
+	private int daysInMonthInicio;
 
 	/**
 	 * Create the frame.
@@ -51,6 +54,7 @@ public class RangoMostrarVentas extends JFrame {
 		contentPane.add(getLblTitulo(), BorderLayout.NORTH);
 		contentPane.add(getPnlSur(), BorderLayout.SOUTH);
 		contentPane.add(getPanel(), BorderLayout.CENTER);
+
 	}
 
 	private JLabel getLblTitulo() {
@@ -165,6 +169,7 @@ public class RangoMostrarVentas extends JFrame {
 		if (añoInicio == null) {
 			añoInicio = new JSpinner();
 			añoInicio.setModel(new SpinnerNumberModel(new Integer(2009), new Integer(2009), null, new Integer(1)));
+			setRangoInicio();
 		}
 		return añoInicio;
 	}
@@ -173,6 +178,7 @@ public class RangoMostrarVentas extends JFrame {
 		if (mesInicio == null) {
 			mesInicio = new JSpinner();
 			mesInicio.setModel(new SpinnerNumberModel(1, 1, 12, 1));
+			setRangoInicio();
 		}
 		return mesInicio;
 	}
@@ -180,7 +186,8 @@ public class RangoMostrarVentas extends JFrame {
 	private JSpinner getDiaInicio() {
 		if (diaInicio == null) {
 			diaInicio = new JSpinner();
-			diaInicio.setModel(new SpinnerNumberModel(1, 1, 31, 1));
+			setRangoInicio();
+			diaInicio.setModel(new SpinnerNumberModel(1, 1, daysInMonthInicio, 1));
 		}
 		return diaInicio;
 	}
@@ -189,6 +196,7 @@ public class RangoMostrarVentas extends JFrame {
 		if (añoFin == null) {
 			añoFin = new JSpinner();
 			añoFin.setModel(new SpinnerNumberModel(new Integer(2020), new Integer(2009), null, new Integer(1)));
+			setRangoFin();
 		}
 		return añoFin;
 	}
@@ -197,6 +205,7 @@ public class RangoMostrarVentas extends JFrame {
 		if (mesFin == null) {
 			mesFin = new JSpinner();
 			mesFin.setModel(new SpinnerNumberModel(1, 1, 12, 1));
+			setRangoFin();
 		}
 		return mesFin;
 	}
@@ -204,9 +213,22 @@ public class RangoMostrarVentas extends JFrame {
 	private JSpinner getDiaFin() {
 		if (diaFin == null) {
 			diaFin = new JSpinner();
-			diaFin.setModel(new SpinnerNumberModel(1, 1, 31, 1));
+			setRangoFin();
+			diaFin.setModel(new SpinnerNumberModel(1, 1, daysInMonthFin, 1));
 		}
 		return diaFin;
+	}
+
+	private void setRangoFin() {
+		YearMonth yearMonthObject = YearMonth.of((int) getAñoFin().getValue(), (int) getMesFin().getValue());
+		daysInMonthFin = yearMonthObject.lengthOfMonth();
+		getDiaFin().setModel(new SpinnerNumberModel(1, 1, daysInMonthFin, 1));
+	}
+
+	private void setRangoInicio() {
+		YearMonth yearMonthObject = YearMonth.of((int) getAñoFin().getValue(), (int) getMesFin().getValue());
+		daysInMonthInicio = yearMonthObject.lengthOfMonth();
+		getDiaInicio().setModel(new SpinnerNumberModel(1, 1, daysInMonthInicio, 1));
 	}
 
 }
