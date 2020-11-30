@@ -194,10 +194,10 @@ insert into Venta values ('4', '4', to_date('12-02-2009', 'dd-mm-yyyy'), '10', '
 insert into Venta values ('5', '5', to_date('12-02-2009', 'dd-mm-yyyy'), '40', '0');
 
 insert into Venta_Producto values ('3','1','1','0','0');
-insert into Venta_Producto values ('5','2','1','0','0');
-insert into Venta_Producto values ('4','3','1','0','0');
+insert into Venta_Producto values ('5','2','1','1','1');
+insert into Venta_Producto values ('4','3','1','1','0');
 insert into Venta_Producto values ('1','4','1','0','0');
-insert into Venta_Producto values ('5','5','1','0','0');
+insert into Venta_Producto values ('5','5','1','1','1');
 
 
 insert into Transporte (ID_Transporte, ID_Venta, ID_Producto, Hora, Fecha, ID_Repartidor, Estado) values ('1','1','3','12.00',to_date('12-02-2009', 'dd-mm-yyyy'),'1','RETRASADO');

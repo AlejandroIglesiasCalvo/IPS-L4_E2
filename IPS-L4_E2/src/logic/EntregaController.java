@@ -176,11 +176,11 @@ public class EntregaController {
 		this.montar = montar;
 	}
 
-	public void guardarTransportadosYMOntados(List<producto_venta> aGuardar) {
+	public void guardarTransportadosYMOntados(List<producto_venta> aGuardar, String id_venta) {
 		List<producto_venta> lista = db.getGestionTransporte().getProducto_venta();
 		for (producto_venta j : lista) {
 			for (producto_venta p : aGuardar) {
-				if (p.getID() == j.getID() && p.getId_venta() == j.getId_venta()) {
+				if (p.getID() == j.getID() && id_venta == j.getId_venta()) {
 					p.setId_venta(j.getId_venta());
 					db.getGestionTransporte().guardarTyM(p);
 				}

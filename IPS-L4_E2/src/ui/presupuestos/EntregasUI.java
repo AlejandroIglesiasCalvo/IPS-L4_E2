@@ -236,6 +236,7 @@ public class EntregasUI extends JDialog {
 		if (valida) {
 			if (transporte == null && ec.Asignacion(ec.getVenta())) {
 				JOptionPane.showMessageDialog(this, "Done");
+				this.dispose();
 			} else if (transporte != null && ec.ComprobarRepartidor()) {
 				veController.setNuevaFechaEntrega(transporte, (Integer) spnaño.getValue(), (Integer) spnMes.getValue(),
 						(Integer) spnDia.getValue(), (Integer) spnHoras.getValue(), (Integer) spnMinutos.getValue());
@@ -247,7 +248,7 @@ public class EntregasUI extends JDialog {
 				JOptionPane.showMessageDialog(this, "El repartidor no trabaja en ese horario, su horario es de:"
 						+ ec.getRepartidor().getEntrada() + " a " + ec.getRepartidor().getSalida());
 			}
-			this.dispose();
+			//this.dispose();
 		} else {
 			if (!fecha.no_es_domingo()) {
 				JOptionPane.showMessageDialog(this, "Es domingo");

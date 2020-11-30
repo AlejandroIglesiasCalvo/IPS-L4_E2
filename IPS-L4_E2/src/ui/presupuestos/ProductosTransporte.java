@@ -147,7 +147,7 @@ public class ProductosTransporte extends JFrame {
 				aGuardar.add(new producto_venta(p, ll, m));
 			}
 		}
-		ec.guardarTransportadosYMOntados(aGuardar);
+		ec.guardarTransportadosYMOntados(aGuardar,ec.getVenta().getID());
 
 	}
 
