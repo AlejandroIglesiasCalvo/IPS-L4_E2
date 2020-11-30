@@ -180,7 +180,7 @@ public class EntregaController {
 		List<producto_venta> lista = db.getGestionTransporte().getProducto_venta();
 		for (producto_venta j : lista) {
 			for (producto_venta p : aGuardar) {
-				if (p.getID() == j.getID() && id_venta == j.getId_venta()) {
+				if (p.getID().equals(j.getID()) && id_venta.equals(j.getId_venta())) {
 					p.setId_venta(j.getId_venta());
 					db.getGestionTransporte().guardarTyM(p);
 				}

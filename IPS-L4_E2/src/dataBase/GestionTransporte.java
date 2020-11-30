@@ -155,11 +155,10 @@ public class GestionTransporte {
 		try {
 			ps = con.prepareStatement(SQL);
 
-			ps.setString(1, p.getID());
-			ps.setString(2, String.valueOf(p.getId_venta()));
-			ps.setString(3, p.getUnidades() + "");
-			ps.setInt(4, p.getTransportado());
-			ps.setInt(5, p.getMontado());
+			ps.setInt(1, p.getTransportado());
+			ps.setInt(2, p.getMontado());
+			ps.setString(3, p.getID());
+			ps.setString(4, p.getId_venta());
 			ps.executeUpdate();
 
 			ps.close();
