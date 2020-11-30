@@ -4,7 +4,7 @@ public class producto_venta {
 	private int Unidades;
 	private int transportado;
 	private int montado;
-	private int id_venta;
+	private String id_venta;
 	private Producto p;
 
 	public producto_venta(Producto p, int t, int m) {
@@ -19,7 +19,7 @@ public class producto_venta {
 		Unidades = 1;
 	}
 
-	public producto_venta(String id_producto, int id_venta, int unidades, int transportados, int montados) {
+	public producto_venta(String id_producto, String id_venta, int unidades, int transportados, int montados) {
 		this.p= new Producto();
 		this.p.setID(id_producto);
 		this.id_venta = id_venta;
@@ -44,11 +44,11 @@ public class producto_venta {
 		this.montado = montado;
 	}
 
-	public int getId_venta() {
+	public String getId_venta() {
 		return id_venta;
 	}
 
-	public void setId_venta(int id_venta) {
+	public void setId_venta(String id_venta) {
 		this.id_venta = id_venta;
 	}
 

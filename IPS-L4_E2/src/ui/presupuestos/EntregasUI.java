@@ -22,6 +22,7 @@ import logic.gestionFechas;
 import logic.dto.Presupuesto;
 import logic.dto.Repartidor;
 import logic.dto.Transporte;
+import logic.dto.Venta;
 
 public class EntregasUI extends JDialog {
 
@@ -52,9 +53,11 @@ public class EntregasUI extends JDialog {
 
 	/**
 	 * Create the frame.
+	 * 
+	 * @param venta
 	 */
 	// public EntregasUI(Presupuesto presupuesto, Venta venta) {
-	public EntregasUI(Presupuesto presupuesto, Repartidor repartidor, int alli) {
+	public EntregasUI(Presupuesto presupuesto, Repartidor repartidor, int alli, Venta venta) {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 668, 516);
 		contentPane = new JPanel();
@@ -69,6 +72,7 @@ public class EntregasUI extends JDialog {
 		ec = new EntregaController(presupuesto);// Trampas mientras no este el resto
 		ec.setRepartidor(repartidor);
 		ec.setMontar(alli);
+		ec.setVenta(venta);
 	}
 
 	/**
@@ -230,7 +234,7 @@ public class EntregasUI extends JDialog {
 
 				(Integer) spnDia.getValue(), (Integer) spnHoras.getValue(), (Integer) spnMinutos.getValue());
 		if (valida) {
-			if (transporte == null && ec.Asignacion()) {
+			if (transporte == null && ec.Asignacion(ec.getVenta())) {
 				JOptionPane.showMessageDialog(this, "Done");
 			} else if (transporte != null && ec.ComprobarRepartidor()) {
 				veController.setNuevaFechaEntrega(transporte, (Integer) spnaño.getValue(), (Integer) spnMes.getValue(),

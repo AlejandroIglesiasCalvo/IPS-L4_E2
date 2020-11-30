@@ -88,11 +88,11 @@ public class EntregaController {
 		return false;
 	}
 
-	public boolean Asignacion() {
+	public boolean Asignacion(Venta v) {
 		if (horarioDeTrabajo(fecha.getHoraEnDouble())) {
 			int id = Integer.valueOf(generateId());
 			Transporte transporte = new Transporte(id, fecha.getFecha(), fecha.getHoraEnDouble(), repartidor, montar);
-			db.getGestionTransporte().añadirTransporte(transporte, venta, repartidor);
+			db.getGestionTransporte().añadirTransporte(transporte, v, repartidor);
 			return true;
 		} else {
 			return false;
@@ -178,8 +178,8 @@ public class EntregaController {
 
 	public void guardarTransportadosYMOntados(List<producto_venta> aGuardar) {
 		List<producto_venta> lista = db.getGestionTransporte().getProducto_venta();
-		for (producto_venta p : aGuardar) {
-			for (producto_venta j : lista) {
+		for (producto_venta j : lista) {
+			for (producto_venta p : aGuardar) {
 				if (p.getID() == j.getID() && p.getId_venta() == j.getId_venta()) {
 					p.setId_venta(j.getId_venta());
 					db.getGestionTransporte().guardarTyM(p);

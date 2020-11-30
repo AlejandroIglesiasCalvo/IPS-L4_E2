@@ -107,7 +107,7 @@ public class ProductosTransporte extends JFrame {
 					if ((listRepartidores.getSelectedIndex()) > -1 && !btnLLevar.isEnabled()) {
 						guardarLlevadosYMOntados();
 						EntregasUI entregas = new EntregasUI(ec.getPresupuesto(),
-								r.getRepartidor(listRepartidores.getSelectedIndex()), LLevar.size());
+								r.getRepartidor(listRepartidores.getSelectedIndex()), LLevar.size(), ec.getVenta());
 						entregas.setVisible(true);
 						entregas.setLocationRelativeTo(null);
 						close();
@@ -127,14 +127,21 @@ public class ProductosTransporte extends JFrame {
 	}
 
 	private void guardarLlevadosYMOntados() {
-		List<ProductoCarrito> productos = presupuesto.getProductos();
+		List<ProductoCarrito> productos = new ArrayList<ProductoCarrito>();
+		productos.addAll(Tienda);
+		productos.addAll(LLevar);
+		productos.addAll(Montar);
 		for (Producto p : productos) {
 			int ll = 0, m = 0;
-			if (LLevar.contains(p)) {
-				ll = 1;
+			for (Producto x : LLevar) {
+				if (p.getID().equals(x.getID())) {
+					ll = 1;
+				}
 			}
-			if (Montar.contains(p)) {
-				m = 1;
+			for (Producto x : Montar) {
+				if (p.getID().equals(x.getID())) {
+					ll = 1;
+				}
 			}
 			if (ll == 1 || m == 1) {
 				aGuardar.add(new producto_venta(p, ll, m));

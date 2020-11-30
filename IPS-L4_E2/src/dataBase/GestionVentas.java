@@ -152,7 +152,7 @@ public class GestionVentas {
 		return result;
 	}
 
-	public void updateUnidades(int size, int id) {
+	public void updateUnidades(int size, String id) {
 		String SQL = Conf.get("SQL_UPDATE_UNIDADES_MONTADOS_EN_VENTA");
 
 		try {

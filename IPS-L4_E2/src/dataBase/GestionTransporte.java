@@ -39,12 +39,13 @@ public class GestionTransporte {
 			Date fecha = gf.convertir_A_SQL(t.getFecha());
 			String hora = String.valueOf(t.getHora());
 
-			pst.setInt(1, id_transporte);
+			pst.setString(1, String.valueOf(id_transporte));
 			pst.setString(2, id_venta);
 			pst.setInt(3, t.getMontados_en_casa());
 			pst.setString(4, hora);
 			pst.setDate(5, fecha);
 			pst.setString(6, id_repartidor);
+			pst.setString(7, "PENDIENTE");
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -201,12 +202,10 @@ public class GestionTransporte {
 	private producto_venta toProducto_VentaDto(ResultSet rs) throws SQLException {
 		producto_venta dto = null;
 		try {
-			
-		
-		dto = new producto_venta(rs.getString(1), Integer.parseInt(rs.getString(2)),
-				Integer.parseInt(rs.getString(3)), Integer.parseInt(rs.getString(4)),
-				Integer.parseInt(rs.getString(5)));
-		}catch (Exception e) {
+
+			dto = new producto_venta(rs.getString(1), rs.getString(2), Integer.parseInt(rs.getString(3)),
+					Integer.parseInt(rs.getString(4)), Integer.parseInt(rs.getString(5)));
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return dto;
