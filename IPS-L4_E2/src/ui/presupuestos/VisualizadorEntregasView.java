@@ -71,7 +71,7 @@ public class VisualizadorEntregasView extends JFrame {
 		frmEntregas.add(getPnInfo(), BorderLayout.NORTH);
 		frmEntregas.add(getSpEntregas(), BorderLayout.CENTER);
 		setBounds(100, 100, 665, 517);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		addEntregas();
 	}
 
