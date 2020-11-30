@@ -1,3 +1,4 @@
+Drop TABLE PLANTILLA;
 Drop table Transporte;
 Drop table Encargo;
 Drop table Carrito;
@@ -123,6 +124,13 @@ constraint FK_Venta foreign key (ID_Venta, ID_Producto) references Venta_Product
 constraint CK_Transporte_Estado check (Estado in('PENDIENTE','FINALIZADO','RETRASADO','EN ENTREGA'))
 );
 
+create table Plantilla(
+ID_Plantilla varchar (9) not null,
+nombrePlantilla varchar(50) ,
+constraint PK_Plantilla primary key (ID_Plantilla),
+constraint FK_Presupuesto_Plantilla foreign key (ID_Plantilla) references PRESUPUESTO(ID_PRESUPUESTO)
+);
+
 insert into Cliente (DNI, Nombre, Apellidos, Telefono, direccion) values ('123456','Antonio','Rodriguez Díaz','2345667', 'Calle Fernando Moran');
 insert into Cliente (DNI, Nombre, Apellidos, Telefono, direccion) values ('123345','Irene','Bello Díaz','732659', 'Calle La Pantomima');
 insert into Cliente (DNI, Nombre, Apellidos, Telefono, direccion) values ('324585','Miguel','García Calvo','3264758', 'Avenue Q');
@@ -155,17 +163,22 @@ insert into Producto values ('4', 'Lampara', 'Oficina', '30.5');
 insert into Producto values ('5', 'Estanteria', 'Oficina', '40');
 
 
-insert into Presupuesto values ('1', '123456', to_date('12-11-2020', 'dd-mm-yyyy'), '30');
-insert into Presupuesto values ('2', '123456', to_date('15-11-2020', 'dd-mm-yyyy'), '40');
-insert into Presupuesto values ('3', '123456', to_date('17-11-2020', 'dd-mm-yyyy'), '30.5');
-insert into Presupuesto values ('4', '324585', to_date('21-11-2020', 'dd-mm-yyyy'), '10');
-insert into Presupuesto values ('5', '324585', to_date('10-11-2020', 'dd-mm-yyyy'), '40');
+insert into Presupuesto values ('1', '123456', to_date('12-02-2020', 'dd-mm-yyyy'), '30');
+insert into Presupuesto values ('2', '123456', to_date('13-02-2009', 'dd-mm-yyyy'), '40');
+insert into Presupuesto values ('3', '123456', to_date('11-02-2009', 'dd-mm-yyyy'), '30.5');
+insert into Presupuesto values ('4', '324585', to_date('13-02-2009', 'dd-mm-yyyy'), '10');
+insert into Presupuesto values ('5', '324585', to_date('11-02-2009', 'dd-mm-yyyy'), '40');
+/* plantilla*/
+insert into Presupuesto (ID_PRESUPUESTO, FECHA, PRECIO) values ('6',to_date('11-02-2009', 'dd-mm-yyyy'),'91.5');
 
 insert into Carrito (ID_Producto, ID_Presupuesto, Unidades) values ('3','1','1');
 insert into Carrito (ID_Producto, ID_Presupuesto, Unidades) values ('5','2','1');
 insert into Carrito (ID_Producto, ID_Presupuesto, Unidades) values ('4','3','1');
 insert into Carrito (ID_Producto, ID_Presupuesto, Unidades) values ('1','4','1');
 insert into Carrito (ID_Producto, ID_Presupuesto, Unidades) values ('5','5','1');
+
+/*productos de plantillas*/
+insert into Carrito values ('4','6','3');
 
 insert into Encargo (ID_Producto, ID_Pedido, Unidades) values ('1','1','1');
 insert into Encargo (ID_Producto, ID_Pedido, Unidades) values ('2','2','1');
@@ -192,3 +205,5 @@ insert into Transporte (ID_Transporte, ID_Venta, ID_Producto, Hora, Fecha, ID_Re
 insert into Transporte (ID_Transporte, ID_Venta, ID_Producto, Hora, Fecha, ID_Repartidor, Estado) values ('3','3','4','14.00',to_date('12-02-2009', 'dd-mm-yyyy'),'5','FINALIZADO');
 insert into Transporte (ID_Transporte, ID_Venta, ID_Producto, Hora, Fecha, ID_Repartidor, Estado) values ('4','4','1','15.00',to_date('15-12-2020', 'dd-mm-yyyy'),'2','EN ENTREGA');
 insert into Transporte (ID_Transporte, ID_Venta, ID_Producto, Hora, Fecha, ID_Repartidor, Estado) values ('5','5','5','18.00',to_date('12-12-2020', 'dd-mm-yyyy'),'1','EN ENTREGA');
+
+insert into Plantilla values ('6','ejemplo');
