@@ -62,7 +62,7 @@ public class PresupuestosTablaModel extends AbstractTableModel {
 		case 1:
 			return c.getNombre() + " " + c.getApellidos();
 		case 2:
-			return p.getFecha();
+			return p.getFecha().toLocalDate();
 		default:
 			return null;
 		}

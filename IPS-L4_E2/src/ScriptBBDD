@@ -155,11 +155,11 @@ insert into Producto values ('4', 'Lampara', 'Oficina', '30.5');
 insert into Producto values ('5', 'Estanteria', 'Oficina', '40');
 
 
-insert into Presupuesto values ('1', '123456', to_date('12-02-2009', 'dd-mm-yyyy'), '30');
-insert into Presupuesto values ('2', '123456', to_date('13-02-2009', 'dd-mm-yyyy'), '40');
-insert into Presupuesto values ('3', '123456', to_date('11-02-2009', 'dd-mm-yyyy'), '30.5');
-insert into Presupuesto values ('4', '324585', to_date('13-02-2009', 'dd-mm-yyyy'), '10');
-insert into Presupuesto values ('5', '324585', to_date('11-02-2009', 'dd-mm-yyyy'), '40');
+insert into Presupuesto values ('1', '123456', to_date('12-11-2020', 'dd-mm-yyyy'), '30');
+insert into Presupuesto values ('2', '123456', to_date('15-11-2020', 'dd-mm-yyyy'), '40');
+insert into Presupuesto values ('3', '123456', to_date('17-11-2020', 'dd-mm-yyyy'), '30.5');
+insert into Presupuesto values ('4', '324585', to_date('21-11-2020', 'dd-mm-yyyy'), '10');
+insert into Presupuesto values ('5', '324585', to_date('10-11-2020', 'dd-mm-yyyy'), '40');
 
 insert into Carrito (ID_Producto, ID_Presupuesto, Unidades) values ('3','1','1');
 insert into Carrito (ID_Producto, ID_Presupuesto, Unidades) values ('5','2','1');

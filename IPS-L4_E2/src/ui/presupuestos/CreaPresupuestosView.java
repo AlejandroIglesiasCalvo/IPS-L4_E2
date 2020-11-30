@@ -193,7 +193,7 @@ public class CreaPresupuestosView extends JFrame {
 	 * metodo para crear el presupuesto y pasar a la siguiente ventana
 	 */
 	protected void crearPresupuesto() {
-		presController.crearPresupuesto();
+		//presController.crearPresupuesto();
 		
 		if(presController.getCliente() != null) {
 			presController.crearPresupuesto();
