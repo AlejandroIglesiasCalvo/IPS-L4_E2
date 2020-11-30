@@ -141,7 +141,14 @@ public class CreaPresupuestoController {
 			generateId();
 		}
 		crearPresupuestoDto();
+		if(this.cliente != null) {
+			añadirPresupuestoABase();
+		}
+	}
+	
+	public void crearPlantilla(String name) {
 		añadirPresupuestoABase();
+		db.getGestionCreaPresupuesto().insertarPlantillaEnBase(this.id, name);
 	}
 	
 
@@ -181,6 +188,7 @@ public class CreaPresupuestoController {
 	private void crearPresupuestoDto() {
 		if(cliente == null) {
 			presupuesto = new Presupuesto(this.id, null, LocalDateTime.now(), this.total, this.productosEnPresupuesto);
+			
 		}else {
 			presupuesto = new Presupuesto(this.id, cliente.getID(), LocalDateTime.now(), this.total, this.productosEnPresupuesto);
 		}
@@ -241,6 +249,10 @@ public class CreaPresupuestoController {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+	
+	public Cliente getCliente() {
+		return this.cliente;
 	}
 
 	public List<ProductoCarrito> getProductosEnPresupuesto() {

@@ -369,4 +369,17 @@ public class GestionCreaPresupuesto {
 		return resultado;
 	}
 
+	public void insertarPlantillaEnBase(String id, String name) {
+		String sql = Conf.get("SQL_CREAR_PLANTILLA");
+		try {
+			pst = con.prepareStatement(sql);
+			pst.setString(1, id);
+			pst.setString(2, name);
+			pst.execute();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+
 }

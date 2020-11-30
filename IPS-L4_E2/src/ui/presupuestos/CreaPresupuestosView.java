@@ -177,8 +177,10 @@ public class CreaPresupuestosView extends JFrame {
 	}
 
 	protected void checkStock() {
-		if(!presController.checkStockInAlmacen()) {
-			JOptionPane.showMessageDialog(this, "Su presupuesto va a tardar en crearse. No tenemos suficientes unidades para crearlo en este momento");
+		if(presController.getCliente() != null) {
+			if(!presController.checkStockInAlmacen()) {
+				JOptionPane.showMessageDialog(this, "Su presupuesto va a tardar en crearse. No tenemos suficientes unidades para crearlo en este momento");
+			}
 		}
 		
 	}
@@ -188,7 +190,14 @@ public class CreaPresupuestosView extends JFrame {
 	 */
 	protected void crearPresupuesto() {
 		presController.crearPresupuesto();
-		JOptionPane.showMessageDialog(this, "Presupuesto creado");
+		
+		if(presController.getCliente() != null) {
+			JOptionPane.showMessageDialog(this, "Presupuesto creado");
+		}else {
+			String nombre = JOptionPane.showInputDialog("Escriba un nombre para la plantilla creada");
+			presController.crearPlantilla(nombre);
+			JOptionPane.showMessageDialog(this, "Plantilla creada con exito");
+		}
 		pnPreProductos.removeAll();
 		pnPreProductos.setVisible(false);
 		pnPreProductos.setVisible(true);
